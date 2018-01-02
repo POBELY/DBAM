@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -32,7 +33,7 @@ public class Checkpoint {
 	
 
 	//**********CONSTRUCTEURS**********
-	
+
 	public Checkpoint(){}
 	
 	public Checkpoint(int nbVictReq, int nbDefMax, String texteVictoire, String texteDefaite) {
@@ -40,6 +41,7 @@ public class Checkpoint {
 		this.nbDefMax = nbDefMax;
 		this.texteVictoire = texteVictoire;
 		this.texteDefaite = texteDefaite;
+		this.suivant = null;
 	}
 
 	
@@ -99,5 +101,13 @@ public class Checkpoint {
 
 	public void setScenario(Scenario scenario) {
 		this.scenario = scenario;
+	}
+	
+	public Checkpoint getSuivant() {
+		return suivant;
+	}
+
+	public void setSuivant(Checkpoint suivant) {
+		this.suivant = suivant;
 	}
 }
