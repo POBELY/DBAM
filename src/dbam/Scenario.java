@@ -23,7 +23,7 @@ public class Scenario {
 	@OneToMany(mappedBy="scenario",fetch=FetchType.EAGER)
 	private Collection<Checkpoint> checkpoints;	// ensembles des groupes de questions(checkpoint) ordonnées, définissant le scénario
 	@ManyToOne
-	Utilisateur auteur;		// utilisateur ayant crée le scénario
+	private Utilisateur auteur;		// utilisateur ayant crée le scénario
 
 	//**********CONSTRUCTEURS**********
 

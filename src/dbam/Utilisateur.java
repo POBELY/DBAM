@@ -34,8 +34,6 @@ public class Utilisateur {
 		this.pseudo = pseudo;
 		this.mdp = mdp;
 		this.mail = mail;
-		this.mesScenarios = new ArrayList<Scenario>();
-		this.sessions = new ArrayList<Session>();
 	}
 	
 	//**********GETTERS/SETTERS**********
