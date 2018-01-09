@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Don't Be A Mouton - Accueil</title>
+<%@include file="header.jsp" %>
 </head>
 <body>
 
@@ -12,17 +13,21 @@
 
 <input type="hidden" name="destination" value="Jouer">
 <input type="submit" value="Jouer !">
+<br>
 
 <input type="hidden" name="destination" value="scenario">
 <input type="submit" value="Autres Scénarios">
-
+<br>
 
 <input type="hidden" name="destination" value="mes_scenarios">
 <input type="submit" value="Mes Scénarios">
+<br>
 
-Pas encore inscrit ?
+Pas encore inscrit ?<br>
+
 <input type="hidden" name="destination" value="inscription">
-<input type="submit" value="S'inscire">
+<input type="submit" value="S'inscire"><br>
+
 S'inscrire vous permettra de créer de nouveau scénarios !
 
 </form>
