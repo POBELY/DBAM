@@ -15,12 +15,15 @@ public class Scenario {
 
 	//**********ATTRIBUTS*********
 	
+	public enum Statut {PRIVE, PUBLIC;}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;			// identifiant du scénario
 	private String nom;		// nom du scénario
 	private String description;	// description du scenario
 	private String texteVictoire; // texte affiché une fois le scénario terminé
+	private Statut statut; // accessibilité public/privé du scénario
 	@OneToMany(mappedBy="scenario",fetch=FetchType.EAGER)
 	private Collection<Checkpoint> checkpoints;	// ensembles des groupes de questions(checkpoint) ordonnées, définissant le scénario
 	@ManyToOne
@@ -34,6 +37,7 @@ public class Scenario {
 		this.nom = nom;
 		this.description = description;
 		this.texteVictoire = texteVictoire;
+		this.statut = Statut.PRIVE;
 	}
 	
 	//**********GETTERS/SETTERS**********
