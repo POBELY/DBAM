@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Reponse {
 
@@ -26,8 +25,8 @@ public class Reponse {
 
 	public Reponse() {}
 	
-	public Reponse(String texteChoix) {
-		this.texteChoix = texteChoix;
+	public Reponse(String texteReponse) {
+		this.texteChoix = texteReponse;
 		this.nbChoisi = 0;
 	}
 
