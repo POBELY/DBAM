@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 
 @Entity
@@ -21,22 +22,23 @@ public class Session {
 	private int id;	// identifiant d'une session
 	private int nbQuestionsReussi;	// nombre de question du checkpoint en cours réussi 
 	private int nbQuestionsPerdu;	// nombre de question du checkpoint en cours raté 
-	private Scenario scenario;		// scénario de la session
-	private Checkpoint checkpointCourant;	//checkpoint courant
-	private Collection<Question> questionsFaites; // liste des questions déjà réalisées au cours du checkpoint
-	private Question questionCourante; // question en cours du checkpoint courant
+	private int scenarioID;		//ID du scénario de la session
+	private int checkpointCourantID;	//ID du checkpoint courant
+	
+	private int questionCouranteID; // ID de la question en cours du checkpoint courant
 	@ManyToOne
 	private Utilisateur joueur;
+	@ManyToMany(mappedBy="sessions")
+	private Collection<Question> questionsFaites; // liste des ID des questions déjà réalisées au cours du checkpoint
 
 	//**********CONSTRUCTEURS**********
 	
 	public Session() {}
 	
-	public Session(Scenario scenario) {
-		this.scenario = scenario;
-		this.checkpointCourant = (((ArrayList<Checkpoint>) scenario.getCheckpoints()).get(0));
-		this.questionCourante = (((ArrayList<Question>) this.checkpointCourant.getQuestions()).get(0));
-		this.questionsFaites= new ArrayList<Question>();
+	public Session(int scenarioID, int checkpointCourantID, int questionCouranteID) {
+		this.scenarioID = scenarioID;
+		this.checkpointCourantID = checkpointCourantID;
+		this.questionCouranteID = questionCouranteID;
 		this.nbQuestionsPerdu = 0;
 		this.nbQuestionsReussi = 0;
 	}
@@ -67,20 +69,20 @@ public class Session {
 		this.nbQuestionsPerdu = nbQuestionsPerdu;
 	}
 
-	public Scenario getScenario() {
-		return scenario;
+	public int getScenarioID() {
+		return scenarioID;
 	}
 
-	public void setScenario(Scenario scenario) {
-		this.scenario = scenario;
+	public void setScenarioID(int scenarioID) {
+		this.scenarioID = scenarioID;
 	}
 
-	public Checkpoint getCheckpointCourant() {
-		return checkpointCourant;
+	public int getCheckpointCourantID() {
+		return checkpointCourantID;
 	}
 
-	public void setCheckpointCourant(Checkpoint checkpointCourant) {
-		this.checkpointCourant = checkpointCourant;
+	public void setCheckpointCourantID(int checkpointCourantID) {
+		this.checkpointCourantID = checkpointCourantID;
 	}
 
 	public Collection<Question> getQuestionsFaites() {
@@ -91,12 +93,12 @@ public class Session {
 		this.questionsFaites = questionsFaites;
 	}
 
-	public Question getQuestionCourante() {
-		return questionCourante;
+	public int getQuestionCouranteID() {
+		return questionCouranteID;
 	}
 
-	public void setQuestionCourante(Question questionCourante) {
-		this.questionCourante = questionCourante;
+	public void setQuestionCouranteID(int questionCouranteID) {
+		this.questionCouranteID = questionCouranteID;
 	}
 
 	public Utilisateur getJoueur() {

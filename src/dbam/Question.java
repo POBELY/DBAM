@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 
@@ -23,6 +24,8 @@ public class Question {
 	private Collection<Reponse> reponses;	// ensembles des réponses possibles à une question
 	@ManyToOne
 	private Checkpoint checkpoint; // checkpoint auquel est associée la question
+	@ManyToMany
+	private Collection<Session> sessions;
 	
 	//**********CONSTRUCTEURS**********
 	

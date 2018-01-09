@@ -29,7 +29,7 @@ public class Checkpoint {
 	private Scenario scenario; // scénario auquel appartient le checkpoint
 	
 	// ? checkpoint suivant OneToOne ?, ajouter get and set
-	private Checkpoint suivant;
+	//private Checkpoint suivant;
 	
 
 	//**********CONSTRUCTEURS**********
@@ -41,7 +41,6 @@ public class Checkpoint {
 		this.nbDefMax = nbDefMax;
 		this.texteVictoire = texteVictoire;
 		this.texteDefaite = texteDefaite;
-		this.suivant = null;
 	}
 
 	
@@ -101,13 +100,5 @@ public class Checkpoint {
 
 	public void setScenario(Scenario scenario) {
 		this.scenario = scenario;
-	}
-	
-	public Checkpoint getSuivant() {
-		return suivant;
-	}
-
-	public void setSuivant(Checkpoint suivant) {
-		this.suivant = suivant;
 	}
 }

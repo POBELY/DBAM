@@ -1,5 +1,6 @@
 package dbam;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.ejb.Singleton;
@@ -29,6 +30,7 @@ public class Facade {
 			}
 			
 		}
+		return res;
 	}
 	
 	public void addScenario(String nom, String description, String texteVictoire, int auteurID) {
@@ -61,10 +63,27 @@ public class Facade {
 	
 	public void addSession(int scenarioID, int joueurID) {
 		Scenario scenario = em.find(Scenario.class,scenarioID);
+		
+	/*	Checkpoint checkpoint = em.find(, arg1)
+		
+		Session session = new Session(scenarioID,);
+		Utilisateur joueur = em.find(Utilisateur.class,joueurID);
+		session.setJoueur(joueur);
+		em.persist(session);*/
+		
+		
+		
+		
+		/*Scenario scenario = em.find(Scenario.class,scenarioID);
 		Session session = new Session(scenario);
 		Utilisateur joueur = em.find(Utilisateur.class,joueurID);
 		session.setJoueur(joueur);
-		em.persist(session);	
+		em.persist(session);*/
+		
+		//this.checkpointCourant = (((ArrayList<Checkpoint>) scenario.getCheckpoints()).get(0));
+		//this.questionCourante = (((ArrayList<Question>) this.checkpointCourant.getQuestions()).get(0));
+		//this.questionsFaites= new ArrayList<Question>();
+		
 	}
 	
 }
