@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Validation de la récupération du mot de passe/title>
-<%@ include="header.jsp" %>
+<title>Validation de la récupération du mot de passe </title>
+<%@ include file="header.jsp" %>
 
 </head>
 <body>

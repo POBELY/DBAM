@@ -4,17 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Récupération du mot de passe</title>
-<%@ include file="header.jsp" %>
-
+<title>Question</title>
 </head>
 <body>
 <form action="DBAM" method="get">
-Email : <input type="text" name="email"></input>
-<button name="envoyer" value="ok"> Envoyer </button>
-  <a href="connexion.html"> Revenir à la page de connexion</a>
+Ceci est une question. <br>
+<input type="submit" value="choix 1">
+<input type="submit" value="choix 2">
 
 </form>
-
 </body>
 </html>
