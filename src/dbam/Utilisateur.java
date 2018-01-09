@@ -16,7 +16,7 @@ public class Utilisateur {
 	//**********ATTRIBUTS*********
 	
 	@Id
-	@Generatedvalue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;			// identifiant de l'utilisateur
 	private String pseudo;	// pseudo utilisateur
 	private String mdp;		// mot de passe utilisateur
@@ -85,3 +85,4 @@ public class Utilisateur {
 	public void setSessions(Collection<Session> sessions) {
 		this.sessions = sessions;
 	}
+}

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Scenario {
@@ -15,7 +16,7 @@ public class Scenario {
 	//**********ATTRIBUTS*********
 	
 	@Id
-	@Generatedvalue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;			// identifiant du scénario
 	private String nom;		// nom du scénario
 	private String description;	// description du scenario

@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -17,7 +17,7 @@ public class Session {
 	//**********ATTRIBUTS*********
 	
 	@Id
-	@Generatedvalue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;	// identifiant d'une session
 	private int nbQuestionsReussi;	// nombre de question du checkpoint en cours réussi 
 	private int nbQuestionsPerdu;	// nombre de question du checkpoint en cours raté 

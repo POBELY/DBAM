@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Question {
@@ -15,7 +16,7 @@ public class Question {
 	//**********ATTRIBUTS*********
 	
 	@Id
-	@Generatedvalue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;	// identifiant de la question
 	private String texteQuestion; // texte de la question posée
 	@OneToMany(mappedBy="question",fetch=FetchType.EAGER)

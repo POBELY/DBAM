@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class Checkpoint {
 	//**********ATTRIBUTS*********
 	
 	@Id
-	@Generatedvalue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;	// identifiant du checkpoint
 	private int nbVictRequis; 	// nombre de réponses correctes attendues pour passer au checkpoint suivant
 	private int nbDefMax;		// nombre maximum de réponses fausses autorisées avant de recommencer ce checkpoint
