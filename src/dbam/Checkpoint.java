@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 
 
@@ -27,10 +28,8 @@ public class Checkpoint {
 	private Collection<Question> questions;	// ensembles des questions définissant le checkpoint
 	@ManyToOne
 	private Scenario scenario; // scénario auquel appartient le checkpoint
-	
-	// ? checkpoint suivant OneToOne ?, ajouter get and set
-	//private Checkpoint suivant;
-	
+	@OneToOne
+	private Checkpoint suivant; // checkpoint suivant a réalisé si celui-ci est gagné et si un suivant existe
 
 	//**********CONSTRUCTEURS**********
 
@@ -100,5 +99,13 @@ public class Checkpoint {
 
 	public void setScenario(Scenario scenario) {
 		this.scenario = scenario;
+	}
+
+	public Checkpoint getSuivant() {
+		return suivant;
+	}
+
+	public void setSuivant(Checkpoint suivant) {
+		this.suivant = suivant;
 	}
 }

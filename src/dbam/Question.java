@@ -24,8 +24,6 @@ public class Question {
 	private Collection<Reponse> reponses;	// ensembles des réponses possibles à une question
 	@ManyToOne
 	private Checkpoint checkpoint; // checkpoint auquel est associée la question
-	@ManyToMany
-	private Collection<Session> sessions;
 	
 	//**********CONSTRUCTEURS**********
 	

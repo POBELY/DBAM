@@ -13,8 +13,7 @@
         <class>dbam.Checkpoint</class>
         <class>dbam.Question</class>
         <class>dbam.Reponse</class>
-        <class>dbam.Scenario</class>
-        <class>dbam.Facade</class>
+        <class>dbam.Session</class>
         
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
