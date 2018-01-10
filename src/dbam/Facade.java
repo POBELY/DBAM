@@ -134,4 +134,17 @@ public class Facade {
 		Checkpoint checkpoint = em.find(Checkpoint.class, checkpointID);
 		checkpoint.setTexteDefaite(newTexteDefaite);
 	}
+	
+	//****************AUTRES METHODES*****************************************
+	
+	public boolean connexionPossible(String pseudo, String mdp) {
+		boolean mdpJuste = false;
+		TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
+		for(Utilisateur u : req.getResultList()) {
+			if (mdp.equals(u.getMdp())) {
+				mdpJuste = true;
+			}
+		}
+		return mdpJuste; 
+	}
 }
