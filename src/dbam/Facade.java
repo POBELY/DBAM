@@ -28,7 +28,6 @@ public class Facade {
 					res = true;
 				}
 			}
-			
 		}
 		return res;
 	}
