@@ -9,9 +9,11 @@
 
 </head>
 <body>
-<form action="DBAM" method="get">
-Votre mot de passe vient de vous être envoyé.
+<form action="Controller" method="post">
+Votre mot de passe vient de vous être envoyé.<br>
 <input type="submit" value="Retourner à l'acceuil"/>
+<input type="hidden" name="destination" value="acceuil">
+ 
 
  
 </form>

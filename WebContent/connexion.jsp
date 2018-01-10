@@ -10,12 +10,14 @@
 
 </head>
 <body>
-<form action="DBAM" method="get">
+<form action="DBAM" method="post">
+<input type="hidden" name="op" value="connexion">
 Se Connecter 
   Pseudo : <input type="text" name="pseudo"> <br>
   Mot de Passe : <input type="text" name="mdp"> <br>
-  <button> Go </button>
-  <a href="mdp_oublie.html"> Vous avez oublié votre mot de passe ?</a>
+<input type="submit" value="Go"> 
+<input type="hidden" name="destination" value="acceuil"> <br>
+<a href="mdp_oublie.html"> Vous avez oublié votre mot de passe ?</a>
 </form> 
 </body>
 </html>

@@ -11,23 +11,27 @@
 
 <form action="Controller" method="post">
 
-<input type="hidden" name="destination" value="Jouer">
 <input type="submit" value="Jouer !">
+<input type="hidden" name="destination" value="Jouer">
+
 <br>
 
-<input type="hidden" name="destination" value="scenario">
 <input type="submit" value="Autres Scénarios">
+<input type="hidden" name="destination" value="scenario">
+
 <br>
 
-<input type="hidden" name="destination" value="mes_scenarios">
 <input type="submit" value="Mes Scénarios">
+<input type="hidden" name="destination" value="mes_scenarios">
+
 <br>
 
 Pas encore inscrit ?
 <br>
 
-<input type="hidden" name="destination" value="inscription">
 <input type="submit" value="S'inscire">
+<input type="hidden" name="destination" value="inscription">
+
 <br>
 
 S'inscrire vous permettra de créer de nouveau scénarios !

@@ -5,13 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Question Felicitation</title>
+<%@ include file="header.jsp" %>
+
 </head>
 <body>
-<form action="DBAM" method="get"></form>
+<form action="Controller" method="post"></form>
 Victoire ! <br>
 <input type="submit" value="s'inscrire">
+<input type="hidden" name="destination" value="insciption">
 <input type="submit" value="se connecter">
+<input type="hidden" name="destination" value="connexion">
 <input type="submit" value="Acceuil">
+<input type="hidden" name="destination" value="acceuil">
+
 
 </body>
 </html>

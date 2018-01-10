@@ -33,9 +33,24 @@ public class Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
+		String pseudo;
+		String mdp;
+		String mail;
+		String operation = request.getParameter("op");
+		switch(operation) {
+		case "inscription" :
+			pseudo = request.getParameter("pseudo");
+			mdp = request.getParameter("mdp");
+			String mdp_confirm = request.getParameter("mdp_confirm");
+			
 
+			break;
+		case "connexion" :
+			break;
+		}
 		String destination = request.getParameter("destination");
 		RequestDispatcher disp;
+		
 		
 		switch(destination) {
 		case "accueil" :
@@ -104,6 +119,8 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		}
+		
+		
 
 	}
 
