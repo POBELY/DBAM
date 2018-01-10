@@ -33,6 +33,7 @@ public class Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
+		
 		String pseudo;
 		String mdp;
 		String mail;
@@ -45,7 +46,7 @@ public class Controller extends HttpServlet {
 			mail = request.getParameter("mail");
 			if (mdp_confirm.equals(mdp)) {
 				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
-			}else{
+			} else {
 				request.setAttribute("destination","inscription"); // je suis pas sure
 			}
 	
@@ -53,6 +54,7 @@ public class Controller extends HttpServlet {
 		case "connexion" :
 			break;
 		}
+		
 		String destination = request.getParameter("destination");
 		RequestDispatcher disp;
 		
