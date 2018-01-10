@@ -13,19 +13,19 @@ Victoire !
 <br>
 
 <form action="Controller" method="post">
-	<input type="submit" value="inscription">
-	<input type="submit" value="s'inscrire">
+	<input type="hidden" name="destination" value="inscription">
+	<input type="submit" value="S'inscrire">
 </form>
 <br>
 
 <form action="Controller" method="post">
-	<input type="submit" value="connexion">
-	<input type="submit" value="se connecter">
+	<input type="hidden" name="destination" value="connexion">
+	<input type="submit" value="Se connecter">
 </form>
 <br>
 
 <form action="Controller" method="post">
-	<input type="submit" value="accueil">
+	<input type="hidden" name="destination" value="accueil">
 	<input type="submit" value="Acceuil">
 </form>
 <br>

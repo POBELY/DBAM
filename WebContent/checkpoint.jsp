@@ -9,9 +9,6 @@
 </head>
 <body>
 
-
-
-
 Vous avez atteint un Chekpoint ! <br>
 
 
