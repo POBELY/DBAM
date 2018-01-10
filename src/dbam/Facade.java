@@ -14,6 +14,7 @@ public class Facade {
 
 	@PersistenceContext
 	private EntityManager em;
+
 	
 	//****************************************************************
 	//*************** Ajouter un nouvel objet à la BDD ***************
@@ -23,14 +24,14 @@ public class Facade {
 	public boolean addUtilisateur(String pseudo, String mdp, String mdp2, String mail) {
 		boolean res = false;
 		// Mot de passe de confirmation (mdp2) identique au mot de passe donné (mdp), comportant plus de 4 caractères
-		if (mdp.equals(mdp2) && mdp.length()<4) {
-				TypedQuery<Utilisateur> req = em.createQuery("select * from Personne where pseudo = '" + pseudo + "'",Utilisateur.class);
+		if (mdp.equals(mdp2) && mdp.length()>=4) {
+				//TypedQuery<Utilisateur> req = em.createQuery("select * from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
 				// pseudo valide si il n'appartient pas déjà à un utilisateur
-				if (req == null) {
+				//if (req == null) {
 					Utilisateur utilisateur = new Utilisateur(pseudo,mdp,mail);
 					em.persist(utilisateur);
 					res = true;
-				}		
+				//}		
 		}
 		return res;
 	}

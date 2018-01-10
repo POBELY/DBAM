@@ -11,11 +11,13 @@
 
 DBAM
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="header">
 	<input type="hidden" name="destination" value="inscription">
 	<input type="submit" value="S'inscrire">
 </form>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="header">
 	<input type="hidden" name="destination" value="connexion">
 	<input type="submit" value="Se connecter">
 </form>
