@@ -10,6 +10,8 @@
 <body>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="op" value="mdp_oublie">
+
 	Se Connecter 
 	  Pseudo : <input type="text" name="pseudo"> <br>
 	  Mot de Passe : <input type="text" name="mdp"> <br>

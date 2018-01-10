@@ -10,6 +10,8 @@
 <body>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="op" value="scenario">
+
 </form>
 
 </body>

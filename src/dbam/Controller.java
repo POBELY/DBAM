@@ -52,6 +52,8 @@ public class Controller extends HttpServlet {
 			break;
 		case "connexion" :
 			break;
+		default :
+			break;
 		}
 		String destination = request.getParameter("destination");
 		RequestDispatcher disp;

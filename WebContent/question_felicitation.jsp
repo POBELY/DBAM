@@ -13,6 +13,8 @@ Victoire !
 <br>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="op" value="question_felicitation">
+
 	<input type="submit" value="inscription">
 	<input type="submit" value="s'inscrire">
 </form>
