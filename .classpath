@@ -13,7 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
 	<classpathentry kind="lib" path="/mnt/n7fs/ens/tp_dh/jarsJEE/javax.persistence.jar"/>
 	<classpathentry kind="lib" path="/mnt/n7fs/ens/tp_dh/jarsJEE/javax.servlet-3.0.jar"/>
 	<classpathentry kind="lib" path="/mnt/n7fs/ens/tp_dh/jarsJEE/javax.ejb.jar"/>

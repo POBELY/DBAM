@@ -33,10 +33,12 @@ public class Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
+		
 		String pseudo;
 		String mdp;
 		String mail;
 		String operation = request.getParameter("op");
+		System.out.println("Ceci est l'opération effectuée" + operation);
 		switch(operation) {
 		case "inscription" :
 			pseudo = request.getParameter("pseudo");
@@ -45,14 +47,17 @@ public class Controller extends HttpServlet {
 			mail = request.getParameter("mail");
 			if (mdp_confirm.equals(mdp)) {
 				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
-			}else{
+			} else {
 				request.setAttribute("destination","inscription"); // je suis pas sure
 			}
 	
 			break;
 		case "connexion" :
 			break;
+		default :
+			break;
 		}
+		
 		String destination = request.getParameter("destination");
 		RequestDispatcher disp;
 		
