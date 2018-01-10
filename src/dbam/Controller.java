@@ -66,7 +66,7 @@ public class Controller extends HttpServlet {
 			disp = request.getRequestDispatcher("question.jsp");
 			disp.forward(request, response);
 			break;
-		case "question_validation" :
+		case "question_felicitation" :
 			disp = request.getRequestDispatcher("question_validation.jsp");
 			disp.forward(request, response);
 			break;

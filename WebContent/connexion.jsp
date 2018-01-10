@@ -6,16 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Se Connecter</title>
 <%@include file="header.jsp" %>
-
-
 </head>
 <body>
+
 <form action="DBAM" method="get">
-Se Connecter 
-  Pseudo : <input type="text" name="pseudo"> <br>
-  Mot de Passe : <input type="text" name="mdp"> <br>
-  <button> Go </button>
-  <a href="mdp_oublie.html"> Vous avez oublié votre mot de passe ?</a>
-</form> 
+	Se Connecter 
+	  Pseudo : <input type="text" name="pseudo"> <br>
+	  Mot de Passe : <input type="text" name="mdp"> <br>
+	  <button> Go </button>
+	  <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
+</form>
+
 </body>
 </html>

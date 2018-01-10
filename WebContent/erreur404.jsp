@@ -12,7 +12,7 @@ Bisous<%@ page language="java" contentType="text/html; charset=UTF-8"
 <form action='Controller' method='post'>
 	Bonjour !
 	<input type='submit' value="Retourner à l'accueil">
-	<input type="hidden" name="destination" value="erreur404">
+	<input type="hidden" name="destination" value="accueil">
 </form>
 
 </body>

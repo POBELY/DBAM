@@ -5,13 +5,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Question</title>
+<%@include file="header.jsp" %>
 </head>
 <body>
-<form action="DBAM" method="get">
-Ceci est une question. <br>
-<input type="submit" value="choix 1">
-<input type="submit" value="choix 2">
 
+Ceci est une question.
+<br>
+
+<form action="Controller" method="post">
+	<input type="hidden" name="destination" value="question">
+	<input type="submit" value="choix 1">
 </form>
+
+<form action="Controller" method="post">
+	<input type="hidden" name="destination" value="checkpoint">
+	<input type="submit" value="choix 2">
+</form>
+
 </body>
 </html>

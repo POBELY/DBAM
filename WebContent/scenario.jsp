@@ -4,14 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Validation de la récupération du mot de passe </title>
-<%@ include file="header.jsp" %>
+<title>Don't Be A Mouton - Scenario</title>
+<%@include file="header.jsp" %>
 </head>
 <body>
 
-<form action="DBAM" method="get">
-	Votre mot de passe vient de vous être envoyé.
-	<input type="submit" value="Retourner à l'acceuil"/>
+<form action="Controller" method="post">
 </form>
 
 </body>

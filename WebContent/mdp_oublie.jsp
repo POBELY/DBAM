@@ -6,14 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Récupération du mot de passe</title>
 <%@ include file="header.jsp" %>
-
 </head>
 <body>
-<form action="DBAM" method="get">
-Email : <input type="text" name="email"></input>
-<button name="envoyer" value="ok"> Envoyer </button>
-  <a href="connexion.html"> Revenir à la page de connexion</a>
 
+<form action="DBAM" method="get">
+	Email : <input type="text" name="email"></input>
+	<button name="envoyer" value="ok"> Envoyer </button>
+	<a href="connexion.jsp"> Revenir à la page de connexion</a>
 </form>
 
 </body>
