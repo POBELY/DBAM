@@ -3,9 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Question Felicitation</title>
+<%@include file="head.jsp" %>
 <%@include file="header.jsp" %>
 </head>
 <body>
@@ -35,5 +34,6 @@ Victoire !
 </form>
 <br>
 
+<%@include file="foot.jsp" %>
 </body>
 </html>
