@@ -9,7 +9,8 @@
 </head>
 <body>
 
-<form action="DBAM" method="get">
+<form action="Controller" method="get">
+  <input type="hidden" name="op" value="inscription">
   Pseudo : <input type="text" name="pseudo"> <br>
   Mot de Passe : <input type="text" name="mdp"> <br>
   Confirmation de mot de passe : <input type="text" name="mdp_confirm"> <br>
@@ -17,6 +18,6 @@
   <button> Go </button>
   <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
 </form>
-
+ 
 </body>
 </html>

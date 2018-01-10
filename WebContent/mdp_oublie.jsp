@@ -9,9 +9,10 @@
 </head>
 <body>
 
-<form action="DBAM" method="get">
+<form action="Controller" method="post">
 	Email : <input type="text" name="email"></input>
-	<button name="envoyer" value="ok"> Envoyer </button>
+	<input type="submit" value="envoyer"> 
+	<input type="hidden" name="destination" value ="connexion">
 	<a href="connexion.jsp"> Revenir à la page de connexion</a>
 </form>
 

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form action="DBAM" method="get">
+<form action="Controller" method="post">
 	Se Connecter 
 	  Pseudo : <input type="text" name="pseudo"> <br>
 	  Mot de Passe : <input type="text" name="mdp"> <br>
