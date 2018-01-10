@@ -33,11 +33,11 @@ public class Scenario {
 
 	public Scenario() {}
 	
-	public Scenario(String nom, String description, String texteVictoire) {
+	public Scenario(String nom, String description, String texteVictoire, Statut statut) {
 		this.nom = nom;
 		this.description = description;
 		this.texteVictoire = texteVictoire;
-		this.statut = Statut.PRIVE;
+		this.statut = statut;
 	}
 	
 	//**********GETTERS/SETTERS**********
@@ -88,5 +88,13 @@ public class Scenario {
 
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
+	}
+
+	public Statut getStatut() {
+		return statut;
+	}
+
+	public void setStatut(Statut statut) {
+		this.statut = statut;
 	}
 }

@@ -11,6 +11,8 @@
 
 Scenario
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="scenario">
+
 </form>
 
 <%@include file="foot.jsp" %>

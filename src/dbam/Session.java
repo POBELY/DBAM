@@ -21,8 +21,8 @@ public class Session {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;	// identifiant d'une session
-	private int nbQuestionsReussi;	// nombre de question du checkpoint en cours réussi 
-	private int nbQuestionsPerdu;	// nombre de question du checkpoint en cours raté
+	private int nbQuestionsReussi = 0;	// nombre de question du checkpoint en cours réussi 
+	private int nbQuestionsPerdu = 0;	// nombre de question du checkpoint en cours raté
 	
 	@ManyToOne
 	private Scenario scenario;		// scénario de la session
@@ -40,11 +40,6 @@ public class Session {
 	//**********CONSTRUCTEURS**********
 	
 	public Session() {}
-	
-	public Session(int scenarioID, int checkpointCourantID, int questionCouranteID) {
-		this.nbQuestionsPerdu = 0;
-		this.nbQuestionsReussi = 0;
-	}
 	
 	//**********GETTERS/SETTERS**********
 	

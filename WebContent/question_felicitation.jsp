@@ -13,18 +13,22 @@ Victoire !
 <br>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="question_felicitation">
 	<input type="hidden" name="destination" value="inscription">
 	<input type="submit" value="S'inscrire">
+
 </form>
 <br>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="question_felicitation">
 	<input type="hidden" name="destination" value="connexion">
 	<input type="submit" value="Se connecter">
 </form>
 <br>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="question_felicitation">
 	<input type="hidden" name="destination" value="accueil">
 	<input type="submit" value="Acceuil">
 </form>

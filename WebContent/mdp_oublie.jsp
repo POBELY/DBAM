@@ -9,7 +9,7 @@
 </head>
 <body>
 <form action="Controller" method="post">
-	<input type="hidden" name="op" value="mdp_oublie">
+	<input type="hidden" name="source" value="mdp_oublie">
 	Email : <input type="text" name="email"></input>
 	<input type="submit" value="envoyer"> 
 	<input type="hidden" name="destination" value ="connexion">

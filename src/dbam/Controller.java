@@ -38,6 +38,7 @@ public class Controller extends HttpServlet {
 		String mdp;
 		String mail;
 		String operation = request.getParameter("op");
+		System.out.println("Ceci est l'opération effectuée" + operation);
 		switch(operation) {
 		case "inscription" :
 			pseudo = request.getParameter("pseudo");
@@ -52,6 +53,8 @@ public class Controller extends HttpServlet {
 	
 			break;
 		case "connexion" :
+			break;
+		default :
 			break;
 		}
 		String destination = request.getParameter("destination");

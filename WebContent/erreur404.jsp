@@ -10,7 +10,7 @@
 
 
 <form action='Controller' method='post'>
-<input type="hidden" name="op" value="erreur">
+<input type="hidden" name="source" value="erreur">
 
 	Bonjour !
 	<input type='submit' value="Retourner à l'accueil">

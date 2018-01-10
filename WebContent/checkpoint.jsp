@@ -13,7 +13,7 @@ Vous avez atteint un Chekpoint ! <br>
 
 
 <form action="Controller" method="post">
-<input type="hidden" name="op" value="checkpoint">
+<input type="hidden" name="source" value="checkpoint">
 
 	<input type="hidden" name="destination" value="question">
 	<input type="submit" value="C'est parti !">
