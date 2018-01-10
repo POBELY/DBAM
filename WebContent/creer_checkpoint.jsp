@@ -5,19 +5,13 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Don't Be A Mouton - Scenario</title>
+<%@include file="header.jsp" %>
 </head>
 <body>
 
-DBAM
+Créer checkpoint
 <form action="Controller" method="post">
-	<input type="hidden" name="destination" value="inscription">
-	<input type="submit" value="S'inscrire">
-</form>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="destination" value="connexion">
-	<input type="submit" value="Se connecter">
 </form>
 
 </body>
