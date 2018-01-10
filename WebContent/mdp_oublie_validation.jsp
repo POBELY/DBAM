@@ -10,6 +10,8 @@
 </head>
 <body>
 <form action="Controller" method="post">
+<input type="hidden" name="op" value="md_oublie_val">
+
 Votre mot de passe vient de vous être envoyé.<br>
 <input type="submit" value="Retourner à l'acceuil"/>
 <input type="hidden" name="destination" value="acceuil">

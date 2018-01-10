@@ -9,6 +9,7 @@
 <body>
 
 <form action="Controller" method="post">
+<input type="hidden" name="op" value="checkpoint">
 
 <input type="hidden" name="destination" value="accueil">
 <input type="submit" value="DBAM">

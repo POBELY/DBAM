@@ -42,8 +42,13 @@ public class Controller extends HttpServlet {
 			pseudo = request.getParameter("pseudo");
 			mdp = request.getParameter("mdp");
 			String mdp_confirm = request.getParameter("mdp_confirm");
-			
-
+			mail = request.getParameter("mail");
+			if (mdp_confirm.equals(mdp)) {
+				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
+			}else{
+				request.setAttribute("destination","inscription"); // je suis pas sure
+			}
+	
 			break;
 		case "connexion" :
 			break;
