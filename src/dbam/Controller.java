@@ -14,36 +14,25 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class DBAM
  */
-@WebServlet("/DBAM")
+@WebServlet("/Controller")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
 	private Facade facade;
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("/text.html");
-		//response.getWriter().println("<html><body> La toute première page de DBAM snif. <html/></body>");
 
 		String destination = request.getParameter("destination");
 		RequestDispatcher disp;
@@ -111,7 +100,7 @@ public class Controller extends HttpServlet {
 			break;
 		default :
 			System.out.println("Cette destination n'est pas connu !");
-			disp = request.getRequestDispatcher("erreur404.jsp");
+			disp = request.getRequestDispatcher("/erreur404.jsp");
 			disp.forward(request, response);
 			break;
 		}
