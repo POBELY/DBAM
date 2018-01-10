@@ -9,9 +9,12 @@
 <body>
 
 
-<form action='Controller' method='get'>
-	<input type="hidden" name="destination" value="accueil">
+<form action='Controller' method='post'>
+<input type="hidden" name="op" value="erreur">
+
+	Bonjour !
 	<input type='submit' value="Retourner à l'accueil">
+	<input type="hidden" name="destination" value="accueil">
 </form>
 
 </body>

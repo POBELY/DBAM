@@ -2,6 +2,7 @@ package dbam;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,39 +10,52 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * Servlet implementation class DBAM
  */
-@WebServlet("/DBAM")
+@WebServlet("/Controller")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	@EJB
+	private Facade facade;
+	
     public Controller() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("/text.html");
-		//response.getWriter().println("<html><body> La toute première page de DBAM snif. <html/></body>");
-
+		String pseudo;
+		String mdp;
+		String mail;
+		String operation = request.getParameter("op");
+		switch(operation) {
+		case "inscription" :
+			pseudo = request.getParameter("pseudo");
+			mdp = request.getParameter("mdp");
+			String mdp_confirm = request.getParameter("mdp_confirm");
+			mail = request.getParameter("mail");
+			if (mdp_confirm.equals(mdp)) {
+				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
+			}else{
+				request.setAttribute("destination","inscription"); // je suis pas sure
+			}
+	
+			break;
+		case "connexion" :
+			break;
+		}
 		String destination = request.getParameter("destination");
 		RequestDispatcher disp;
+		
 		
 		switch(destination) {
 		case "accueil" :
@@ -72,7 +86,7 @@ public class Controller extends HttpServlet {
 			disp = request.getRequestDispatcher("question.jsp");
 			disp.forward(request, response);
 			break;
-		case "question_validation" :
+		case "question_felicitation" :
 			disp = request.getRequestDispatcher("question_validation.jsp");
 			disp.forward(request, response);
 			break;
@@ -106,10 +120,12 @@ public class Controller extends HttpServlet {
 			break;
 		default :
 			System.out.println("Cette destination n'est pas connu !");
-			disp = request.getRequestDispatcher("erreur404.jsp");
+			disp = request.getRequestDispatcher("/erreur404.jsp");
 			disp.forward(request, response);
 			break;
 		}
+		
+		
 
 	}
 
