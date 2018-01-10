@@ -37,6 +37,7 @@ public class Controller extends HttpServlet {
 		String mdp;
 		String mail;
 		String operation = request.getParameter("op");
+		System.out.println("Ceci est l'opération effectuée" + operation);
 		switch(operation) {
 		case "inscription" :
 			pseudo = request.getParameter("pseudo");

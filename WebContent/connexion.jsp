@@ -10,7 +10,7 @@
 <body>
 
 <form action="Controller" method="post">
-	<input type="hidden" name="op" value="mdp_oublie">
+	<input type="hidden" name="source" value="mdp_oublie">
 
 	Se Connecter 
 	  Pseudo : <input type="text" name="pseudo"> <br>

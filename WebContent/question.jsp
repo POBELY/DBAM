@@ -13,13 +13,13 @@ Ceci est une question.
 <br>
 
 <form action="Controller" method="post">
-	<input type="hidden" name="op" value="question">
-
+	<input type="hidden" name="source" value="question">
 	<input type="hidden" name="destination" value="question">
 	<input type="submit" value="choix 1">
 </form>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="question">
 	<input type="hidden" name="destination" value="checkpoint">
 	<input type="submit" value="choix 2">
 </form>

@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<form action="Controller" method="get">
-  <input type="hidden" name="op" value="inscription">
+<form action="Controller" method="post">
+  <input type="hidden" name="source" value="inscription">
   Pseudo : <input type="text" name="pseudo"> <br>
   Mot de Passe : <input type="text" name="mdp"> <br>
   Confirmation de mot de passe : <input type="text" name="mdp_confirm"> <br>

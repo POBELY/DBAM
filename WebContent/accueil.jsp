@@ -10,19 +10,21 @@
 <body>
 
 <form action="Controller" method="post">
-	<input type="hidden" name="op" value="mdp_oublie">
+	<input type="hidden" name="source" value="accueil">
 	<input type="hidden" name="destination" value="checkpoint">
 	<input type="submit" value="Jouer !">
 	<br>
 </form>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="accueil">
 	<input type="hidden" name="destination" value="scenario">
 	<input type="submit" value="Autres Scénarios">
 	<br>
 </form>
 
 <form action="Controller" method="post">
+	<input type="hidden" name="source" value="accueil">
 	<input type="hidden" name="destination" value="mes_scenarios">
 	<input type="submit" value="Mes Scénarios">
 	<br>
@@ -31,6 +33,7 @@
 <form action="Controller" method="post">
 	Pas encore inscrit ?
 	<br>
+	<input type="hidden" name="source" value="accueil">
 	<input type="hidden" name="destination" value="inscription">
 	<input type="submit" value="S'inscire">
 	<br>
