@@ -4,17 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Se Connecter</title>
+<title>Don't Be A Mouton - Scenario</title>
 <%@include file="header.jsp" %>
 </head>
 <body>
 
 <form action="Controller" method="post">
-	Se Connecter 
-	  Pseudo : <input type="text" name="pseudo"> <br>
-	  Mot de Passe : <input type="text" name="mdp"> <br>
-	  <button> Go </button>
-	  <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
 </form>
 
 </body>

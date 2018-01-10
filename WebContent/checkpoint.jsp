@@ -5,21 +5,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Checkpoint</title>
+<%@include file="header_simple.jsp" %>
 </head>
 <body>
+
+
+
+
+Vous avez atteint un Chekpoint ! <br>
+
 
 <form action="Controller" method="post">
 <input type="hidden" name="op" value="checkpoint">
 
-<input type="hidden" name="destination" value="accueil">
-<input type="submit" value="DBAM">
-<br>
-
-Vous avez atteint un Chekpoint ! <br>
-
-<input type="hidden" name="destination" value="question">
-<input type="submit" value="C'est parti !">
-
+	<input type="hidden" name="destination" value="question">
+	<input type="submit" value="C'est parti !">
 </form>
 
 </body>

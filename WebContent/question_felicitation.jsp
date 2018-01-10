@@ -5,19 +5,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Question Felicitation</title>
-<%@ include file="header.jsp" %>
-
+<%@include file="header.jsp" %>
 </head>
 <body>
-<form action="Controller" method="post"></form>
-Victoire ! <br>
-<input type="submit" value="s'inscrire">
-<input type="hidden" name="destination" value="insciption">
-<input type="submit" value="se connecter">
-<input type="hidden" name="destination" value="connexion">
-<input type="submit" value="Acceuil">
-<input type="hidden" name="destination" value="acceuil">
 
+Victoire !
+<br>
+
+<form action="Controller" method="post">
+	<input type="submit" value="inscription">
+	<input type="submit" value="s'inscrire">
+</form>
+<br>
+
+<form action="Controller" method="post">
+	<input type="submit" value="connexion">
+	<input type="submit" value="se connecter">
+</form>
+<br>
+
+<form action="Controller" method="post">
+	<input type="submit" value="accueil">
+	<input type="submit" value="Acceuil">
+</form>
+<br>
 
 </body>
 </html>

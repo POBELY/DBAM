@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Validation de la récupération du mot de passe </title>
 <%@ include file="header.jsp" %>
-
 </head>
 <body>
 <form action="Controller" method="post">
@@ -17,7 +16,8 @@ Votre mot de passe vient de vous être envoyé.<br>
 <input type="hidden" name="destination" value="acceuil">
  
 
- 
 </form>
+
+
 </body>
 </html>

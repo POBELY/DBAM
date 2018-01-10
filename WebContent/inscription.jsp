@@ -6,17 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="header.jsp" %>
-
 </head>
 <body>
-<form action="Controller" method="post">
-<input type="hidden" name="op" value="inscription">
+
+<form action="Controller" method="get">
+  <input type="hidden" name="op" value="inscription">
   Pseudo : <input type="text" name="pseudo"> <br>
   Mot de Passe : <input type="text" name="mdp"> <br>
   Confirmation de mot de passe : <input type="text" name="mdp_confirm"> <br>
   Adresse mail : <input type="text" name="email">
-	<input type="submit" value="Go"> 
-	<input type="hidden" name="destination" value="acceuil"> <br>  
-</form> 
+  <button> Go </button>
+  <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
+</form>
+ 
 </body>
 </html>
