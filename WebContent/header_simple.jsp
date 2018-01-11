@@ -8,7 +8,16 @@
 </head>
 <body>
 
-DBAM
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+		<form action="Controller" method="post">
+			<input type="hidden" name="destination" value="accueil">
+			<input class="btn btn-success" type="submit" value="DBAM">
+		</form>
+    </li>
+  </ul>
+</nav>
 
 <%@include file="foot.jsp" %>
 </body>

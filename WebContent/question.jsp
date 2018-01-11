@@ -9,20 +9,26 @@
 </head>
 <body>
 
-Ceci est une question.
-<br>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="question">
-	<input type="hidden" name="destination" value="question">
-	<input type="submit" value="choix 1">
-</form>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="question">
-	<input type="hidden" name="destination" value="checkpoint">
-	<input type="submit" value="choix 2">
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<p>Ceci est une question.</p>
+		<br>
+		
+		<div class="row">
+			<form action="Controller" method="post" class="col-md-6">
+				<input type="hidden" name="source" value="question">
+				<input type="hidden" name="destination" value="question">
+				<input class="btn btn-success" type="submit" value="choix 1">
+			</form>
+			
+			<form action="Controller" method="post" class="col-md-6">
+				<input type="hidden" name="source" value="question">
+				<input type="hidden" name="destination" value="checkpoint">
+				<input class="btn btn-danger" type="submit" value="choix 2">
+			</form>
+		</div>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>
