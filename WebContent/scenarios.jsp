@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,dbam.Scenario,dbam.Checkpoint"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,26 +19,50 @@
         <th>Description</th>
         <th>Nb questions</th>
         <th>Nb Checkpoints</th>
-        <th>Status</th>
         <th>Jouer</th>
+        <% user = (String) session.getAttribute("pseudoS"); 
+ 			if (user != null) { 
+ 		 %> <th>Fait</th><%} %>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Scenario 1</td>
-        <td>Kami123</td>
-        <td>C'est le tout premier scénario du jeu !!! =)</td>
-        <td>10</td>
-        <td>2</td>
-        <td>Public</td>
-        <td>
-	        <form action="Controller" method="post" class="center">
-				<input type="hidden" name="source" value="scenarios">
+    
+    
+<%
+ArrayList<Scenario> scenariosPublic = (ArrayList<Scenario>) request.getAttribute("scenariosPublic");
+ArrayList<Scenario> scenariosSessions = (ArrayList<Scenario>) request.getAttribute("scenariosSessions");
+for (Scenario scenario : scenariosPublic ) {%>
+	<tr>
+		<td><%=scenario.getNom()%></td>
+		<td><%=scenario.getAuteur().getPseudo()%></td>	
+		<td><%=scenario.getDescription()%></td>
+		<%
+		Collection<Checkpoint> checkpoints = scenario.getCheckpoints();
+		int nbQuestion = 0;
+		for (Checkpoint checkpoint : checkpoints) {
+			nbQuestion += checkpoint.getQuestions().size();
+		}
+		%>
+		<td><%=nbQuestion %></td>
+		<td><%=checkpoints.size() %></td>
+		<td>
+			<form action="Controller" method="post" class="center">
+				<input type="hidden" name="scenarioID" value=<%=scenario.getId()%>>
+				<input type="hidden" name="source" value="mes_scenarios">
 				<input type="hidden" name="destination" value="checkpoint">
 				<input class="btn btn-success" type="submit" value="Jouer !">
 			</form>
         </td>
-      </tr>
+        <%if (user != null) {%> 
+        	<td>
+        		<%if (scenariosSessions.contains(scenario)) {%>En Cours
+        		<%} else {%>Non<%}%>
+        	</td>
+        <%}%>
+
+    </tr>
+<%}%>
+      
     </tbody>
   </table>
 </div>

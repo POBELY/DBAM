@@ -48,7 +48,8 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
 		RequestDispatcher disp;
-		
+
+		HttpSession session;
 		String destination = request.getParameter("destination");		
 		String source = request.getParameter("source");
 		String action = request.getParameter("action");
@@ -70,7 +71,6 @@ public class Controller extends HttpServlet {
 		/* Si on veut se déconnecter, ça ne doit pas influencer ce que l'on veut faire */
 		if(deconnexion != null && deconnexion.equals("oui")) {
 			// On crée une session vide pour le joueur
-			HttpSession session;
 			session = request.getSession();
 			session.setAttribute(PSEUDO_SESSION, null);
 			
@@ -89,20 +89,31 @@ public class Controller extends HttpServlet {
 				String mdp = request.getParameter("mdp");
 				String mdp_confirm = request.getParameter("mdp_confirm");
 				String mail = request.getParameter("mail");
-				HttpSession session;
-				// Si on a réussi
-				if (mdp_confirm.equals(mdp) && mdp.length() >=4 && !facade.pseudoPris(pseudo)) {
+				// Si on a échoué a créer la session
+				if (mdp.length() < 4) {
+					// On re-redirige vers la page d'inscription
+					request.setAttribute("erreur",  "Le mot de passe est trop court ! (au moins 4 characters)");
+					disp = request.getRequestDispatcher("inscription.jsp");
+					disp.forward(request, response);
+				} else if(!mdp_confirm.equals(mdp)){
+					// On re-redirige vers la page d'inscription
+					request.setAttribute("erreur",  "Les mots de passe doivent être égaux !");
+					disp = request.getRequestDispatcher("inscription.jsp");
+					disp.forward(request, response);
+				} else if(facade.pseudoPris(pseudo)){
+					// On re-redirige vers la page d'inscription
+					request.setAttribute("erreur",  "Ce pseudo est déjà pris !");
+					disp = request.getRequestDispatcher("inscription.jsp");
+					disp.forward(request, response);
+				} else {
+				// Si on a réussi à créer la session
 					// On crée la session !
 					int id = facade.addUtilisateur(pseudo, mdp, mail);
 					session = request.getSession();
 					session.setAttribute(PSEUDO_SESSION, pseudo);
 					session.setAttribute(getIdSession(), id);
-				// Si on a échoué a créer la session
-				} else {				
-					// On re-redirige vers la page d'inscription
-					// TODO : rajouter un paramètre pour que l'inscription affiche que ça n'a pas marché !
-					disp = request.getRequestDispatcher("inscription.jsp");
-					disp.forward(request, response);
+
+
 				}
 			// Si on vient de la page de connexion
 			} else if(source.equals("connexion")) {
@@ -110,7 +121,6 @@ public class Controller extends HttpServlet {
 				String mdp = request.getParameter("mdp");
 				String mdp_confirm = request.getParameter("mdp_confirm");
 				String mail = request.getParameter("mail");
-				HttpSession session;
 				// Si on peut se connecter
 				if (facade.connexionPossible(pseudo, mdp)) {
 					// On se connecte !
@@ -163,20 +173,31 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "scenarios" :
+			// Calcul nb question/checkpoint faux, etat Fait non correct, ajout attribut liste scenarios terminés par l'utilisateur pour etat fait OUI
+			if (source.equals("accueil")) {
+				request.setAttribute("scenariosPublic", facade.getScenariosPublic());
+				session = request.getSession();
+				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+				if (pseudo != null) {
+					int id = facade.getIDUtilisateur(pseudo);
+					request.setAttribute("scenariosSessions", facade.getScenariosEnCours(id));
+				}
+					
+			}
 			disp = request.getRequestDispatcher("scenarios.jsp");
 			disp.forward(request, response);
 			break;
 		case "mes_scenarios" :
 			if (source.equals("accueil")) {
-				HttpSession session = (HttpSession) request.getSession();
+				session  = (HttpSession) request.getSession();
 				String pseudo = (String) ((ServletRequest) session).getAttribute(PSEUDO_SESSION);
+
 				int id = facade.getIDUtilisateur(pseudo);
-				// Besoin de récupèrer l'identifiant BDD de l'utilisateur connecté
 				request.setAttribute("mesScenarios", facade.getMesScenario(id));	
-				disp = request.getRequestDispatcher("mes_scenarios.jsp");
-				disp.forward(request, response);
-				break;
 			}
+			disp = request.getRequestDispatcher("mes_scenarios.jsp");
+			disp.forward(request, response);
+			break;
 		case "debut_creer_scenario" :
 			disp = request.getRequestDispatcher("debut_creer_scenario.jsp");
 			disp.forward(request, response);

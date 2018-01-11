@@ -289,6 +289,20 @@ public class Facade {
 		return req.getSingleResult().getId();
 	}
 	
+	public Collection<Scenario> getScenariosPublic() {
+		TypedQuery<Scenario> req = em.createQuery("from Scenario where statut=1",Scenario.class);	
+		return req.getResultList();
+	}
+	
+	public Collection<Scenario> getScenariosEnCours(int utilisateurID) {
+		Collection<Scenario> scenarios = new ArrayList<Scenario>();
+		Collection<Session> sessions = this.getMesSessions(utilisateurID);
+		for (Session session : sessions) {
+			scenarios.add(session.getScenario());
+		}
+		return scenarios;
+	}
+	
 	//*************************************************************
 	//*************** Supprimer des objets de la BDD ***
 	//*************************************************************

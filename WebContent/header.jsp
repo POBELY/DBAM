@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+<nav class="navbar bg-primary navbar-dark">
   <ul class="nav navbar-nav">
     <li class="nav-item active">
 		<form action="Controller" method="post">
@@ -21,6 +21,7 @@
   <ul class="nav navbar-nav navbar-right">
     <% String user = (String) session.getAttribute("pseudoS"); 
  		if (user == null) { %>
+ 	<div class="row">
     <li class="nav-item">
 		<form action="Controller" method="post">
 			<input type="hidden" name="source" value="header">
@@ -35,7 +36,9 @@
 			<input class="btn btn-primary" type="submit" value="S'inscrire">
 		</form>
     </li>
-	   	<% }else{%> 
+    </div>
+	   	<% }else{%>
+	<div class="row">
     <li class="nav-item">
     	<p class="navbar-brand"><%=user %></p>
     </li> 
@@ -46,7 +49,8 @@
 			<input type="hidden" name="destination" value="accueil">
 			<input class="btn btn-primary" type="submit" value="Se déconnecter">
 		</form>
-    </li> 
+    </li>
+    </div>
     	<%} %>
   </ul>
 </nav>
