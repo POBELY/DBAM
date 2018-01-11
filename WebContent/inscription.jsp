@@ -12,6 +12,11 @@
 <div class="container">
 	<div class="jumbotron bg-secondary center">
 		<h2>Inscription</h2>
+		<% String erreur = (String) request.getAttribute("erreur");
+		if(erreur != null) {%>
+		<h4><%=erreur %></h4>
+		<%} %>
+		
 		<form action="Controller" method="post">
 		  <input type="hidden" name="source" value="inscription">
 		  <input type="hidden" name="destination" value="accueil">
@@ -28,6 +33,11 @@
 		  <input type="email" name="mail">
 		  <br>
 		  <input class="btn btn-success" type="submit" value="Je m'inscris !">
+		</form>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="inscription">
+			<input type="hidden" name="destination" value="connexion">
+			<input class="btn btn-info" type="submit" value="J'ai déjà un compte !">
 		</form>
 	</div>
 </div>
