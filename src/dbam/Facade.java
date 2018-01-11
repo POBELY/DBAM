@@ -284,6 +284,11 @@ public class Facade {
 		return req.getSingleResult();
 	}
 	
+	public int getIDUtilisateur(String pseudo) {
+		TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo='" + pseudo + "'", Utilisateur.class);	
+		return req.getSingleResult().getId();
+	}
+	
 	//*************************************************************
 	//*************** Supprimer des objets de la BDD ***
 	//*************************************************************
