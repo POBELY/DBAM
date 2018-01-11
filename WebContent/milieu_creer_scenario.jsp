@@ -11,6 +11,8 @@
 
 Milieu créer scénario
 <form action="Controller" method="post">
+<input type="hidden" name="source" value="md_oublie_val">
+
 </form>
 
 <%@include file="foot.jsp" %>

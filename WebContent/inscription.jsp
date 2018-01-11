@@ -11,10 +11,11 @@
 
 <form action="Controller" method="post">
   <input type="hidden" name="source" value="inscription">
+  <input type="hidden" name="destination" value="accueil">
   Pseudo : <input type="text" name="pseudo"> <br>
   Mot de Passe : <input type="text" name="mdp"> <br>
   Confirmation de mot de passe : <input type="text" name="mdp_confirm"> <br>
-  Adresse mail : <input type="text" name="email">
+  Adresse mail : <input type="text" name="mail">
   <button> Go </button>
   <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
 </form>

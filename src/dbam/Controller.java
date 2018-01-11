@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -20,6 +21,8 @@ public class Controller extends HttpServlet {
        
 	@EJB
 	private Facade facade;
+	
+	private static final String ATT_SESSION_USER = "SessionUtilisateur";
 	
     public Controller() {
         super();
@@ -37,9 +40,10 @@ public class Controller extends HttpServlet {
 		/*String pseudo;
 		String mdp;
 		String mail;
-		String operation = request.getParameter("op");
-		System.out.println("Ceci est l'opération effectuée" + operation);
-		switch(operation) {
+		String source = request.getParameter("source");
+		System.out.println("Ceci est l'opération effectuée" + source);
+		HttpSession  session;
+		switch(source) {
 		case "inscription" :
 			pseudo = request.getParameter("pseudo");
 			mdp = request.getParameter("mdp");
@@ -47,12 +51,22 @@ public class Controller extends HttpServlet {
 			mail = request.getParameter("mail");
 			if (mdp_confirm.equals(mdp)) {
 				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
-			}else{
+				session = request.getSession();
+				session.setAttribute(ATT_SESSION_USER, pseudo);
+			} else {				
 				request.setAttribute("destination","inscription"); // je suis pas sure
 			}
 	
 			break;
 		case "connexion" :
+			pseudo = request.getParameter("pseudo");
+			mdp = request.getParameter("mdp");
+			if (facade.connexionPossible(pseudo, mdp)) {
+				session = request.getSession();
+				session.setAttribute(ATT_SESSION_USER, pseudo);
+			}else{
+				request.setAttribute("destination","connexion"); // je suis pas sure
+			}
 			break;
 		default :
 			break;

@@ -11,6 +11,8 @@
 
 Créer checkpoint
 <form action="Controller" method="post">
+<input type="hidden" name="source" value="creer_checkpoint">
+
 </form>
 
 <%@include file="foot.jsp" %>

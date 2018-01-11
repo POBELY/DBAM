@@ -11,6 +11,8 @@
 
 Explication scénario
 <form action="Controller" method="post">
+<input type="hidden" name="source" value="explication_scenario">
+
 </form>
 
 <%@include file="foot.jsp" %>
