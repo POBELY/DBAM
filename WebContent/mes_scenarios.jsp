@@ -23,7 +23,6 @@
     </thead>
     <tbody>
     
-
 <%
 ArrayList<Scenario> mesScenarios = (ArrayList<Scenario>) request.getAttribute("mesScenarios");
 for (Scenario scenario : mesScenarios ) {%>
