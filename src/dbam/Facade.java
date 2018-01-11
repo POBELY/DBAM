@@ -192,7 +192,30 @@ public class Facade {
 		em.remove(utilisateur);
 	}
 	
-	//public void 
+	public void removeScenario(int scenarioID) {
+		Scenario scenario = em.find(Scenario.class, scenarioID);
+		em.remove(scenario);
+	}
+	
+	public void removeCheckpoint(int checkpointID) {
+		Checkpoint checkpoint = em.find(Checkpoint.class, checkpointID);
+		em.remove(checkpoint);
+	}
+	
+	public void removeQuestion(int questionID) {
+		Question question = em.find(Question.class, questionID);
+		em.remove(question);
+	}
+	
+	public void removeReponse(int reponseID) {
+		Reponse reponse = em.find(Reponse.class, reponseID);
+		em.remove(reponse);
+	}
+	
+	public void removeSession(int sessionID) {
+		Session session = em.find(Session.class, sessionID);
+		em.remove(session);
+	}
 	
 	//*************************************************************
 	//****************AUTRES METHODES******************************
