@@ -28,14 +28,14 @@
         <td>Public</td>
         <td>
 	        <form action="Controller" method="post" class="center">
-				<input type="hidden" name="source" value="scenarios">
+				<input type="hidden" name="source" value="mes_scenarios">
 				<input type="hidden" name="destination" value="checkpoint">
 				<input class="btn btn-success" type="submit" value="Jouer !">
 			</form>
         </td>
         <td>
         	<form action="Controller" method="post" class="center">
-				<input type="hidden" name="source" value="scenarios">
+				<input type="hidden" name="source" value="mes_scenarios">
 				<input type="hidden" name="destination" value="milieu_creer_scenario">
 				<input class="btn btn-success" type="submit" value="Modifier">
 			</form>
@@ -43,6 +43,12 @@
       </tr>
     </tbody>
   </table>
+  <br>
+  <form action="Controller" method="post" class="center">
+		<input type="hidden" name="source" value="mes_scenarios">
+		<input type="hidden" name="destination" value="debut_creer_scenario">
+		<input class="btn btn-success" type="submit" value="Créer un nouveau Scénario ! =)">
+	</form>
 </div>
 
 <%@include file="foot.jsp" %>

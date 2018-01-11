@@ -42,6 +42,16 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
 
+		String action = request.getParameter("action");
+		if(action != null) {
+			switch(action) {
+			case "delete" :
+				break;
+			default:
+				break;
+			}
+			return;
+		}
 		
 		String pseudo;
 		String mdp;
