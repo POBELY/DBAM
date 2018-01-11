@@ -8,15 +8,24 @@
 <%@ include file="header.jsp" %>
 </head>
 <body>
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="mdp_oublie">
 
-	Email : <input type="text" name="email"></input>
-	<input type="submit" value="envoyer"> 
-	<input type="hidden" name="destination" value ="connexion">
-  <a href="connexion.html"> Revenir à la page de connexion</a>
-
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<h2>Récupérer votre mot de passe</h2>
+		<small>C'est pas bien d'oublier son mot de passe :p</small>
+		<br>
+		<p>Veuillez renseigner l'e-mail correspondant à votre compte afin que nous puissions vous envoyer votre mot de passe.<p>
+		<form action="Controller" method="post">
+			<p>Pseudo</p>
+			<input type="text" name="pseudo">
+			<p>Email</p>
+			<input type="email" name="pseudo">
+		    <input type="hidden" name="source" value="mdp_oublie">
+			<input type="hidden" name="destination" value="mdp_oublie_validation">
+		    <input class="btn btn-success" type="submit" value="On envoie la sauce ?">
+		</form>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>

@@ -9,11 +9,31 @@
 </head>
 <body>
 
-Début créer scénario
-<form action="Controller" method="post">
-<input type="hidden" name="source" value="debut_creer_checkpoint">
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<h2>Créez votre propre Scénario !!!</h2>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="debut_creer_scenario">
+			<input type="hidden" name="destination" value="explication_scenario">
+		    <input class="btn btn-info" type="submit" value="Vous avez besoin d'aide ? On va vous aider ! =)">
+		</form>
+		<form action="Controller" method="post">
+			<p>Nom du scénario</p>
+			<input type="text" name="nom_scenario">
+			<p>Description</p>
+  			<textarea name="description" rows="10" cols="30"></textarea>
+			<p>Visibilité</p>
+		    <select name="visibilite">
+		      <option value="public">Public :D</option>
+		      <option value="privee">Privée :'(</option>
+		    </select>
+		    <input type="hidden" name="source" value="debut_creer_scenario">
+			<input type="hidden" name="destination" value="milieu_creer_scenario">
+		    <input class="btn btn-success" type="submit" value="Suivant !">
+		</form>
+	</div>
+</div>
 
-</form>
 
 <%@include file="foot.jsp" %>
 </body>
