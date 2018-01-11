@@ -11,6 +11,8 @@
 
 Créer question
 <form action="Controller" method="post">
+<input type="hidden" name="source" value="creer_question">
+
 </form>
 
 <%@include file="foot.jsp" %>

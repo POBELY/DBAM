@@ -11,6 +11,8 @@
 
 Début créer scénario
 <form action="Controller" method="post">
+<input type="hidden" name="source" value="debut_creer_checkpoint">
+
 </form>
 
 <%@include file="foot.jsp" %>

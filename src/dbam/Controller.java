@@ -22,6 +22,8 @@ public class Controller extends HttpServlet {
 	@EJB
 	private Facade facade;
 	
+	private static final String ATT_SESSION_USER = "SessionUtilisateur";
+	
     public Controller() {
         super();
     }
@@ -49,14 +51,22 @@ public class Controller extends HttpServlet {
 			mail = request.getParameter("mail");
 			if (mdp_confirm.equals(mdp)) {
 				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
-
-				
+				session = request.getSession();
+				session.setAttribute(ATT_SESSION_USER, pseudo);
 			} else {				
 				request.setAttribute("destination","inscription"); // je suis pas sure
 			}
 	
 			break;
 		case "connexion" :
+			pseudo = request.getParameter("pseudo");
+			mdp = request.getParameter("mdp");
+			if (facade.connexionPossible(pseudo, mdp)) {
+				session = request.getSession();
+				session.setAttribute(ATT_SESSION_USER, pseudo);
+			}else{
+				request.setAttribute("destination","connexion"); // je suis pas sure
+			}
 			break;
 		default :
 			break;

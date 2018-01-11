@@ -25,21 +25,27 @@ public class Facade {
 		boolean res = false;
 		// Mot de passe de confirmation (mdp2) identique au mot de passe donné (mdp), comportant plus de 4 caractères
 		if (mdp.equals(mdp2) && mdp.length()>=4) {
-				TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
-				// pseudo valide si il n'appartient pas déjà à un utilisateur
-				if (req.getResultList().isEmpty()) {
-					Utilisateur utilisateur = new Utilisateur(pseudo,mdp,mail);
-					em.persist(utilisateur);
-					res = true;
-				}		
+			TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
+			// pseudo valide si il n'appartient pas déjà à un utilisateur
+			if (req.getResultList().isEmpty()) {
+				Utilisateur utilisateur = new Utilisateur(pseudo,mdp,mail);
+				em.persist(utilisateur);
+				res = true;
+			}		
 		}
 		return res;
 	}
 	
 	public void addScenario(String nom, String description, String texteVictoire, int auteurID, Scenario.Statut statut) {
+		// Créer le scénario avec son auteur
 		Utilisateur auteur = em.find(Utilisateur.class,auteurID);
 		Scenario scenario = new Scenario(nom,description,texteVictoire,statut);
 		scenario.setAuteur(auteur);
+		// ajouter ce scénario aux scénarios de l'utilisateur
+		Collection<Scenario> scenarios = auteur.getMesScenarios();
+		scenarios.add(scenario);		
+		auteur.setMesScenarios(scenarios);
+		// ajouter ce scénario à la BDD
 		em.persist(scenario);
 	}
 	
@@ -47,6 +53,10 @@ public class Facade {
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		Checkpoint checkpoint = new Checkpoint(nbVictReq, nbDefMax, texteVictoire, texteDefaite);
 		checkpoint.setScenario(scenario);
+		Collection<Checkpoint>  checkpoints = scenario.getCheckpoints();
+		// Gérer l'ordre des checkpoints ?
+		checkpoints.add(checkpoint);
+		scenario.setCheckpoints(checkpoints);
 		em.persist(checkpoint);
 	}
 	
@@ -54,6 +64,9 @@ public class Facade {
 		Checkpoint checkpoint = em.find(Checkpoint.class,checkpointID);
 		Question question = new Question(texteQuestion);
 		question.setCheckpoint(checkpoint);
+		Collection<Question> questions = checkpoint.getQuestions();
+		questions.add(question);
+		checkpoint.setQuestions(questions);
 		em.persist(question);
 	}
 
@@ -61,6 +74,9 @@ public class Facade {
 		Question question = em.find(Question.class,questionID);
 		Reponse reponse = new Reponse(texteReponse);
 		reponse.setQuestion(question);
+		Collection<Reponse> reponses = question.getChoix();
+		reponses.add(reponse);
+		question.setChoix(reponses);
 		em.persist(reponse);
 	}
 	
@@ -86,13 +102,23 @@ public class Facade {
 		//On récupère le joueur de la session, puis on le met à jour dans la session
 		Utilisateur joueur = em.find(Utilisateur.class,joueurID);
 		session.setJoueur(joueur);
+		Collection<Session> sessions = joueur.getSessions();
+		sessions.add(session);
+		joueur.setSessions(sessions);
 		// On ajoute cette session à notre BDD
 		em.persist(session);
 	}
 	
 	//*************************************************************
-	//*************** Modifier des objets de la BDD ***************
+	//*************** Modifier des données des objets de la BDD ***
 	//*************************************************************
+	
+	//*************** Utilisateur ************************************
+	
+	public void setMdpUtilisateur(int utilisateurID, String newMdp) {
+		Utilisateur utilisateur = em.find(Utilisateur.class, utilisateurID);
+		utilisateur.setMdp(newMdp);
+	}
 	
 	//*************** Scenario ************************************
 	
@@ -133,5 +159,62 @@ public class Facade {
 	public void setTexteDefaiteCheckpoint(int checkpointID, String newTexteDefaite) {
 		Checkpoint checkpoint = em.find(Checkpoint.class, checkpointID);
 		checkpoint.setTexteDefaite(newTexteDefaite);
+	}
+	
+	//*************** Question ************************************
+	
+	public void setTexteQuestion(int questionID, String newTexteQuestion) {
+		Question question = em.find(Question.class,questionID);
+		question.setTexteQuestion(newTexteQuestion);
+	}
+	
+	//*************** Reponse *************************************
+	
+	public void setTexteChoixReponse(int reponseID, String newTexteChoix) {
+		Reponse reponse = em.find(Reponse.class,reponseID);
+		reponse.setTexteChoix(newTexteChoix);
+	}
+	
+	public void setNbChoisiReponse(int reponseID, int newNbChoisi) {
+		Reponse reponse = em.find(Reponse.class,reponseID);
+		reponse.setNbChoisi(newNbChoisi);
+	}
+	
+	//*************************************************************
+	//*************** Supprimer des objets de la BDD ***
+	//*************************************************************
+	
+	public void removeUtilisateur(int utilisateurID) {
+		Utilisateur utilisateur = em.find(Utilisateur.class, utilisateurID);
+		utilisateur = null;
+	}
+	
+	//*************************************************************
+	//****************AUTRES METHODES******************************
+	//*************************************************************
+	
+	public boolean connexionPossible(String pseudo, String mdp) {
+		boolean mdpJuste = false;
+		TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
+		for(Utilisateur u : req.getResultList()) {
+			if (mdp.equals(u.getMdp())) {
+				mdpJuste = true;
+			}
+		}
+		return mdpJuste; 
+	}
+	
+	public void upNbChoisiReponse(int reponseID) {
+		Reponse reponse = em.find(Reponse.class,reponseID);
+		reponse.setNbChoisi(reponse.getNbChoisi() + 1);
+	}
+	
+	public boolean pseudoPris(String pseudo) {
+		boolean res = false;
+		TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
+		if (req.getResultList().isEmpty()) {
+			res = true;
+		}
+		return res;
 	}
 }
