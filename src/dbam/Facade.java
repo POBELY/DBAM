@@ -356,6 +356,16 @@ public class Facade {
 		return res;
 	}
 	
+	public List<Utilisateur> recupererUtilisateurs(String mail) {
+		System.out.println("je suis dans la facade, mail : "+mail);
+		List<Utilisateur> users = new ArrayList<Utilisateur>();
+		TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where mail = '" + mail + "'",Utilisateur.class);
+		for (Utilisateur u :  req.getResultList()){
+			System.out.println("on est dans la boucle, user :"+u);
+			users.add(u);
+		}
+		return users;
+	}
 
 	   
 }

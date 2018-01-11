@@ -25,7 +25,7 @@
 		  <input type="password" name="mdp_confirm">
 		  <br>
 		  <p>Adresse mail :</p>
-		  <input type="email" name="mail">
+		  <input type="text" name="mail">
 		  <br>
 		  <input class="btn btn-success" type="submit" value="Je m'inscris !">
 		</form>

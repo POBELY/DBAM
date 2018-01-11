@@ -15,11 +15,11 @@
 		<small>C'est pas bien d'oublier son mot de passe :p</small>
 		<br>
 		<p>Veuillez renseigner l'e-mail correspondant à votre compte afin que nous puissions vous envoyer votre mot de passe.<p>
-		<form action="Controller" method="post">
+		<form action="MailExpediteur" method="post">
 			<p>Pseudo</p>
 			<input type="text" name="pseudo">
 			<p>Email</p>
-			<input type="email" name="pseudo">
+			<input type="text" name="mail">
 		    <input type="hidden" name="source" value="mdp_oublie">
 			<input type="hidden" name="destination" value="mdp_oublie_validation">
 		    <input class="btn btn-success" type="submit" value="On envoie la sauce ?">

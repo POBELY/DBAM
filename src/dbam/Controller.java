@@ -96,7 +96,7 @@ public class Controller extends HttpServlet {
 					int id = facade.addUtilisateur(pseudo, mdp, mail);
 					session = request.getSession();
 					session.setAttribute(PSEUDO_SESSION, pseudo);
-					session.setAttribute(ID_SESSION, id);
+					session.setAttribute(getIdSession(), id);
 				// Si on a échoué a créer la session
 				} else {				
 					// On re-redirige vers la page d'inscription
@@ -117,7 +117,7 @@ public class Controller extends HttpServlet {
 					session = request.getSession();
 					session.setAttribute(PSEUDO_SESSION, pseudo);
 					int id = facade.getIDUtilisateur(pseudo);
-					session.setAttribute(ID_SESSION, id);
+					session.setAttribute(getIdSession(), id);
 				// Si on peut pas se connecter
 				}else{
 					// On re-redirige vers la page de connexion
@@ -168,8 +168,8 @@ public class Controller extends HttpServlet {
 			break;
 		case "mes_scenarios" :
 			if (source.equals("accueil")) {
-				session = request.getSession();
-				pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+				HttpSession session = (HttpSession) request.getSession();
+				String pseudo = (String) ((ServletRequest) session).getAttribute(PSEUDO_SESSION);
 				int id = facade.getIDUtilisateur(pseudo);
 				// Besoin de récupèrer l'identifiant BDD de l'utilisateur connecté
 				request.setAttribute("mesScenarios", facade.getMesScenario(id));	
@@ -203,5 +203,9 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		}
+	}
+
+	public static String getIdSession() {
+		return ID_SESSION;
 	}
 }

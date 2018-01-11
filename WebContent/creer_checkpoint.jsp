@@ -22,7 +22,7 @@
 			<p>Entrez le nombre de défaites maximum</p>
 			<input type="nb_defaites" step="1" value="1" min="1" max="99"> 
 			<input type="hidden" name="source" value="creer_checkpoint">
-			<input type="hidden" name="destination" value="question">
+			<input type="hidden" name="destination" value="milieu_creer_scenario">
 			<input class="btn btn-success" type="submit" value="Valider mon checkpoint">
 		</form>
 	</div>
