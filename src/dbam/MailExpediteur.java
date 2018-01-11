@@ -37,25 +37,37 @@ public class MailExpediteur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request, response);
 
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	      int sessionId = Integer.parseInt(request.getParameter("sessionId"));
+	      int utilisateurId = Integer.parseInt(request.getParameter("utilisateurId"));
+	      Session ses = facade.getSession(sessionId);
+	      Utilisateur utilisateur = facade.getUtilisateur(utilisateurId);
+		
 	      Properties props = new Properties();
 	      props.put("mail.smtp.host", "localhost");
 	      props.put("mail.from", "adresse@expediteur.com");
-	      Session ses = Session.getSession()
 	      javax.mail.Session sess = javax.mail.Session.getInstance(props, null);
 	      try 
 	      {
-	         MimeMessage msg = new MimeMessage(sess);
-	         msg.setFrom();
-	         msg.setRecipients(Message.RecipientType.TO,
-	                          "adresse@destinataire.net");
-	        msg.setSubject("Bonjour cher utilisateur, "
+	    	  MimeMessage msg = new MimeMessage(sess);
+	          msg.setFrom();
+	          msg.setRecipients(Message.RecipientType.TO, utilisateur.getMail());
+	          msg.setSubject("Bonjour cher utilisateur, "
 	        		+ "voici tes informations personnelles :"
-	        		+ "password" + facade.getUtilisateur());
-	        msg.setSentDate(new Date());
-	        msg.setText("Corps du message!\n");
-	        Transport.send(msg);
-	        
+	        		+ "pseudo : " + utilisateur.getPseudo() + "\n" 
+	        		+ "password : " + utilisateur.getMdp());
+	          msg.setSentDate(new Date());
+	          msg.setText("Corps du message!\n");
+	          Transport.send(msg);
 	      } 
 	      catch (MessagingException mex) 
 	      {
@@ -65,14 +77,6 @@ public class MailExpediteur extends HttpServlet {
 	      PrintWriter out = ((ServletResponse) request).getWriter();
 	      out.println("Message envoyé");
 	      out.close();
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

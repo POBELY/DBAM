@@ -9,16 +9,21 @@
 </head>
 <body>
 
-Créer checkpoint
 <div class="container">
 	<div class="jumbotron bg-secondary center">
-		Texte de Réussite                    
-		Nombre de victoires 
-		<br>	
+		<h2>Créez votre checkpoint !</h2>
 		<form action="Controller" method="post">
-		<input type="hidden" name="source" value="checkpoint">
+			<p>Entrez le texte en cas de réussite</p>
+  			<textarea name="text_reussite" rows="10" cols="30"></textarea>
+			<p>Entrez le texte en cas de défaite</p>
+  			<textarea name="text_defaite" rows="10" cols="30"></textarea>
+			<p>Entrez le nombre de victoires requises<p>
+			<input type="nb_victoires" step="1" value="1" min="1" max="99"> 
+			<p>Entrez le nombre de défaites maximum</p>
+			<input type="nb_defaites" step="1" value="1" min="1" max="99"> 
+			<input type="hidden" name="source" value="creer_checkpoint">
 			<input type="hidden" name="destination" value="question">
-			<input class="btn btn-success" type="submit" value="C'est parti !">
+			<input class="btn btn-success" type="submit" value="Valider mon checkpoint">
 		</form>
 	</div>
 </div>

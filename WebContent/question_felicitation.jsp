@@ -9,30 +9,31 @@
 </head>
 <body>
 
-Victoire !
-<br>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<h2>Victoire !</h2>
+		
+		<h4>Vous n'êtes pas inscrit ?? Inscrivez-vous ! =)</h4>
 
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="question_felicitation">
-	<input type="hidden" name="destination" value="inscription">
-	<input type="submit" value="S'inscrire">
-
-</form>
-<br>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="question_felicitation">
-	<input type="hidden" name="destination" value="connexion">
-	<input type="submit" value="Se connecter">
-</form>
-<br>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="question_felicitation">
-	<input type="hidden" name="destination" value="accueil">
-	<input type="submit" value="Acceuil">
-</form>
-<br>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="question_felicitation">
+			<input type="hidden" name="destination" value="inscription">
+			<input class="btn btn-primary" type="submit" value="S'inscrire">
+		</form>
+		
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="question_felicitation">
+			<input type="hidden" name="destination" value="connexion">
+			<input class="btn btn-primary" type="submit" value="Se connecter">
+		</form>
+		
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="question_felicitation">
+			<input type="hidden" name="destination" value="accueil">
+			<input class="btn btn-success" type="submit" value="Acceuil">
+		</form>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>

@@ -9,11 +9,17 @@
 </head>
 <body>
 
-Explication scénario
-<form action="Controller" method="post">
-<input type="hidden" name="source" value="explication_scenario">
-
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<h2>Explication du créateur de Scénarios</h2>
+		<p>Entrez ici les instructions pour expliquer à l'utilisateur comment faire. Non mais sans dec', faites le :p</p>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="explication_scenario">
+			<input type="hidden" name="destination" value="debut_creer_scenario">
+		    <input class="btn btn-info" type="submit" value="J'ai tout compris ! :D">
+		</form>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>

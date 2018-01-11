@@ -8,16 +8,17 @@
 <%@ include file="header.jsp" %>
 </head>
 <body>
-<form action="Controller" method="post">
-<input type="hidden" name="source" value="md_oublie_val">
 
-Votre mot de passe vient de vous être envoyé.<br>
-<input type="submit" value="Retourner à l'acceuil"/>
-<input type="hidden" name="destination" value="acceuil">
- 
-
-</form>
-
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<h2>Votre mot de passe vient de vous être envoyé !</h2>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="mdp_oublie_validation">
+			<input type="hidden" name="destination" value="accueil">
+		    <input class="btn btn-info" type="submit" value="Retourner à l'accueil">
+		</form>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>
