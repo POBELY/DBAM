@@ -28,6 +28,11 @@
 			<input type="hidden" name="destination" value="mdp_oublie">
 			<input class="btn btn-dark" type="submit" value="Vous avez oublié votre mot de passe ?">
 		</form>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="connexion">
+			<input type="hidden" name="destination" value="inscription">
+			<input class="btn btn-info" type="submit" value="Vous n'avez pas encore de compte ?">
+		</form>
 	</div>
 </div>
 

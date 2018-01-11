@@ -48,10 +48,14 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
 		RequestDispatcher disp;
+		
+		String destination = request.getParameter("destination");		
+		String source = request.getParameter("source");
+		String action = request.getParameter("action");
+		String deconnexion = request.getParameter("deconnexion");
 
 		/* Les actions sont des actions qu'effectue la Servlet si on lui demande, mais elles ne consistent pas en 
 		 * un changement de page. */
-		String action = request.getParameter("action");
 		if(action != null) {
 			switch(action) {
 			// TODO !!!
@@ -63,19 +67,20 @@ public class Controller extends HttpServlet {
 			return;
 		}
 		
-		/* On utilise les source pour factoriser le code. Mais la plupart du temps il faudra coder dans les destinations */
-		String source = request.getParameter("source");
-		switch(source) {
-		case "deconnexion" :
+		/* Si on veut se déconnecter, ça ne doit pas influencer ce que l'on veut faire */
+		if(deconnexion != null && deconnexion.equals("oui")) {
+			// On crée une session vide pour le joueur
 			HttpSession session;
 			session = request.getSession();
 			session.setAttribute(PSEUDO_SESSION, null);
-		default :
-			break;
+			
+			// On l'amène à l'accueil
+			disp = request.getRequestDispatcher("accueil.jsp");
+			disp.forward(request, response);
+			return;
 		}
 		
 		/* Tout le code doit se trouver dans ce switch ! <3 */
-		String destination = request.getParameter("destination");		
 		switch(destination) {
 		case "accueil" :
 			// Si on vient de la page d'inscription
@@ -111,7 +116,7 @@ public class Controller extends HttpServlet {
 					// On se connecte !
 					session = request.getSession();
 					session.setAttribute(PSEUDO_SESSION, pseudo);
-					int id = facade.getIdUtilisateur(pseudo);
+					int id = facade.getIDUtilisateur(pseudo);
 					session.setAttribute(ID_SESSION, id);
 				// Si on peut pas se connecter
 				}else{
@@ -141,8 +146,11 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "checkpoint" :
-			session = request.getSession();
-			pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+			// TODO !
+			//session = request.getSession();
+			//pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+			// PS : il faut pas tout à fait faire comme ça ^^'
+			// là en fait ça crée une toute nouvelle session à partir de rien
 			disp = request.getRequestDispatcher("checkpoint.jsp");
 			disp.forward(request, response);
 			break;

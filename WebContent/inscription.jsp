@@ -29,6 +29,11 @@
 		  <br>
 		  <input class="btn btn-success" type="submit" value="Je m'inscris !">
 		</form>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="inscription">
+			<input type="hidden" name="destination" value="connexion">
+			<input class="btn btn-info" type="submit" value="J'ai déjà un compte !">
+		</form>
 	</div>
 </div>
 
