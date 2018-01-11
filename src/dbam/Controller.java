@@ -34,7 +34,7 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
 		
-		String pseudo;
+		/*String pseudo;
 		String mdp;
 		String mail;
 		String operation = request.getParameter("op");
@@ -56,7 +56,7 @@ public class Controller extends HttpServlet {
 			break;
 		default :
 			break;
-		}
+		}*/
 		String destination = request.getParameter("destination");
 		RequestDispatcher disp;
 		
@@ -94,8 +94,8 @@ public class Controller extends HttpServlet {
 			disp = request.getRequestDispatcher("question_validation.jsp");
 			disp.forward(request, response);
 			break;
-		case "scenario" :
-			disp = request.getRequestDispatcher("scenario.jsp");
+		case "scenarios" :
+			disp = request.getRequestDispatcher("scenarios.jsp");
 			disp.forward(request, response);
 			break;
 		case "mes_scenarios" :

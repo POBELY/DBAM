@@ -9,15 +9,18 @@
 </head>
 <body>
 
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="mdp_oublie">
-
-	Se Connecter 
-	  Pseudo : <input type="text" name="pseudo"> <br>
-	  Mot de Passe : <input type="text" name="mdp"> <br>
-	  <button> Go </button>
-	  <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<h2>Se Connecter</h2>
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="mdp_oublie">
+			  Pseudo :<input type="text" name="pseudo"> <br>
+			  Mot de Passe : <input type="text" name="mdp"> <br>
+			  <button> Go </button>
+			  <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
+		</form>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>
