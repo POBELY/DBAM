@@ -242,6 +242,26 @@ public class Facade {
 		return em.find(Utilisateur.class, id);
 	}
 	
+	public Scenario getScenario(int id) {
+		return em.find(Scenario.class, id);
+	}
+	
+	public Checkpoint getCheckpoint(int id) {
+		return em.find(Checkpoint.class, id);
+	}
+	
+	public Question getQuestion(int id) {
+		return em.find(Question.class, id);
+	}
+	
+	public Reponse getReponse(int id) {
+		return em.find(Reponse.class, id);
+	}
+	
+	public Session getSession(int id) {
+		return em.find(Session.class, id);
+	}
+	
 	
 	//*************************************************************
 	//*************** Supprimer des objets de la BDD ***
