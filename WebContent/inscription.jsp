@@ -9,16 +9,29 @@
 </head>
 <body>
 
-<form action="Controller" method="post">
-  <input type="hidden" name="source" value="inscription">
-  <input type="hidden" name="destination" value="accueil">
-  Pseudo : <input type="text" name="pseudo"> <br>
-  Mot de Passe : <input type="text" name="mdp"> <br>
-  Confirmation de mot de passe : <input type="text" name="mdp_confirm"> <br>
-  Adresse mail : <input type="text" name="mail">
-  <button> Go </button>
-  <a href="mdp_oublie.jsp"> Vous avez oublié votre mot de passe ?</a>
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<h2>Inscription</h2>
+		<form action="Controller" method="post">
+		  <input type="hidden" name="source" value="inscription">
+		  <input type="hidden" name="destination" value="accueil">
+		  <p>Pseudo :</p>
+		  <input type="text" name="pseudo">
+		  <br>
+		  <p>Mot de Passe :</p>
+		  <input type="password" name="mdp" pattern=".{4,}">
+		  <br>
+		  <p>Confirmation de mot de passe :</p>
+		  <input type="password" name="mdp_confirm">
+		  <br>
+		  <p>Adresse mail :</p>
+		  <input type="email" name="mail">
+		  <br>
+		  <input class="btn btn-success" type="submit" value="Je m'inscris !">
+		</form>
+	</div>
+</div>
+
  
 <%@include file="foot.jsp" %>
 </body>
