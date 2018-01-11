@@ -17,6 +17,9 @@
 			<input class="btn btn-success" type="submit" value="DBAM">
 		</form>
     </li>
+    <% String user = (String) session.getAttribute("pseudoS"); 
+ 		if (user == null) { 
+ 		 %>
     <li class="nav-item">
 		<form action="Controller" method="post">
 			<input type="hidden" name="source" value="header">
@@ -31,14 +34,21 @@
 			<input class="btn btn-primary" type="submit" value="S'inscrire">
 		</form>
     </li>
+    		<%
+    	}else{ 
+			out.print("  " + user + "  "); %>
+    <li class="nav-item">
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="deconnexion">
+			<input type="hidden" name="destination" value="accueil">
+			<input class="btn btn-primary" type="submit" value="se deconnecter">
+		</form>
+    </li> 
+    	<%} %>
   </ul>
 </nav>
 
-<% String user = (String) session.getAttribute("SessionUtilisateur"); 
- 		if (user != null) {
-			out.print("Vous etes sur la session de " + user);
-		}
-%>
+
 
 <%@include file="foot.jsp" %>
 </body>

@@ -25,7 +25,9 @@
 			<br>
 		</form>
 		<br>
-
+  		 <% user = (String) session.getAttribute("pseudoS"); 
+ 			if (user != null) { 
+ 		 %>
 		<form action="Controller" method="post" class="center">
 			<input type="hidden" name="source" value="accueil">
 			<input type="hidden" name="destination" value="mes_scenarios">
@@ -33,7 +35,15 @@
 			<br>
 		</form>
 		<br>
-		
+		<form action="Controller" method="post" class="center">
+			<input type="hidden" name="source" value="accueil">
+			<input type="hidden" name="destination" value="debut_creer_scenario">
+			<input class="btn btn-dark" type="submit" value="Creer Scenario">
+			<br>
+		</form>
+		<br>
+		<% }else{
+		%>
 		<p>Pas encore inscrit ?</p>
 		<form action="Controller" method="post" class="center">
 			<input type="hidden" name="source" value="accueil">
@@ -43,6 +53,7 @@
 		<br>
 		<p>S'inscrire vous permettra de créer de nouveau scénarios !</p>
 	</div>
+		<%} %>
 </div>
 
 <%@include file="foot.jsp" %>
