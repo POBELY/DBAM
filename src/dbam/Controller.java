@@ -175,7 +175,7 @@ public class Controller extends HttpServlet {
 			if (source.equals("accueil")) {
 				request.setAttribute("scenariosPublic", facade.getScenariosPublic());
 				session = request.getSession();
-				pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 				if (pseudo != null) {
 					int id = facade.getIDUtilisateur(pseudo);
 					request.setAttribute("scenariosSessions", facade.getScenariosEnCours(id));
