@@ -10,10 +10,18 @@
 <body>
 
 Créer checkpoint
-<form action="Controller" method="post">
-<input type="hidden" name="source" value="creer_checkpoint">
-
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		Texte de Réussite                    
+		Nombre de victoires 
+		<br>	
+		<form action="Controller" method="post">
+		<input type="hidden" name="source" value="checkpoint">
+			<input type="hidden" name="destination" value="question">
+			<input class="btn btn-success" type="submit" value="C'est parti !">
+		</form>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>

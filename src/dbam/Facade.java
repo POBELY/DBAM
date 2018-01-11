@@ -10,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.swing.plaf.synth.SynthSeparatorUI;
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 @Singleton
 public class Facade {
@@ -23,19 +26,19 @@ public class Facade {
 	//****************************************************************
 	 
 	
-	public boolean addUtilisateur(String pseudo, String mdp, String mdp2, String mail) {
-		boolean res = false;
+	public int addUtilisateur(String pseudo, String mdp, String mdp2, String mail) {
+		int id = -1;
 		// Mot de passe de confirmation (mdp2) identique au mot de passe donné (mdp), comportant plus de 4 caractères
 		if (mdp.equals(mdp2) && mdp.length()>=4) {
 			TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
 			// pseudo valide si il n'appartient pas déjà à un utilisateur
 			if (req.getResultList().isEmpty()) {
 				Utilisateur utilisateur = new Utilisateur(pseudo,mdp,mail);
+				id = utilisateur.getId();
 				em.persist(utilisateur);
-				res = true;
-			}		
+				}		
 		}
-		return res;
+		return id;
 	}
 	
 	public void addScenario(String nom, String description, String texteVictoire, int auteurID, Scenario.Statut statut) {
@@ -217,7 +220,13 @@ public class Facade {
 		em.remove(session);
 	}
 	
+	//*************************************************************
+	//*************** Récupérer des objets de la BDD ***
+	//*************************************************************
 	
+	public Utilisateur getUtilisateur(int id) {
+		return em.find(Utilisateur.class, id);
+	}
 	
 	//*************************************************************
 	//****************AUTRES METHODES******************************
@@ -250,4 +259,8 @@ public class Facade {
 		}
 		return res;
 	}
+	
+
+	   
 }
+

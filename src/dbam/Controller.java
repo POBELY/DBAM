@@ -2,6 +2,7 @@ package dbam;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 
 
@@ -26,6 +33,7 @@ public class Controller extends HttpServlet {
 	private Facade facade;
 	
 	private static final String PSEUDO_SESSION = "pseudoS";
+	private static final String ID_SESSION ="idS";
 	
     public Controller() {
         super();
@@ -55,9 +63,10 @@ public class Controller extends HttpServlet {
 			String mdp_confirm = request.getParameter("mdp_confirm");
 			mail = request.getParameter("mail");
 			if (mdp_confirm.equals(mdp)) {
-				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
+				int id = facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
 				session = request.getSession();
 				session.setAttribute(PSEUDO_SESSION, pseudo);
+				session.setAttribute(ID_SESSION, id);
 			} else {				
 				request.setAttribute("destination","inscription"); // je suis pas sure
 			}
@@ -68,7 +77,7 @@ public class Controller extends HttpServlet {
 			mdp = request.getParameter("mdp");
 			if (facade.connexionPossible(pseudo, mdp)) {
 				session = request.getSession();
-				session.setAttribute(PSEUDO_SESSION, pseudo);
+				session.setAttribute(PSEUDO_SESSION, pseudo);// ajouter l'id 
 			}else{
 				request.setAttribute("destination","connexion"); // je suis pas sure
 			}
@@ -158,5 +167,7 @@ public class Controller extends HttpServlet {
 	public static String getAttSessionUser() {
 		return PSEUDO_SESSION;
 	}
+
+	  
 
 }
