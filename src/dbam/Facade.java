@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -253,6 +254,35 @@ public class Facade {
 		return em.find(Session.class, id);
 	}
 	
+	public Collection<Scenario> getMesScenario(int utilisateurID) {
+		TypedQuery<Scenario> req = em.createQuery("from Scenario where auteur_id=" + utilisateurID,Scenario.class);	
+		return req.getResultList();
+	}
+	
+	public Collection<Session> getMesSessions(int utilisateurID) {
+		TypedQuery<Session> req = em.createQuery("from Session where joueur_id=" + utilisateurID,Session.class);	
+		return req.getResultList();
+	}
+	
+	public Collection<Checkpoint> getCheckpoints(int scenarioID) {
+		TypedQuery<Checkpoint> req = em.createQuery("from Checkpoint where scenario_id=" + scenarioID,Checkpoint.class);	
+		return req.getResultList();
+	}
+	
+	public Collection<Question> getQuestions(int checkpointID) {
+		TypedQuery<Question> req = em.createQuery("from Question where checkpoint_id=" + checkpointID,Question.class);	
+		return req.getResultList();
+	}
+	
+	public Collection<Reponse> getReponses(int questionID) {
+		TypedQuery<Reponse> req = em.createQuery("from Reponse where question_id=" + questionID,Reponse.class);	
+		return req.getResultList();
+	}
+	
+	public Checkpoint getPrecedentCheckpoint(int suivantCheckpointID) {
+		TypedQuery<Checkpoint> req = em.createQuery("from Checkpoint where suivant_id=" + suivantCheckpointID,Checkpoint.class);	
+		return req.getSingleResult();
+	}
 	
 	//*************************************************************
 	//*************** Supprimer des objets de la BDD ***
