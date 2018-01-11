@@ -9,41 +9,42 @@
 </head>
 <body>
 
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="accueil">
-	<input type="hidden" name="destination" value="checkpoint">
-	<input type="submit" value="Jouer !">
-	<br>
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<form action="Controller" method="post" class="center">
+			<input type="hidden" name="source" value="accueil">
+			<input type="hidden" name="destination" value="checkpoint">
+			<input class="btn btn-success" type="submit" value="Jouer !">
+		</form>
+		<br>
+		
+		<form action="Controller" method="post" class="center">
+			<input type="hidden" name="source" value="accueil">
+			<input type="hidden" name="destination" value="scenarios">
+			<input class="btn btn-success" type="submit" value="Autres Scénarios">
+			<br>
+		</form>
+		<br>
 
-<div class="alert alert-success alert-dismissable fade show">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>Success!</strong> J'ai laissé cette alerte pour montrer qu'on peut faire des trucs cools en Bootstrat =)
+		<form action="Controller" method="post" class="center">
+			<input type="hidden" name="source" value="accueil">
+			<input type="hidden" name="destination" value="mes_scenarios">
+			<input class="btn btn-dark" type="submit" value="Mes Scénarios">
+			<br>
+		</form>
+		<br>
+		
+		<p>Pas encore inscrit ?</p>
+		<form action="Controller" method="post" class="center">
+			<input type="hidden" name="source" value="accueil">
+			<input type="hidden" name="destination" value="inscription">
+			<input class="btn btn-primary" type="submit" value="S'inscire">
+		</form>
+		<br>
+		<p>S'inscrire vous permettra de créer de nouveau scénarios !</p>
+	</div>
+	
 </div>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="accueil">
-	<input type="hidden" name="destination" value="scenario">
-	<input type="submit" value="Autres Scénarios">
-	<br>
-</form>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="accueil">
-	<input type="hidden" name="destination" value="mes_scenarios">
-	<input type="submit" value="Mes Scénarios">
-	<br>
-</form>
-
-<form action="Controller" method="post">
-	Pas encore inscrit ?
-	<br>
-	<input type="hidden" name="source" value="accueil">
-	<input type="hidden" name="destination" value="inscription">
-	<input type="submit" value="S'inscire">
-	<br>
-	S'inscrire vous permettra de créer de nouveau scénarios !
-</form>
 
 <%@include file="foot.jsp" %>
 </body>

@@ -8,18 +8,32 @@
 </head>
 <body>
 
-DBAM
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="header">
-	<input type="hidden" name="destination" value="inscription">
-	<input type="submit" value="S'inscrire">
-</form>
-
-<form action="Controller" method="post">
-	<input type="hidden" name="source" value="header">
-	<input type="hidden" name="destination" value="connexion">
-	<input type="submit" value="Se connecter">
-</form>
+<<<<<<< HEAD
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="header">
+			<input type="hidden" name="destination" value="accueil">
+			<input class="btn btn-success" type="submit" value="DBAM">
+		</form>
+    </li>
+    <li class="nav-item">
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="header">
+			<input type="hidden" name="destination" value="connexion">
+			<input class="btn btn-primary" type="submit" value="Se connecter">
+		</form>
+    </li>
+    <li class="nav-item">
+		<form action="Controller" method="post">
+			<input type="hidden" name="source" value="header">
+			<input type="hidden" name="destination" value="inscription">
+			<input class="btn btn-primary" type="submit" value="S'inscrire">
+		</form>
+    </li>
+  </ul>
+</nav>
 
 <% String user = (String) session.getAttribute("SessionUtilisateur"); 
  		if (user != null) {

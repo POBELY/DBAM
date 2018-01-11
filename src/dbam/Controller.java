@@ -41,11 +41,12 @@ public class Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
+
+		
 		String pseudo;
 		String mdp;
 		String mail;
 		String source = request.getParameter("source");
-		System.out.println("Ceci est l'opération effectuée" + source);
 		HttpSession  session;
 		switch(source) {
 		case "inscription" :
@@ -112,8 +113,8 @@ public class Controller extends HttpServlet {
 			disp = request.getRequestDispatcher("question_validation.jsp");
 			disp.forward(request, response);
 			break;
-		case "scenario" :
-			disp = request.getRequestDispatcher("scenario.jsp");
+		case "scenarios" :
+			disp = request.getRequestDispatcher("scenarios.jsp");
 			disp.forward(request, response);
 			break;
 		case "mes_scenarios" :

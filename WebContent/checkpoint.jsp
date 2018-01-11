@@ -9,15 +9,17 @@
 </head>
 <body>
 
-Vous avez atteint un Chekpoint ! <br>
-
-
-<form action="Controller" method="post">
-<input type="hidden" name="source" value="checkpoint">
-
-	<input type="hidden" name="destination" value="question">
-	<input type="submit" value="C'est parti !">
-</form>
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<p>Vous avez atteint un Chekpoint !</p>
+		<br>		
+		<form action="Controller" method="post">
+		<input type="hidden" name="source" value="checkpoint">
+			<input type="hidden" name="destination" value="question">
+			<input class="btn btn-success" type="submit" value="C'est parti !">
+		</form>
+	</div>
+</div>
 
 <%@include file="foot.jsp" %>
 </body>
