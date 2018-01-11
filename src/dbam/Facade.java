@@ -94,7 +94,8 @@ public class Facade {
 		Checkpoint checkpointPrecedent = req.getSingleResult();
 		checkpointPrecedent.setSuivant(checkpoint);	
 		// Lier ce checkpoint a son scénario
-		Collection<Checkpoint>  checkpoints = scenario.getCheckpoints();
+		TypedQuery<Checkpoint> reqCheckpoints = em.createQuery("from Checkpoint where scenario_ID=" + scenarioID,Checkpoint.class);
+		Collection<Checkpoint>  checkpoints = reqCheckpoints.getResultList();
 		checkpoints.add(checkpoint);
 		// Ajouter ce checkpoint à la BDD
 		em.persist(checkpoint);
@@ -105,7 +106,9 @@ public class Facade {
 		Checkpoint checkpoint = em.find(Checkpoint.class,checkpointID);
 		Question question = new Question(texteQuestion);
 		question.setCheckpoint(checkpoint);
-		Collection<Question> questions = checkpoint.getQuestions();
+		
+		TypedQuery<Question> req = em.createQuery("from Question where checkpoint_ID=" + checkpointID,Question.class);
+		Collection<Question>  questions= req.getResultList();
 		questions.add(question);
 		em.persist(question);
 		return question.getId();
@@ -114,8 +117,9 @@ public class Facade {
 	public int addReponse(String texteReponse, int questionID) {
 		Question question = em.find(Question.class,questionID);
 		Reponse reponse = new Reponse(texteReponse);
-		reponse.setQuestion(question);
-		Collection<Reponse> reponses = question.getChoix();
+		reponse.setQuestion(question);	
+		TypedQuery<Reponse> req = em.createQuery("from Reponse where question_ID=" + questionID,Reponse.class);
+		Collection<Reponse>  reponses = req.getResultList();
 		reponses.add(reponse);
 		em.persist(reponse);
 		return reponse.getId();
@@ -148,8 +152,9 @@ public class Facade {
 		session.setQuestionsFaites(questionsFaites);
 		//On récupère le joueur de la session, puis on le met à jour dans la session
 		Utilisateur joueur = em.find(Utilisateur.class,joueurID);
-		session.setJoueur(joueur);
-		Collection<Session> sessions = joueur.getSessions();
+		session.setJoueur(joueur);	
+		TypedQuery<Session> reqSessions = em.createQuery("from Session where joueur_ID=" + joueurID,Session.class);
+		Collection<Session>  sessions = reqSessions.getResultList();
 		sessions.add(session);
 		// On ajoute cette session à notre BDD
 		em.persist(session);
@@ -235,6 +240,26 @@ public class Facade {
 	
 	public Utilisateur getUtilisateur(int id) {
 		return em.find(Utilisateur.class, id);
+	}
+	
+	public Scenario getScenario(int id) {
+		return em.find(Scenario.class, id);
+	}
+	
+	public Checkpoint getCheckpoint(int id) {
+		return em.find(Checkpoint.class, id);
+	}
+	
+	public Question getQuestion(int id) {
+		return em.find(Question.class, id);
+	}
+	
+	public Reponse getReponse(int id) {
+		return em.find(Reponse.class, id);
+	}
+	
+	public Session getSession(int id) {
+		return em.find(Session.class, id);
 	}
 	
 	
