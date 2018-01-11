@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<<<<<<< HEAD
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <ul class="navbar-nav">
     <li class="nav-item active">
