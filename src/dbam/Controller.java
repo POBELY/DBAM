@@ -36,9 +36,7 @@ public class Controller extends HttpServlet {
 	private static final String ID_SESSION ="idS";
 	
     public Controller() {
-        super();
-
-        
+        super();        
     }
 
 	@Override
@@ -49,10 +47,14 @@ public class Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
+		RequestDispatcher disp;
 
+		/* Les actions sont des actions qu'effectue la Servlet si on lui demande, mais elles ne consistent pas en 
+		 * un changement de page. */
 		String action = request.getParameter("action");
 		if(action != null) {
 			switch(action) {
+			// TODO !!!
 			case "delete" :
 				break;
 			default:
@@ -61,49 +63,64 @@ public class Controller extends HttpServlet {
 			return;
 		}
 		
-		String pseudo;
-		String mdp;
-		String mail;
+		/* On utilise les source pour factoriser le code. Mais la plupart du temps il faudra coder dans les destinations */
 		String source = request.getParameter("source");
-		HttpSession  session;
 		switch(source) {
-		case "inscription" :
-			pseudo = request.getParameter("pseudo");
-			mdp = request.getParameter("mdp");
-			String mdp_confirm = request.getParameter("mdp_confirm");
-			mail = request.getParameter("mail");
-			if (mdp_confirm.equals(mdp)&& mdp.length() >=4 && !facade.pseudoPris(pseudo)) {
-				int id = facade.addUtilisateur(pseudo, mdp, mail);
-				session = request.getSession();
-				session.setAttribute(PSEUDO_SESSION, pseudo);
-				session.setAttribute(ID_SESSION, id);
-			} else {				
-				request.setAttribute("destination","inscription"); // je suis pas sure
-			}
-	
-			break;
-		case "connexion" :
-			pseudo = request.getParameter("pseudo");
-			mdp = request.getParameter("mdp");
-			if (facade.connexionPossible(pseudo, mdp)) {
-				session = request.getSession();
-				session.setAttribute(PSEUDO_SESSION, pseudo);// ajouter l'id 
-			}else{
-				request.setAttribute("destination","connexion"); // je suis pas sure
-			}
-			break;
 		case "deconnexion" :
+			HttpSession session;
 			session = request.getSession();
 			session.setAttribute(PSEUDO_SESSION, null);
 		default :
 			break;
 		}
-		String destination = request.getParameter("destination");
-		RequestDispatcher disp;
 		
-		
+		/* Tout le code doit se trouver dans ce switch ! <3 */
+		String destination = request.getParameter("destination");		
 		switch(destination) {
 		case "accueil" :
+			// Si on vient de la page d'inscription
+			if(source != null && source.equals("inscription")) {
+				String pseudo = request.getParameter("pseudo");
+				String mdp = request.getParameter("mdp");
+				String mdp_confirm = request.getParameter("mdp_confirm");
+				String mail = request.getParameter("mail");
+				HttpSession session;
+				// Si on a réussi
+				if (mdp_confirm.equals(mdp) && mdp.length() >=4 && !facade.pseudoPris(pseudo)) {
+					// On crée la session !
+					int id = facade.addUtilisateur(pseudo, mdp, mail);
+					session = request.getSession();
+					session.setAttribute(PSEUDO_SESSION, pseudo);
+					session.setAttribute(ID_SESSION, id);
+				// Si on a échoué a créer la session
+				} else {				
+					// On re-redirige vers la page d'inscription
+					// TODO : rajouter un paramètre pour que l'inscription affiche que ça n'a pas marché !
+					disp = request.getRequestDispatcher("inscription.jsp");
+					disp.forward(request, response);
+				}
+			// Si on vient de la page de connexion
+			} else if(source.equals("connexion")) {
+				String pseudo = request.getParameter("pseudo");
+				String mdp = request.getParameter("mdp");
+				String mdp_confirm = request.getParameter("mdp_confirm");
+				String mail = request.getParameter("mail");
+				HttpSession session;
+				// Si on peut se connecter
+				if (facade.connexionPossible(pseudo, mdp)) {
+					// On se connecte !
+					session = request.getSession();
+					session.setAttribute(PSEUDO_SESSION, pseudo);
+					int id = facade.getIdUtilisateur(pseudo);
+					session.setAttribute(ID_SESSION, id);
+				// Si on peut pas se connecter
+				}else{
+					// On re-redirige vers la page de connexion
+					// TODO : rajouter un paramètre pour que l'inscription affiche que ça n'a pas marché !
+					disp = request.getRequestDispatcher("connexion.jsp");
+					disp.forward(request, response);
+				}
+			}
 			disp = request.getRequestDispatcher("accueil.jsp");
 			disp.forward(request, response);
 			break;
@@ -172,11 +189,4 @@ public class Controller extends HttpServlet {
 			break;
 		}
 	}
-
-	public static String getAttSessionUser() {
-		return PSEUDO_SESSION;
-	}
-
-	  
-
 }
