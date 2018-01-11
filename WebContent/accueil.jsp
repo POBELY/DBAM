@@ -43,7 +43,6 @@
 		<br>
 		<p>S'inscrire vous permettra de créer de nouveau scénarios !</p>
 	</div>
-	
 </div>
 
 <%@include file="foot.jsp" %>
