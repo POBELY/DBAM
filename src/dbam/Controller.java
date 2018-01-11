@@ -25,7 +25,7 @@ public class Controller extends HttpServlet {
 	@EJB
 	private Facade facade;
 	
-	private static final String ATT_SESSION_USER = "SessionUtilisateur";
+	private static final String PSEUDO_SESSION = "pseudoS";
 	
     public Controller() {
         super();
@@ -57,7 +57,7 @@ public class Controller extends HttpServlet {
 			if (mdp_confirm.equals(mdp)) {
 				facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
 				session = request.getSession();
-				session.setAttribute(ATT_SESSION_USER, pseudo);
+				session.setAttribute(PSEUDO_SESSION, pseudo);
 			} else {				
 				request.setAttribute("destination","inscription"); // je suis pas sure
 			}
@@ -68,11 +68,14 @@ public class Controller extends HttpServlet {
 			mdp = request.getParameter("mdp");
 			if (facade.connexionPossible(pseudo, mdp)) {
 				session = request.getSession();
-				session.setAttribute(ATT_SESSION_USER, pseudo);
+				session.setAttribute(PSEUDO_SESSION, pseudo);
 			}else{
 				request.setAttribute("destination","connexion"); // je suis pas sure
 			}
 			break;
+		case "deconnexion" :
+			session = request.getSession();
+			session.setAttribute(PSEUDO_SESSION, null);
 		default :
 			break;
 		}
@@ -153,7 +156,7 @@ public class Controller extends HttpServlet {
 	}
 
 	public static String getAttSessionUser() {
-		return ATT_SESSION_USER;
+		return PSEUDO_SESSION;
 	}
 
 }
