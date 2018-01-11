@@ -34,7 +34,11 @@
   </ul>
 </nav>
 
-Vous etes sur la session de <%out.print(request.getAttribute("ATT_SESSION_USER")); %>
+<% String user = (String) session.getAttribute("SessionUtilisateur"); 
+ 		if (user != null) {
+			out.print("Vous etes sur la session de " + user);
+		}
+%>
 
 <%@include file="foot.jsp" %>
 </body>

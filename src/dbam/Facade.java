@@ -2,12 +2,14 @@ package dbam;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 @Singleton
 public class Facade {
@@ -44,7 +46,6 @@ public class Facade {
 		// ajouter ce scénario aux scénarios de l'utilisateur
 		Collection<Scenario> scenarios = auteur.getMesScenarios();
 		scenarios.add(scenario);		
-		auteur.setMesScenarios(scenarios);
 		// ajouter ce scénario à la BDD
 		em.persist(scenario);
 	}
@@ -56,7 +57,6 @@ public class Facade {
 		Collection<Checkpoint>  checkpoints = scenario.getCheckpoints();
 		// Gérer l'ordre des checkpoints ?
 		checkpoints.add(checkpoint);
-		scenario.setCheckpoints(checkpoints);
 		em.persist(checkpoint);
 	}
 	
@@ -66,7 +66,6 @@ public class Facade {
 		question.setCheckpoint(checkpoint);
 		Collection<Question> questions = checkpoint.getQuestions();
 		questions.add(question);
-		checkpoint.setQuestions(questions);
 		em.persist(question);
 	}
 
@@ -76,7 +75,6 @@ public class Facade {
 		reponse.setQuestion(question);
 		Collection<Reponse> reponses = question.getChoix();
 		reponses.add(reponse);
-		question.setChoix(reponses);
 		em.persist(reponse);
 	}
 	
@@ -84,9 +82,15 @@ public class Facade {
 		// On récupère le scénario associé à la session dans la BDD
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		// On récupère le premier checkpoint de la liste de checkpoint du scénario
-		Checkpoint checkpointDepart = (((ArrayList<Checkpoint>) scenario.getCheckpoints()).get(0));
+		
+		TypedQuery<Checkpoint> reqCheckpoint = em.createQuery("from Checkpoint where scenario_id=" + scenarioID,Checkpoint.class);	
+		Checkpoint checkpointDepart = (reqCheckpoint.getResultList()).get(0);
+		
+		//Checkpoint checkpointDepart = (((ArrayList<Checkpoint>) scenario.getCheckpoints()).get(0));
 		// On choisi une question au hasard parmis les questions du premier checkpoint
-		ArrayList<Question> questions = (ArrayList<Question>) checkpointDepart.getQuestions();
+		//ArrayList<Question> questions = (ArrayList<Question>) checkpointDepart.getQuestions();
+		TypedQuery<Question> reqQuestion = em.createQuery("from Question where checkpoint_id=" + checkpointDepart.getId(),Question.class);
+		List<Question> questions = reqQuestion.getResultList();
 		Random rand = new Random(); 
 		int i = rand.nextInt(questions.size());
 		Question questionDepart = questions.get(i);
@@ -104,7 +108,6 @@ public class Facade {
 		session.setJoueur(joueur);
 		Collection<Session> sessions = joueur.getSessions();
 		sessions.add(session);
-		joueur.setSessions(sessions);
 		// On ajoute cette session à notre BDD
 		em.persist(session);
 	}
@@ -186,8 +189,10 @@ public class Facade {
 	
 	public void removeUtilisateur(int utilisateurID) {
 		Utilisateur utilisateur = em.find(Utilisateur.class, utilisateurID);
-		utilisateur = null;
+		em.remove(utilisateur);
 	}
+	
+	//public void 
 	
 	//*************************************************************
 	//****************AUTRES METHODES******************************
