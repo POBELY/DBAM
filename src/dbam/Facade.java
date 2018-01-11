@@ -26,18 +26,9 @@ public class Facade {
 	//****************************************************************
 	 
 	
-	public int addUtilisateur(String pseudo, String mdp, String mdp2, String mail) {
-		int id = -1;
-		Utilisateur utilisateur = null;
-		// Mot de passe de confirmation (mdp2) identique au mot de passe donné (mdp), comportant plus de 4 caractères
-		if (mdp.equals(mdp2) && mdp.length()>=4) {
-			TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
-			// pseudo valide si il n'appartient pas déjà à un utilisateur
-			if (req.getResultList().isEmpty()) {
-				utilisateur = new Utilisateur(pseudo,mdp,mail);
-				em.persist(utilisateur);
-				}		
-		}
+	public int addUtilisateur(String pseudo, String mdp, String mail) {
+		Utilisateur utilisateur = new Utilisateur(pseudo,mdp,mail);
+		em.persist(utilisateur);	
 		return  utilisateur.getId();
 	}
 	
@@ -322,10 +313,10 @@ public class Facade {
 	}
 	
 	public boolean pseudoPris(String pseudo) {
-		boolean res = false;
+		boolean res = true;
 		TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
 		if (req.getResultList().isEmpty()) {
-			res = true;
+			res = false;
 		}
 		return res;
 	}
