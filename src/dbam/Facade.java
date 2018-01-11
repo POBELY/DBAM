@@ -217,9 +217,14 @@ public class Facade {
 		em.remove(session);
 	}
 	
+	
+	
 	//*************************************************************
 	//****************AUTRES METHODES******************************
 	//*************************************************************
+	
+
+	
 	
 	public boolean connexionPossible(String pseudo, String mdp) {
 		boolean mdpJuste = false;
