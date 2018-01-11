@@ -28,33 +28,35 @@ public class Facade {
 	
 	public int addUtilisateur(String pseudo, String mdp, String mdp2, String mail) {
 		int id = -1;
+		Utilisateur utilisateur = null;
 		// Mot de passe de confirmation (mdp2) identique au mot de passe donné (mdp), comportant plus de 4 caractères
 		if (mdp.equals(mdp2) && mdp.length()>=4) {
 			TypedQuery<Utilisateur> req = em.createQuery("from Utilisateur where pseudo = '" + pseudo + "'",Utilisateur.class);
 			// pseudo valide si il n'appartient pas déjà à un utilisateur
 			if (req.getResultList().isEmpty()) {
-				Utilisateur utilisateur = new Utilisateur(pseudo,mdp,mail);
-				id = utilisateur.getId();
+				utilisateur = new Utilisateur(pseudo,mdp,mail);
 				em.persist(utilisateur);
 				}		
 		}
-		return id;
+		return  utilisateur.getId();
 	}
 	
-	public void addScenario(String nom, String description, String texteVictoire, int auteurID, Scenario.Statut statut) {
+	public int addScenario(String nom, String description, String texteVictoire, int auteurID, Scenario.Statut statut) {
 		// Créer le scénario avec son auteur
 		Utilisateur auteur = em.find(Utilisateur.class,auteurID);
 		Scenario scenario = new Scenario(nom,description,texteVictoire,statut);
 		scenario.setAuteur(auteur);
 		// ajouter ce scénario aux scénarios de l'utilisateur
-		Collection<Scenario> scenarios = auteur.getMesScenarios();
+		TypedQuery<Scenario> req = em.createQuery("from Scenario where auteur_ID=" + auteurID,Scenario.class);
+		Collection<Scenario>  scenarios = req.getResultList();
 		scenarios.add(scenario);		
 		// ajouter ce scénario à la BDD
 		em.persist(scenario);
+		return scenario.getId();
 	}
 	
 	// Ajout d'un checkpoint sans checkpoint suivant (premier checkpoint créé d'un scénario, ou ajout d'un checkpoint en dernière position
-	public void addCheckpoint(int nbVictReq, int nbDefMax, String texteVictoire, String texteDefaite, int scenarioID) {
+	public int addCheckpoint(int nbVictReq, int nbDefMax, String texteVictoire, String texteDefaite, int scenarioID) {
 		// Récupèrer lescénario
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		// Créer notre nouveau checkpoint
@@ -74,11 +76,12 @@ public class Facade {
 		checkpoints.add(checkpoint);
 		// Ajouter ce checkpoint à la BDD
 		em.persist(checkpoint);
+		return checkpoint.getId();
 	}
 	
 	// Ajout d'un checkpoint avec checkpoint suivant
 	// Précondition : ne doit pas être ajouté en première position
-	public void addCheckpoint(int nbVictReq, int nbDefMax, String texteVictoire, String texteDefaite, int scenarioID, int checkpointSuivantID) {
+	public int addCheckpoint(int nbVictReq, int nbDefMax, String texteVictoire, String texteDefaite, int scenarioID, int checkpointSuivantID) {
 		// Récupèrer le scénario
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		// Créer notre nouveau checkpoint
@@ -95,27 +98,30 @@ public class Facade {
 		checkpoints.add(checkpoint);
 		// Ajouter ce checkpoint à la BDD
 		em.persist(checkpoint);
+		return checkpoint.getId();
 	}
 	
-	public void addQuestion(String texteQuestion, int checkpointID) {
+	public int addQuestion(String texteQuestion, int checkpointID) {
 		Checkpoint checkpoint = em.find(Checkpoint.class,checkpointID);
 		Question question = new Question(texteQuestion);
 		question.setCheckpoint(checkpoint);
 		Collection<Question> questions = checkpoint.getQuestions();
 		questions.add(question);
 		em.persist(question);
+		return question.getId();
 	}
 
-	public void addReponse(String texteReponse, int questionID) {
+	public int addReponse(String texteReponse, int questionID) {
 		Question question = em.find(Question.class,questionID);
 		Reponse reponse = new Reponse(texteReponse);
 		reponse.setQuestion(question);
 		Collection<Reponse> reponses = question.getChoix();
 		reponses.add(reponse);
 		em.persist(reponse);
+		return reponse.getId();
 	}
 	
-	public void addSession(int scenarioID, int joueurID) {
+	public int addSession(int scenarioID, int joueurID) {
 		// On récupère le scénario associé à la session dans la BDD
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		// On récupère le premier checkpoint de la liste de checkpoint du scénario
@@ -147,11 +153,14 @@ public class Facade {
 		sessions.add(session);
 		// On ajoute cette session à notre BDD
 		em.persist(session);
+		return session.getId();
 	}
+	
 	
 	//*************************************************************
 	//*************** Modifier des données des objets de la BDD ***
 	//*************************************************************
+	
 	
 	//*************** Utilisateur ************************************
 	
@@ -176,8 +185,6 @@ public class Facade {
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		scenario.setStatut(newStatut);
 	}
-	
-	
 	
 	//*************** Checkpoint ************************************
 	
@@ -220,9 +227,21 @@ public class Facade {
 		reponse.setNbChoisi(newNbChoisi);
 	}
 	
+	
+	//*************************************************************
+	//*************** Récupérer des objets de la BDD ***
+	//*************************************************************
+	
+	
+	public Utilisateur getUtilisateur(int id) {
+		return em.find(Utilisateur.class, id);
+	}
+	
+	
 	//*************************************************************
 	//*************** Supprimer des objets de la BDD ***
 	//*************************************************************
+	
 	
 	public void removeUtilisateur(int utilisateurID) {
 		Utilisateur utilisateur = em.find(Utilisateur.class, utilisateurID);
@@ -252,14 +271,6 @@ public class Facade {
 	public void removeSession(int sessionID) {
 		Session session = em.find(Session.class, sessionID);
 		em.remove(session);
-	}
-	
-	//*************************************************************
-	//*************** Récupérer des objets de la BDD ***
-	//*************************************************************
-	
-	public Utilisateur getUtilisateur(int id) {
-		return em.find(Utilisateur.class, id);
 	}
 	
 	//*************************************************************
