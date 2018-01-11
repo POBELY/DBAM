@@ -50,6 +50,16 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("/text.html");
 
+		String action = request.getParameter("action");
+		if(action != null) {
+			switch(action) {
+			case "delete" :
+				break;
+			default:
+				break;
+			}
+			return;
+		}
 		
 		String pseudo;
 		String mdp;
@@ -114,6 +124,8 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "checkpoint" :
+			session = request.getSession();
+			pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 			disp = request.getRequestDispatcher("checkpoint.jsp");
 			disp.forward(request, response);
 			break;
@@ -154,14 +166,11 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		default :
-			System.out.println("Cette destination n'est pas connu !");
+			System.out.println("Cette destination n'est pas connue !");
 			disp = request.getRequestDispatcher("/erreur404.jsp");
 			disp.forward(request, response);
 			break;
 		}
-		
-		
-
 	}
 
 	public static String getAttSessionUser() {

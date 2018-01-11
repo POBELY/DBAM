@@ -53,13 +53,47 @@ public class Facade {
 		em.persist(scenario);
 	}
 	
+	// Ajout d'un checkpoint sans checkpoint suivant (premier checkpoint créé d'un scénario, ou ajout d'un checkpoint en dernière position
 	public void addCheckpoint(int nbVictReq, int nbDefMax, String texteVictoire, String texteDefaite, int scenarioID) {
+		// Récupèrer lescénario
 		Scenario scenario = em.find(Scenario.class,scenarioID);
+		// Créer notre nouveau checkpoint
 		Checkpoint checkpoint = new Checkpoint(nbVictReq, nbDefMax, texteVictoire, texteDefaite);
 		checkpoint.setScenario(scenario);
-		Collection<Checkpoint>  checkpoints = scenario.getCheckpoints();
-		// Gérer l'ordre des checkpoints ?
+		// Récupérer les checkpoints de ce scénario
+		TypedQuery<Checkpoint> reqCheckpoints = em.createQuery("from Checkpoint where scenario_ID=" + scenarioID,Checkpoint.class);
+		Collection<Checkpoint>  checkpoints = reqCheckpoints.getResultList();
+		// Si il s'agit du premier checkpoint créé du scénario, ne rien faire, 
+		//sinon, chercher celui qui n'a pas de checkpoint suivant, et définir le checkpoint créé comme son suivant
+		if (!checkpoints.isEmpty()) {
+			TypedQuery<Checkpoint> req = em.createQuery("from Checkpoint where suivant_id is null and scenario_ID=" + scenarioID,Checkpoint.class);
+			Checkpoint checkpointPrecedent = req.getSingleResult();
+			checkpointPrecedent.setSuivant(checkpoint);
+		}
+		// Lier ce checkpoint a son scénario
 		checkpoints.add(checkpoint);
+		// Ajouter ce checkpoint à la BDD
+		em.persist(checkpoint);
+	}
+	
+	// Ajout d'un checkpoint avec checkpoint suivant
+	// Précondition : ne doit pas être ajouté en première position
+	public void addCheckpoint(int nbVictReq, int nbDefMax, String texteVictoire, String texteDefaite, int scenarioID, int checkpointSuivantID) {
+		// Récupèrer le scénario
+		Scenario scenario = em.find(Scenario.class,scenarioID);
+		// Créer notre nouveau checkpoint
+		Checkpoint checkpoint = new Checkpoint(nbVictReq, nbDefMax, texteVictoire, texteDefaite);
+		checkpoint.setScenario(scenario);
+		// Situer le checkpoint par rapport aux autres
+		Checkpoint checkpointSuivant = em.find(Checkpoint.class, checkpointSuivantID);
+		checkpoint.setSuivant(checkpointSuivant);		
+		TypedQuery<Checkpoint> req = em.createQuery("from Checkpoint where suivant_id=" + checkpointSuivantID + "and scenario_id=" + scenarioID,Checkpoint.class);
+		Checkpoint checkpointPrecedent = req.getSingleResult();
+		checkpointPrecedent.setSuivant(checkpoint);	
+		// Lier ce checkpoint a son scénario
+		Collection<Checkpoint>  checkpoints = scenario.getCheckpoints();
+		checkpoints.add(checkpoint);
+		// Ajouter ce checkpoint à la BDD
 		em.persist(checkpoint);
 	}
 	

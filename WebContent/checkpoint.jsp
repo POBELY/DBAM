@@ -11,7 +11,7 @@
 
 <div class="container">
 	<div class="jumbotron bg-secondary center">
-		<p>Vous avez atteint un Chekpoint !</p>
+		<p>Vous avez atteint un Checkpoint !</p>
 		<br>		
 		<form action="Controller" method="post">
 		<input type="hidden" name="source" value="checkpoint">
