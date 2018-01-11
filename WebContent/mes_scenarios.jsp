@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,dbam.Scenario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,12 +22,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Scenario 1</td>
-        <td>C'est le tout premier scénario du jeu !!! =)</td>
-        <td>Public</td>
-        <td>
-	        <form action="Controller" method="post" class="center">
+    
+
+<%
+ArrayList<Scenario> mesScenarios = (ArrayList<Scenario>) request.getAttribute("mesScenarios");
+for (Scenario scenario : mesScenarios ) {%>
+	<tr>
+		<td><%=scenario.getNom()%></td>
+		<td><%=scenario.getDescription()%></td>
+		<td><%=scenario.getStatut()%></td>
+		<td>
+			<form action="Controller" method="post" class="center">
+				<input type="hidden" name="scenarioID" value=<%=scenario.getId()%>>
 				<input type="hidden" name="source" value="mes_scenarios">
 				<input type="hidden" name="destination" value="checkpoint">
 				<input class="btn btn-success" type="submit" value="Jouer !">
@@ -35,12 +41,15 @@
         </td>
         <td>
         	<form action="Controller" method="post" class="center">
+     		   	<input type="hidden" name="scenarioID" value=<%=scenario.getId()%>>
 				<input type="hidden" name="source" value="mes_scenarios">
 				<input type="hidden" name="destination" value="milieu_creer_scenario">
 				<input class="btn btn-success" type="submit" value="Modifier">
 			</form>
         </td>
-      </tr>
+    </tr>
+<%}%>
+
     </tbody>
   </table>
   <br>

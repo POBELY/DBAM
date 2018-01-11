@@ -95,6 +95,7 @@ public class Controller extends HttpServlet {
 		case "deconnexion" :
 			session = request.getSession();
 			session.setAttribute(PSEUDO_SESSION, null);
+			break;
 		default :
 			break;
 		}
@@ -142,9 +143,16 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "mes_scenarios" :
-			disp = request.getRequestDispatcher("mes_scenarios.jsp");
-			disp.forward(request, response);
-			break;
+			if (source.equals("accueil")) {
+				session = request.getSession();
+				pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+				int id = facade.getIDUtilisateur(pseudo);
+				// Besoin de récupèrer l'identifiant BDD de l'utilisateur connecté
+				request.setAttribute("mesScenarios", facade.getMesScenario(id));	
+				disp = request.getRequestDispatcher("mes_scenarios.jsp");
+				disp.forward(request, response);
+				break;
+			}
 		case "debut_creer_scenario" :
 			disp = request.getRequestDispatcher("debut_creer_scenario.jsp");
 			disp.forward(request, response);
