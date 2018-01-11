@@ -72,8 +72,8 @@ public class Controller extends HttpServlet {
 			mdp = request.getParameter("mdp");
 			String mdp_confirm = request.getParameter("mdp_confirm");
 			mail = request.getParameter("mail");
-			if (mdp_confirm.equals(mdp)) {
-				int id = facade.addUtilisateur(pseudo, mdp, mdp_confirm, mail);
+			if (mdp_confirm.equals(mdp)&& mdp.length() >=4 && !facade.pseudoPris(pseudo)) {
+				int id = facade.addUtilisateur(pseudo, mdp, mail);
 				session = request.getSession();
 				session.setAttribute(PSEUDO_SESSION, pseudo);
 				session.setAttribute(ID_SESSION, id);
