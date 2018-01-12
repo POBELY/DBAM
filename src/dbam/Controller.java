@@ -113,6 +113,28 @@ public class Controller extends HttpServlet {
 					session.setAttribute(PSEUDO_SESSION, pseudo);
 					session.setAttribute(getIdSession(), id);
 
+					int id1 = facade.addScenario("s1", "s1", "yes", 1, Scenario.Statut.PUBLIC);
+					int id2 = facade.addCheckpoint(1, 1, "bonjour", "dommage", id1);
+					int id3 = facade.addQuestion("pourquoi?", id2);
+					int id4 = facade.addReponse("Oui", id3);
+					int id5 = facade.addReponse("Non", id3);
+					int idd1 = facade.addQuestion("pourquoi2?", id2);
+					int idd2 = facade.addReponse("Oui2", idd1);
+					int idd3 = facade.addReponse("Non2", idd1);
+					int id6 = facade.addCheckpoint(1, 1, "on continue", "raté", id1);
+					int id7= facade.addQuestion("Tu préfères qui ?", id6);
+					int id8 = facade.addReponse("Maman", id7);
+					int id9 = facade.addReponse("Papa", id7);
+							
+					int id10 = facade.addSession(id1, 1);
+
+					int id11 = facade.addScenario("s2", "s2", "yes", 1, Scenario.Statut.PUBLIC);
+					int id12 = facade.addCheckpoint(1, 1, "bienvenue", "echec", id11);
+					int id13 = facade.addQuestion("?", id12);
+					int id14 = facade.addReponse("0", id13);
+					int id15 = facade.addReponse("1", id13);
+					
+					facade.addScenarioTermine(1, 2);
 
 				}
 			// Si on vient de la page de connexion
@@ -161,10 +183,25 @@ public class Controller extends HttpServlet {
 			//pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 			// PS : il faut pas tout à fait faire comme ça ^^'
 			// là en fait ça crée une toute nouvelle session à partir de rien
+			if (source.equals("scenarios")) {
+				String scenarioID = request.getParameter("scenarioID");
+				session  = (HttpSession) request.getSession();
+				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+				int id = facade.getIDUtilisateur(pseudo);
+				int sessionID = facade.addSession(Integer.parseInt(scenarioID), id);
+				Session sessionJeu = facade.getSession(sessionID);
+				request.setAttribute("Session", sessionJeu);
+			}
+			
 			disp = request.getRequestDispatcher("checkpoint.jsp");
 			disp.forward(request, response);
 			break;
 		case "question" :
+			if (source.equals("checkpoint")) {
+				String sessionID = request.getParameter("sessionID");
+				Session sessionJeu = facade.getSession(Integer.parseInt(sessionID));
+				request.setAttribute("Session", sessionJeu);
+			}
 			disp = request.getRequestDispatcher("question.jsp");
 			disp.forward(request, response);
 			break;
@@ -181,6 +218,7 @@ public class Controller extends HttpServlet {
 				if (pseudo != null) {
 					int id = facade.getIDUtilisateur(pseudo);
 					request.setAttribute("scenariosSessions", facade.getScenariosEnCours(id));
+					//request.setAttribute("scenariosTermines", facade.getScenariosTermines(id));
 				}
 					
 			}

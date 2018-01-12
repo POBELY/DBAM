@@ -75,15 +75,23 @@ for (Scenario scenario : scenariosPublic ) {%>
 		<td>
 			<form action="Controller" method="post" class="center">
 				<input type="hidden" name="scenarioID" value=<%=scenario.getId()%>>
-				<input type="hidden" name="source" value="mes_scenarios">
+				<input type="hidden" name="source" value="scenarios">
 				<input type="hidden" name="destination" value="checkpoint">
 				<input class="btn btn-success" type="submit" value="Jouer !">
 			</form>
         </td>
         <%if (user != null) {%> 
         	<td>
-        		<%if (scenariosSessions.contains(scenario)) {%>En Cours
-        		<%} else {%>Non<%}%>
+        		<% String fait = "Non";
+				for (Scenario scenarioSession : scenariosSessions) {
+        			if (scenarioSession.getId() == scenario.getId()) {
+        				fait = "En cours";
+        			}
+				}
+        		%>
+        		
+     
+        		<%=fait%>
         	</td>
         <%}%>
 

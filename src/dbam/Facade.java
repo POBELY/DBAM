@@ -154,6 +154,18 @@ public class Facade {
 		return session.getId();
 	}
 	
+	public void addScenarioTermine(int utilisateurID, int scenarioID) {
+		Scenario scenario = em.find(Scenario.class,scenarioID);
+		Utilisateur utilisateur = em.find(Utilisateur.class,utilisateurID);
+		utilisateur.getScenariosTermines().add(scenario);
+	}
+	
+	public void addQuestionFaite(int sessionID, int questionID) {
+		Session session = em.find(Session.class,sessionID);
+		Question question = em.find(Question.class,questionID);
+		session.getQuestionsFaites().add(question);
+	}
+	
 	
 	//*************************************************************
 	//*************** Modifier des données des objets de la BDD ***
@@ -255,8 +267,8 @@ public class Facade {
 		return em.find(Session.class, id);
 	}
 	
-	public Collection<Scenario> getScenariosTermines(int utilisateurID) {
-		TypedQuery<Scenario> req = em.createQuery("from Utilisateur_Scenario where utilisateur_id=" + utilisateurID,Scenario.class);
+	public Collection<Scenario> getScenariosTermines(int utilisateurID) {	
+		TypedQuery<Scenario> req = em.createQuery("select Scenario.id,scenario.description,scenario.nom,scenario.statut,scenario.texteVictoire,scenario.auteur_id from Scenario, Utilisateur_Scenario where Scenario.id = scenariosTermines_id and utilisateur_id=" + utilisateurID,Scenario.class);
 		return req.getResultList();
 	}
 	
@@ -343,6 +355,11 @@ public class Facade {
 	public void removeSession(int sessionID) {
 		Session session = em.find(Session.class, sessionID);
 		em.remove(session);
+	}
+	
+	public void removeQuestionsFaites(int sessionID) {
+		Session session = em.find(Session.class,sessionID);
+		session.setQuestionsFaites(new ArrayList<Question>());
 	}
 	
 	//*************************************************************
