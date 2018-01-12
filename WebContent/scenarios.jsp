@@ -31,20 +31,47 @@
 <%
 ArrayList<Scenario> scenariosPublic = (ArrayList<Scenario>) request.getAttribute("scenariosPublic");
 ArrayList<Scenario> scenariosSessions = (ArrayList<Scenario>) request.getAttribute("scenariosSessions");
+ArrayList<Scenario> scenariosTermines = (ArrayList<Scenario>) request.getAttribute("scenariosTermines");
 for (Scenario scenario : scenariosPublic ) {%>
 	<tr>
 		<td><%=scenario.getNom()%></td>
 		<td><%=scenario.getAuteur().getPseudo()%></td>	
 		<td><%=scenario.getDescription()%></td>
 		<%
-		Collection<Checkpoint> checkpoints = scenario.getCheckpoints();
+		List<Checkpoint> checkpoints = (List<Checkpoint>) scenario.getCheckpoints();
+		List<Checkpoint> tmpCheckpoints = new ArrayList<Checkpoint>();
 		int nbQuestion = 0;
 		for (Checkpoint checkpoint : checkpoints) {
-			nbQuestion += checkpoint.getQuestions().size();
+			if (!tmpCheckpoints.contains(checkpoint)) {
+				List<Question> tmpQuestions = new ArrayList<Question>();
+				for (Question question : checkpoint.getQuestions()) {
+					if (!tmpQuestions.contains(question)) {
+						nbQuestion++;
+						tmpQuestions.add(question);
+					}
+				}
+				tmpCheckpoints.add(checkpoint);
+			}
+			
+		}
+		%>
+		<td><%=nbQuestion %></td>
+		<td><%=tmpCheckpoints.size() %></td>
+		
+		<%--
+		Doublons dans atributs checkpoints du scenario et questions du checkpoint.
+		Voici le code réel si ce problème est corrigé
+		<%
+		List<Checkpoint> checkpoints = (List<Checkpoint>) scenario.getCheckpoints();
+		int nbQuestion = 0;
+		for (Checkpoint checkpoint : checkpoints) {
+			nbQuestion+=checkpoint.getQuestions().size();
 		}
 		%>
 		<td><%=nbQuestion %></td>
 		<td><%=checkpoints.size() %></td>
+		--%>
+		
 		<td>
 			<form action="Controller" method="post" class="center">
 				<input type="hidden" name="scenarioID" value=<%=scenario.getId()%>>

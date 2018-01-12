@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -24,6 +25,9 @@ public class Utilisateur {
 	private Collection<Scenario> mesScenarios;	// ensemble des scénarios créaient par l'utilisateur
 	@OneToMany(mappedBy="joueur",fetch=FetchType.EAGER)
 	private Collection<Session> sessions;		// ensemble des sessions jouaient par l'utilisateur
+	@ManyToMany
+	private Collection<Scenario> scenariosTermines;
+	
 	
 	//**********CONSTRUCTEURS**********
 	
@@ -84,4 +88,15 @@ public class Utilisateur {
 	public void setSessions(Collection<Session> sessions) {
 		this.sessions = sessions;
 	}
+
+	public Collection<Scenario> getScenariosTermines() {
+		return scenariosTermines;
+	}
+
+	public void setScenariosTermines(Collection<Scenario> scenariosTermines) {
+		this.scenariosTermines = scenariosTermines;
+	}
+	
+	
+	
 }

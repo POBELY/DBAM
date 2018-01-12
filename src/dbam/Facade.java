@@ -29,6 +29,7 @@ public class Facade {
 	
 	public int addUtilisateur(String pseudo, String mdp, String mail) {
 		Utilisateur utilisateur = new Utilisateur(pseudo,mdp,mail);
+		utilisateur.setScenariosTermines(new ArrayList<Scenario>());
 		em.persist(utilisateur);	
 		return  utilisateur.getId();
 	}
@@ -254,6 +255,11 @@ public class Facade {
 		return em.find(Session.class, id);
 	}
 	
+	public Collection<Scenario> getScenariosTermines(int utilisateurID) {
+		TypedQuery<Scenario> req = em.createQuery("from Utilisateur_Scenario where utilisateur_id=" + utilisateurID,Scenario.class);
+		return req.getResultList();
+	}
+	
 	public Collection<Scenario> getMesScenario(int utilisateurID) {
 		TypedQuery<Scenario> req = em.createQuery("from Scenario where auteur_id=" + utilisateurID,Scenario.class);	
 		return req.getResultList();
@@ -302,6 +308,7 @@ public class Facade {
 		}
 		return scenarios;
 	}
+	
 	
 	//*************************************************************
 	//*************** Supprimer des objets de la BDD ***

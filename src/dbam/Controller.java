@@ -190,10 +190,9 @@ public class Controller extends HttpServlet {
 		case "mes_scenarios" :
 			if (source.equals("accueil")) {
 				session  = (HttpSession) request.getSession();
-				String pseudo = (String) ((ServletRequest) session).getAttribute(PSEUDO_SESSION);
-
+				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 				int id = facade.getIDUtilisateur(pseudo);
-				request.setAttribute("mesScenarios", facade.getMesScenario(id));	
+				request.setAttribute("mesScenarios", facade.getMesScenario(id));
 			}
 			disp = request.getRequestDispatcher("mes_scenarios.jsp");
 			disp.forward(request, response);
