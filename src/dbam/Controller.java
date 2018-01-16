@@ -192,7 +192,12 @@ public class Controller extends HttpServlet {
 				Session sessionJeu = facade.getSession(sessionID);
 				request.setAttribute("Session", sessionJeu);
 			}
-			
+			if (source.equals("checkpoint_fin")) {
+				int sessionID = Integer.parseInt((String)request.getAttribute("sessionID"));
+				Session sessionCourante = facade.getSession(sessionID);
+				sessionCourante.setCheckpointCourant(sessionCourante.getCheckpointCourant().getSuivant());
+				
+			}
 			disp = request.getRequestDispatcher("checkpoint.jsp");
 			disp.forward(request, response);
 			break;
@@ -255,6 +260,30 @@ public class Controller extends HttpServlet {
 			disp = request.getRequestDispatcher("creer_question.jsp");
 			disp.forward(request, response);
 			break;
+		case "suite_question" :
+			int sessionID = Integer.parseInt(request.getParameter("sessionID"));
+			Session sessionCourante = facade.getSession(sessionID);
+			int choixID = Integer.parseInt(request.getParameter("choixID"));
+			// On récupère la "bonne réponse"
+			Reponse bonneReponse = facade.bonneReponse(sessionCourante.getQuestionCourante());
+			if (bonneReponse.getId() == choixID) {
+				// Si l'utilisateur a cliqué sur la bonne réponse :
+				sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
+				if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
+					if ( sessionCourante.getCheckpointCourant() == null) {
+						request.setAttribute("destination", "question_felicitation"); 
+					}else {
+						sessionCourante.setCheckpointCourant(sessionCourante.getCheckpointCourant().getSuivant());
+						
+						request.setAttribute("destination", "checkpoint_fin"); 
+						request.setAttribute("sessionID", sessionID);
+					}	
+					
+				}
+			}else {
+				// Si l'utilisateur n'a pas cliqué sur la bonne réponse :
+				
+			}
 		default :
 			System.out.println("Cette destination n'est pas connue !");
 			disp = request.getRequestDispatcher("/erreur404.jsp");

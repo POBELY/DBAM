@@ -69,6 +69,7 @@ public class MailExpediteur extends HttpServlet {
 		        		+ "password : " + u.getMdp() + "\n"
 		        				+ "tu seras toujours le bienvenue sur Don't Be A Mouton ;) ");
 		          Transport.send(msg);
+		          System.out.println("mail envoyé");
 	      }
 	      } 
 	      catch (MessagingException mex) 

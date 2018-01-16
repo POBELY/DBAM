@@ -404,6 +404,15 @@ public class Facade {
 		}
 		return users;
 	}
+	
+	public Reponse bonneReponse(Question question) {
+		TypedQuery<Reponse> req = em.createQuery("from Reponse where question = '" + question + "' order by nbChoisi", Reponse.class );
+		
+		return req.getSingleResult();
+		
+	}
+	
+
 
 	   
 }
