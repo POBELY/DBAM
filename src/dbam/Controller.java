@@ -276,7 +276,7 @@ public class Controller extends HttpServlet {
 						sessionCourante.setCheckpointCourant(sessionCourante.getCheckpointCourant().getSuivant());
 						
 						request.setAttribute("destination", "checkpoint_fin"); 
-						request.setAttribute("sessionID", sessionID);
+						request.setAttribute("session", sessionCourante);
 					}	
 					
 				}
