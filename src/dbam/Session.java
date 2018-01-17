@@ -35,7 +35,7 @@ public class Session {
 	@ManyToOne
 	private Utilisateur joueur;
 	@ManyToMany
-	private Collection<Question> questionsFaites; // liste des ID des questions déjà réalisées au cours du checkpoint
+	private Collection<Question> questionsRestantes; // liste des ID des questions pas encore réalisée dans ce checkpoint
 
 	//**********CONSTRUCTEURS**********
 	
@@ -91,12 +91,12 @@ public class Session {
 		this.questionCourante = questionCourante;
 	}
 
-	public Collection<Question> getQuestionsFaites() {
-		return questionsFaites;
+	public Collection<Question> getQuestionsRestantes() {
+		return questionsRestantes;
 	}
 
-	public void setQuestionsFaites(Collection<Question> questionsFaites) {
-		this.questionsFaites = questionsFaites;
+	public void setQuestionsRestantes(Collection<Question> questionsRestantes) {
+		this.questionsRestantes = questionsRestantes;
 	}
 
 	public Utilisateur getJoueur() {

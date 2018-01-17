@@ -2,6 +2,9 @@ package dbam;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -125,7 +128,7 @@ public class Facade {
 		session.setScenario(scenario);
 		session.setCheckpointCourant(checkpointDepart);
 		session.setQuestionCourante(questionDepart);
-		session.setQuestionsFaites(questionsFaites);
+		session.setQuestionsRestantes(questionsFaites);
 		//On récupère le joueur de la session, puis on le met à jour dans la session
 		Utilisateur joueur = em.find(Utilisateur.class,joueurID);
 		session.setJoueur(joueur);	
@@ -143,7 +146,7 @@ public class Facade {
 	public void addQuestionFaite(int sessionID, int questionID) {
 		Session session = em.find(Session.class,sessionID);
 		Question question = em.find(Question.class,questionID);
-		session.getQuestionsFaites().add(question);
+		session.getQuestionsRestantes().add(question);
 	}
 	
 	
@@ -216,7 +219,6 @@ public class Facade {
 		Reponse reponse = em.find(Reponse.class,reponseID);
 		reponse.setNbChoisi(newNbChoisi);
 	}
-	
 	
 	//*************************************************************
 	//*************** Récupérer des objets de la BDD ***
@@ -337,9 +339,9 @@ public class Facade {
 		em.remove(session);
 	}
 	
-	public void removeQuestionsFaites(int sessionID) {
+	public void removeQuestionsRestantes(int sessionID) {
 		Session session = em.find(Session.class,sessionID);
-		session.setQuestionsFaites(new ArrayList<Question>());
+		session.setQuestionsRestantes(new ArrayList<Question>());
 	}
 	
 	//*************************************************************
@@ -385,38 +387,89 @@ public class Facade {
 		return users;
 	}
 	
-	public Reponse bonneReponse(Question question) {
-		TypedQuery<Reponse> req = em.createQuery("from Reponse where question = '" + question + "' order by nbChoisi", Reponse.class );
+	public List<Reponse> bonnesReponses(Question question) {
+		boolean bonneRep = true;
+		TypedQuery<Reponse> req = em.createQuery("from Reponse where question_id = '" + question.getId() + "' order by nbChoisi", Reponse.class );
+		List<Reponse> listeReponses = req.getResultList();
+		Iterator it = listeReponses.iterator();
+		List<Reponse> res = new ArrayList<Reponse>();
+		while(bonneRep && it.hasNext()) {
+			res.add((Reponse) it.next());
+		}
+		return res; 
 		
-		return req.getSingleResult();
-		
+	}
+
+	//*************** Méthodes pour jouer *************************************
+
+	public void initCheckpoint(Session sessionCourante) {
+		sessionCourante.setQuestionsRestantes(sessionCourante.getCheckpointCourant().getQuestions());
+		sessionCourante.setNbQuestionsReussi(0);
+		sessionCourante.setNbQuestionsPerdu(0);
+	}
+	
+	public void getProchaineQuestion(Session sessionCourante) {
+		Collections.shuffle((List<Question>) sessionCourante.getQuestionsRestantes());
+		sessionCourante.setQuestionCourante(((List<Question>) sessionCourante.getQuestionsRestantes()).get(0));
 	}
 	
 	public String jouer (int choixID, Session sessionCourante) {
 		String destination = null;
-	
+		boolean bonneRep = false;
+
 		// On récupère la "bonne réponse"
-		Reponse bonneReponse = bonneReponse(sessionCourante.getQuestionCourante());
-		if (bonneReponse.getId() == choixID) {
+		for (Reponse r : bonnesReponses(sessionCourante.getQuestionCourante())) {
+			if (choixID == r.getId()) {
+				bonneRep = true;
+			}
+		}
+
+		// On verifie la réponse
+		if (bonneRep) {
 			// Le joueur a cliqué sur la bonne réponse
 			sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
 			if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
 				// Le joueur a suffisament de bonnes réponses pour finir le checkpoint
 				if ( sessionCourante.getCheckpointCourant() == null) {
-					// Ce checkpoint était le dernier
+					// Ce checkpoint était le dernier, on remet la session a zero
+					sessionCourante.setCheckpointCourant(sessionCourante.getScenario().getCheckpoints().get(0));
+					initCheckpoint(sessionCourante);
 					destination = "question_felicitation.jsp"; 
 				}else {
 					// Il y a d'autres checkpoints après
+					sessionCourante.setCheckpointCourant(sessionCourante.getCheckpointCourant().getSuivant());
+					initCheckpoint(sessionCourante);
+					getProchaineQuestion(sessionCourante);
 					destination = "checkpoint_fin.jsp"; 
 				}
 			}else{
 				//Le joueur n'a pas suffisament de bonnes réponses pour finir le checkpoint
+					sessionCourante.getQuestionsRestantes().remove(sessionCourante.getQuestionCourante());
+					getProchaineQuestion(sessionCourante);
 					destination = "question.jsp";
-				}
+
+			}
+		}else{
+			// Le joueur a cliqué sur la mauvaise réponse
+			sessionCourante.setNbQuestionsPerdu(sessionCourante.getNbQuestionsPerdu() + 1);
+			if (sessionCourante.getNbQuestionsPerdu() >= sessionCourante.getCheckpointCourant().getNbDefMax()) {
+				// Le joueur a atteint le nombre max de défaites pour ce checkpoint
+				initCheckpoint(sessionCourante);
+				getProchaineQuestion(sessionCourante);
+				destination = "checkpoint.jsp";
+
+			}else{
+				//Le joueur n'a pas atteint le nombre max de défaites pour ce checkpoint
+				sessionCourante.getQuestionsRestantes().remove(sessionCourante.getQuestionCourante());
+				getProchaineQuestion(sessionCourante);
+				destination = "question.jsp";
+			}
+			
 		}
 		return destination;
 	}
-
+	
+	
 
 	   
 }

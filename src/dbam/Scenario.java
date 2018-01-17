@@ -2,6 +2,7 @@ package dbam;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +27,7 @@ public class Scenario {
 	private String texteVictoire; // texte affiché une fois le scénario terminé
 	private Statut statut; // accessibilité public/privé du scénario
 	@OneToMany(mappedBy="scenario",fetch=FetchType.EAGER)
-	private Collection<Checkpoint> checkpoints;	// ensembles des groupes de questions(checkpoint) ordonnées, définissant le scénario
+	private List<Checkpoint> checkpoints;	// ensembles des groupes de questions(checkpoint) ordonnées, définissant le scénario
 	@ManyToOne
 	private Utilisateur auteur;		// utilisateur ayant crée le scénario
 
@@ -75,8 +76,8 @@ public class Scenario {
 		this.texteVictoire = texteVictoire;
 	}
 
-	public Collection<Checkpoint> getCheckpoints() {
-		Collection<Checkpoint> tmp = new ArrayList<Checkpoint>();
+	public List<Checkpoint> getCheckpoints() {
+		List<Checkpoint> tmp = new ArrayList<Checkpoint>();
 		for (Checkpoint c : checkpoints) {
 			if (!tmp.contains(c)) {
 				tmp.add(c);
@@ -86,7 +87,7 @@ public class Scenario {
 		return checkpoints;
 	}
 
-	public void setCheckpoints(Collection<Checkpoint> checkpoints) {
+	public void setCheckpoints(List<Checkpoint> checkpoints) {
 		this.checkpoints = checkpoints;
 	}
 

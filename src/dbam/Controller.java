@@ -51,6 +51,7 @@ public class Controller extends HttpServlet {
 		RequestDispatcher disp;
 
 		HttpSession session;
+		int sessionID;
 		String destination = request.getParameter("destination");		
 		String source = request.getParameter("source");
 		String action = request.getParameter("action");
@@ -189,12 +190,12 @@ public class Controller extends HttpServlet {
 				session  = (HttpSession) request.getSession();
 				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 				int id = facade.getIDUtilisateur(pseudo);
-				int sessionID = facade.addSession(Integer.parseInt(scenarioID), id);
+				sessionID = facade.addSession(Integer.parseInt(scenarioID), id);
 				Session sessionJeu = facade.getSession(sessionID);
 				request.setAttribute("Session", sessionJeu);
 			}
 			if (source.equals("checkpoint_fin")) {
-				int sessionID = Integer.parseInt((String)request.getAttribute("sessionID"));
+				sessionID = Integer.parseInt((String)request.getAttribute("sessionID"));
 				Session sessionCourante = facade.getSession(sessionID);
 				sessionCourante.setCheckpointCourant(sessionCourante.getCheckpointCourant().getSuivant());
 				
@@ -203,11 +204,11 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "question" :
-			if (source.equals("checkpoint")) {
-				String sessionID = request.getParameter("sessionID");
-				Session sessionJeu = facade.getSession(Integer.parseInt(sessionID));
-				request.setAttribute("Session", sessionJeu);
-			}
+			sessionID = Integer.parseInt(request.getParameter("sessionID"));
+			Session sessionJeu = facade.getSession(sessionID);
+			
+			request.setAttribute("Session", sessionJeu);
+			
 			disp = request.getRequestDispatcher("question.jsp");
 			disp.forward(request, response);
 			break;
@@ -274,7 +275,7 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "suite_question" :
-			int sessionID = Integer.parseInt(request.getParameter("sessionID"));
+			sessionID = Integer.parseInt(request.getParameter("sessionID"));
 			Session sessionCourante = facade.getSession(sessionID);
 			int choixID = Integer.parseInt(request.getParameter("choixID"));
 			disp = request.getRequestDispatcher(facade.jouer(choixID, sessionCourante));
