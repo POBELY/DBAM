@@ -264,26 +264,9 @@ public class Controller extends HttpServlet {
 			int sessionID = Integer.parseInt(request.getParameter("sessionID"));
 			Session sessionCourante = facade.getSession(sessionID);
 			int choixID = Integer.parseInt(request.getParameter("choixID"));
-			// On récupère la "bonne réponse"
-			Reponse bonneReponse = facade.bonneReponse(sessionCourante.getQuestionCourante());
-			if (bonneReponse.getId() == choixID) {
-				// Si l'utilisateur a cliqué sur la bonne réponse :
-				sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
-				if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
-					if ( sessionCourante.getCheckpointCourant() == null) {
-						request.setAttribute("destination", "question_felicitation"); 
-					}else {
-						sessionCourante.setCheckpointCourant(sessionCourante.getCheckpointCourant().getSuivant());
-						
-						request.setAttribute("destination", "checkpoint_fin"); 
-						request.setAttribute("session", sessionCourante);
-					}	
-					
-				}
-			}else {
-				// Si l'utilisateur n'a pas cliqué sur la bonne réponse :
-				
-			}
+			disp = request.getRequestDispatcher(facade.jouer(choixID, sessionCourante));
+			request.setAttribute("session", sessionCourante);
+			disp.forward(request, response);
 		default :
 			System.out.println("Cette destination n'est pas connue !");
 			disp = request.getRequestDispatcher("/erreur404.jsp");
