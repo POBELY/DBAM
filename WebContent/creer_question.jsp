@@ -24,7 +24,7 @@
 			    $(document).ready(function(){
 					$("#btn_ajouter_choix").click(function(){
 						$.post("Controller", {action: "ajouter"}, function(data, status){
-							$("#pos_prochaine_question").prepend('<p>Ajout d\'un autre choix ici :D</p>');
+							$("#pos_prochaine_question").before(creer_question_insert_choix());
 						});
 					});
 				}); 

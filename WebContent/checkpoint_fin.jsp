@@ -3,18 +3,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Victoire à ce CheckPoint</title>
+<%@include file="head.jsp" %>
+<%@include file="header.jsp" %>
 </head>
 <body>
 
-<%Session cetteSession = (Session) request.getAttribute("session");%>
-<%=cetteSession.getCheckpointCourant().getTexteVictoire()%>
-<form action="Controller" method="post">
-<input type="hidden"  name="source" value="checkpoint_fin" >
-<input type="hidden" name="destination" value="checkpoint">
-<input type="hidden" name="sessionID" value="<%=cetteSession.getId()%>">
+<div class="container">
+	<div class="jumbotron bg-secondary center">
+		<%Session sessionJeu = (Session) request.getAttribute("Session");%>
+		<p><%=sessionJeu.getCheckpointCourant().getTexteVictoire() %></p>
+		<br>		
+		<form action="Controller" method="post">
+			<input type="hidden"  name="source" value="checkpoint_fin" >
+			<input type="hidden" name="destination" value="checkpoint">
+			<input class="btn btn-success" type="hidden" name="sessionID" value="<%=sessionJeu.getId()%>">
+		</form>
+	</div>
+</div>
 
-</form>
 </body>
 </html>

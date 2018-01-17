@@ -23,9 +23,9 @@
     </thead>
     <tbody>
     
-<%
-ArrayList<Scenario> mesScenarios = (ArrayList<Scenario>) request.getAttribute("mesScenarios");
-for (Scenario scenario : mesScenarios ) {%>
+	<%
+	ArrayList<Scenario> mesScenarios = (ArrayList<Scenario>) request.getAttribute("mesScenarios");
+	for (Scenario scenario : mesScenarios ) {%>
 	<tr>
 		<td><%=scenario.getNom()%></td>
 		<td><%=scenario.getDescription()%></td>
