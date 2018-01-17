@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
@@ -183,7 +184,7 @@ public class Controller extends HttpServlet {
 			//pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 			// PS : il faut pas tout à fait faire comme ça ^^'
 			// là en fait ça crée une toute nouvelle session à partir de rien
-			if (source.equals("scenarios")) {
+			if (source.equals("scenarios") || source.equals("mes_scenarios")) {
 				String scenarioID = request.getParameter("scenarioID");
 				session  = (HttpSession) request.getSession();
 				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
@@ -245,6 +246,18 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "milieu_creer_scenario" :
+			if (source.equals("debut_creer_scenario")) {
+				String nomScenario = request.getParameter("nom_scenario");
+				String descriptionScenario = request.getParameter("description");
+				String statut = request.getParameter("vivibilite");
+				session  = (HttpSession) request.getSession();
+				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+				int id = facade.getIDUtilisateur(pseudo);
+				//Scenario.Statut a = Scenario.Statut.valueOf(statut);
+				//System.out.println("*****************************************************************************************************************************************************************************************************************************");
+				//System.out.println(a);
+				facade.addScenario(nomScenario, descriptionScenario, "", id, Scenario.Statut.PRIVE);
+			}
 			disp = request.getRequestDispatcher("milieu_creer_scenario.jsp");
 			disp.forward(request, response);
 			break;

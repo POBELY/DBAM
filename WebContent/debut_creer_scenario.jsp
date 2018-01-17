@@ -22,13 +22,9 @@
 			<input type="text" name="nom_scenario">
 			<p>Description</p>
   			<textarea name="description" rows="10" cols="30"></textarea>
-			<p>Visibilité</p>
-		    <select name="visibilite">
-		      <option value="public">Public :D</option>
-		      <option value="privee">Privée :'(</option>
-		    </select>
 		    <input type="hidden" name="source" value="debut_creer_scenario">
 			<input type="hidden" name="destination" value="milieu_creer_scenario">
+			<br>
 		    <input class="btn btn-success" type="submit" value="Suivant !">
 		</form>
 	</div>
