@@ -1,5 +1,6 @@
 package dbam;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -74,6 +75,13 @@ public class Utilisateur {
 	}
 
 	public Collection<Scenario> getMesScenarios() {
+		Collection<Scenario> tmp = new ArrayList<Scenario>();
+		for (Scenario s : mesScenarios) {
+			if (!tmp.contains(s)) {
+				tmp.add(s);
+			}
+		}
+		mesScenarios = tmp;
 		return mesScenarios;
 	}
 
@@ -82,6 +90,13 @@ public class Utilisateur {
 	}
 
 	public Collection<Session> getSessions() {
+		Collection<Session> tmp = new ArrayList<Session>();
+		for (Session s : sessions) {
+			if (!tmp.contains(s)) {
+				tmp.add(s);
+			}
+		}
+		sessions = tmp;
 		return sessions;
 	}
 

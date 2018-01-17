@@ -1,5 +1,6 @@
 package dbam;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -52,6 +53,13 @@ public class Question {
 	}
 
 	public Collection<Reponse> getChoix() {
+		Collection<Reponse> tmp = new ArrayList<Reponse>();
+		for (Reponse r : reponses) {
+			if (!tmp.contains(r)) {
+				tmp.add(r);
+			}
+		}
+		reponses = tmp;
 		return reponses;
 	}
 

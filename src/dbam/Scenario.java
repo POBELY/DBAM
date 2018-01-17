@@ -1,5 +1,6 @@
 package dbam;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -75,6 +76,13 @@ public class Scenario {
 	}
 
 	public Collection<Checkpoint> getCheckpoints() {
+		Collection<Checkpoint> tmp = new ArrayList<Checkpoint>();
+		for (Checkpoint c : checkpoints) {
+			if (!tmp.contains(c)) {
+				tmp.add(c);
+			}
+		}
+		checkpoints = tmp;
 		return checkpoints;
 	}
 

@@ -38,11 +38,7 @@ public class Facade {
 		// Créer le scénario avec son auteur
 		Utilisateur auteur = em.find(Utilisateur.class,auteurID);
 		Scenario scenario = new Scenario(nom,description,texteVictoire,statut);
-		scenario.setAuteur(auteur);
-		// ajouter ce scénario aux scénarios de l'utilisateur
-		TypedQuery<Scenario> req = em.createQuery("from Scenario where auteur_ID=" + auteurID,Scenario.class);
-		Collection<Scenario>  scenarios = req.getResultList();
-		scenarios.add(scenario);		
+		scenario.setAuteur(auteur);	
 		// ajouter ce scénario à la BDD
 		em.persist(scenario);
 		return scenario.getId();
@@ -65,8 +61,6 @@ public class Facade {
 			Checkpoint checkpointPrecedent = req.getSingleResult();
 			checkpointPrecedent.setSuivant(checkpoint);
 		}
-		// Lier ce checkpoint a son scénario
-		checkpoints.add(checkpoint);
 		// Ajouter ce checkpoint à la BDD
 		em.persist(checkpoint);
 		return checkpoint.getId();
@@ -86,10 +80,6 @@ public class Facade {
 		TypedQuery<Checkpoint> req = em.createQuery("from Checkpoint where suivant_id=" + checkpointSuivantID + "and scenario_id=" + scenarioID,Checkpoint.class);
 		Checkpoint checkpointPrecedent = req.getSingleResult();
 		checkpointPrecedent.setSuivant(checkpoint);	
-		// Lier ce checkpoint a son scénario
-		TypedQuery<Checkpoint> reqCheckpoints = em.createQuery("from Checkpoint where scenario_ID=" + scenarioID,Checkpoint.class);
-		Collection<Checkpoint>  checkpoints = reqCheckpoints.getResultList();
-		checkpoints.add(checkpoint);
 		// Ajouter ce checkpoint à la BDD
 		em.persist(checkpoint);
 		return checkpoint.getId();
@@ -99,10 +89,6 @@ public class Facade {
 		Checkpoint checkpoint = em.find(Checkpoint.class,checkpointID);
 		Question question = new Question(texteQuestion);
 		question.setCheckpoint(checkpoint);
-		
-		TypedQuery<Question> req = em.createQuery("from Question where checkpoint_ID=" + checkpointID,Question.class);
-		Collection<Question>  questions= req.getResultList();
-		questions.add(question);
 		em.persist(question);
 		return question.getId();
 	}
@@ -111,9 +97,6 @@ public class Facade {
 		Question question = em.find(Question.class,questionID);
 		Reponse reponse = new Reponse(texteReponse);
 		reponse.setQuestion(question);	
-		TypedQuery<Reponse> req = em.createQuery("from Reponse where question_ID=" + questionID,Reponse.class);
-		Collection<Reponse>  reponses = req.getResultList();
-		reponses.add(reponse);
 		em.persist(reponse);
 		return reponse.getId();
 	}
@@ -146,9 +129,6 @@ public class Facade {
 		//On récupère le joueur de la session, puis on le met à jour dans la session
 		Utilisateur joueur = em.find(Utilisateur.class,joueurID);
 		session.setJoueur(joueur);	
-		TypedQuery<Session> reqSessions = em.createQuery("from Session where joueur_ID=" + joueurID,Session.class);
-		Collection<Session>  sessions = reqSessions.getResultList();
-		sessions.add(session);
 		// On ajoute cette session à notre BDD
 		em.persist(session);
 		return session.getId();
