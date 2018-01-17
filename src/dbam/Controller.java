@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
@@ -183,7 +184,7 @@ public class Controller extends HttpServlet {
 			//pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 			// PS : il faut pas tout à fait faire comme ça ^^'
 			// là en fait ça crée une toute nouvelle session à partir de rien
-			if (source.equals("scenarios")) {
+			if (source.equals("scenarios") || source.equals("mes_scenarios")) {
 				String scenarioID = request.getParameter("scenarioID");
 				session  = (HttpSession) request.getSession();
 				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
@@ -245,6 +246,18 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "milieu_creer_scenario" :
+			if (source.equals("debut_creer_scenario")) {
+				String nomScenario = request.getParameter("nom_scenario");
+				String descriptionScenario = request.getParameter("description");
+				String statut = request.getParameter("vivibilite");
+				session  = (HttpSession) request.getSession();
+				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+				int id = facade.getIDUtilisateur(pseudo);
+				//Scenario.Statut a = Scenario.Statut.valueOf(statut);
+				//System.out.println("*****************************************************************************************************************************************************************************************************************************");
+				//System.out.println(a);
+				facade.addScenario(nomScenario, descriptionScenario, "", id, Scenario.Statut.PRIVE);
+			}
 			disp = request.getRequestDispatcher("milieu_creer_scenario.jsp");
 			disp.forward(request, response);
 			break;
@@ -264,26 +277,9 @@ public class Controller extends HttpServlet {
 			int sessionID = Integer.parseInt(request.getParameter("sessionID"));
 			Session sessionCourante = facade.getSession(sessionID);
 			int choixID = Integer.parseInt(request.getParameter("choixID"));
-			// On récupère la "bonne réponse"
-			Reponse bonneReponse = facade.bonneReponse(sessionCourante.getQuestionCourante());
-			if (bonneReponse.getId() == choixID) {
-				// Si l'utilisateur a cliqué sur la bonne réponse :
-				sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
-				if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
-					if ( sessionCourante.getCheckpointCourant() == null) {
-						request.setAttribute("destination", "question_felicitation"); 
-					}else {
-						sessionCourante.setCheckpointCourant(sessionCourante.getCheckpointCourant().getSuivant());
-						
-						request.setAttribute("destination", "checkpoint_fin"); 
-						request.setAttribute("session", sessionCourante);
-					}	
-					
-				}
-			}else {
-				// Si l'utilisateur n'a pas cliqué sur la bonne réponse :
-				
-			}
+			disp = request.getRequestDispatcher(facade.jouer(choixID, sessionCourante));
+			request.setAttribute("session", sessionCourante);
+			disp.forward(request, response);
 		default :
 			System.out.println("Cette destination n'est pas connue !");
 			disp = request.getRequestDispatcher("/erreur404.jsp");

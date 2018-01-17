@@ -392,6 +392,30 @@ public class Facade {
 		
 	}
 	
+	public String jouer (int choixID, Session sessionCourante) {
+		String destination = null;
+	
+		// On récupère la "bonne réponse"
+		Reponse bonneReponse = bonneReponse(sessionCourante.getQuestionCourante());
+		if (bonneReponse.getId() == choixID) {
+			// Le joueur a cliqué sur la bonne réponse
+			sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
+			if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
+				// Le joueur a suffisament de bonnes réponses pour finir le checkpoint
+				if ( sessionCourante.getCheckpointCourant() == null) {
+					// Ce checkpoint était le dernier
+					destination = "question_felicitation.jsp"; 
+				}else {
+					// Il y a d'autres checkpoints après
+					destination = "checkpoint_fin.jsp"; 
+				}
+			}else{
+				//Le joueur n'a pas suffisament de bonnes réponses pour finir le checkpoint
+					destination = "question.jsp";
+				}
+		}
+		return destination;
+	}
 
 
 	   
