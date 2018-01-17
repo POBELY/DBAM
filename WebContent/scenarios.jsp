@@ -37,30 +37,7 @@ for (Scenario scenario : scenariosPublic ) {%>
 		<td><%=scenario.getNom()%></td>
 		<td><%=scenario.getAuteur().getPseudo()%></td>	
 		<td><%=scenario.getDescription()%></td>
-		<%
-		List<Checkpoint> checkpoints = (List<Checkpoint>) scenario.getCheckpoints();
-		List<Checkpoint> tmpCheckpoints = new ArrayList<Checkpoint>();
-		int nbQuestion = 0;
-		for (Checkpoint checkpoint : checkpoints) {
-			if (!tmpCheckpoints.contains(checkpoint)) {
-				List<Question> tmpQuestions = new ArrayList<Question>();
-				for (Question question : checkpoint.getQuestions()) {
-					if (!tmpQuestions.contains(question)) {
-						nbQuestion++;
-						tmpQuestions.add(question);
-					}
-				}
-				tmpCheckpoints.add(checkpoint);
-			}
-			
-		}
-		%>
-		<td><%=nbQuestion %></td>
-		<td><%=tmpCheckpoints.size() %></td>
 		
-		<%--
-		Doublons dans atributs checkpoints du scenario et questions du checkpoint.
-		Voici le code réel si ce problème est corrigé
 		<%
 		List<Checkpoint> checkpoints = (List<Checkpoint>) scenario.getCheckpoints();
 		int nbQuestion = 0;
@@ -70,7 +47,6 @@ for (Scenario scenario : scenariosPublic ) {%>
 		%>
 		<td><%=nbQuestion %></td>
 		<td><%=checkpoints.size() %></td>
-		--%>
 		
 		<td>
 			<form action="Controller" method="post" class="center">

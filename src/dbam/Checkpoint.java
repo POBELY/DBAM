@@ -1,5 +1,6 @@
 package dbam;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -86,6 +87,13 @@ public class Checkpoint {
 	}
 
 	public Collection<Question> getQuestions() {
+		Collection<Question> tmp = new ArrayList<Question>();
+		for (Question q : questions) {
+			if (!tmp.contains(q)) {
+				tmp.add(q);
+			}
+		}
+		questions = tmp;
 		return questions;
 	}
 

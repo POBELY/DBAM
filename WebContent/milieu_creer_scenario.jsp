@@ -25,7 +25,13 @@
 		</script>
 		<div id="pos_prochain_groupe1"></div>
 		<button id="btn_ajouter_groupe1" type="button" class="btn btn-success">Ajouter un groupe !</button>
-		
+		<p>Visibilité</p>
+		   	<select name="visibilite">
+		      	<option value="public">Public</option>
+		      	<option value="privee">Privée</option>
+		    </select>
+		<br>
+		<br>
 		<div class="row">
 			<form action="Controller" method="post">
 				<input type="hidden" name="source" value="milieu_creer_scenario">
@@ -37,10 +43,13 @@
 				<input type="hidden" name="destination" value="debut_creer_scenario">
 				<input class="btn btn-primary" type="submit" value="Précédent">
 			</form>
+			
+			
 		</div>
 		
 	</div>
 </div>
+
 
 <%@include file="foot.jsp" %>
 </body>
