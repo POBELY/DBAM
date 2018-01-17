@@ -9,22 +9,21 @@
 </head>
 <body>
 
-<div class="container">
-	<div class="jumbotron bg-secondary">
-		<h2 class="center">Création de Scénario</h2>
-		
-		
+ <div class="container">
+ 	<div class="jumbotron bg-secondary">
+ 		<h2 class="center">Création de Scénario</h2>
+ 		
 		<script>
 		    $(document).ready(function(){
-				$("#btn_ajouter_groupe1").click(function(){
+				$("#btn_ajouter_groupe").click(function(){
 					$.post("Controller", {action: "ajouter"}, function(data, status){
-						$("#pos_prochain_groupe1").prepend(<%@include file="nouveau_groupe.jsp" %>);
+						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe());
 					});
 				});
 			}); 
 		</script>
-		<div id="pos_prochain_groupe1"></div>
-		<button id="btn_ajouter_groupe1" type="button" class="btn btn-success">Ajouter un groupe !</button>
+		<div id="pos_prochain_groupe"></div>
+		<button id="btn_ajouter_groupe" type="button" class="btn btn-success">Ajouter un groupe !</button>
 		
 		<div class="row">
 			<form action="Controller" method="post">
