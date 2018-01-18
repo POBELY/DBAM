@@ -404,13 +404,24 @@ public class Facade {
 	//*************** Méthodes pour jouer *************************************
 
 	public List<Reponse> bonnesReponses(Question question) {
+		int nbChoisisMax;
 		boolean bonneRep = true;
+		Reponse reponse;
 		TypedQuery<Reponse> req = em.createQuery("from Reponse where question_id = '" + question.getId() + "' order by nbChoisi", Reponse.class );
 		List<Reponse> listeReponses = req.getResultList();
-		Iterator it = listeReponses.iterator();
+		Iterator<Reponse> it = listeReponses.iterator();
 		List<Reponse> res = new ArrayList<Reponse>();
-		while(bonneRep && it.hasNext()) {
-			res.add((Reponse) it.next());
+		nbChoisisMax = listeReponses.get(0).getNbChoisi();
+
+		while( bonneRep && it.hasNext()) {
+			reponse = (Reponse) it.next();
+			
+			if (nbChoisisMax != reponse.getNbChoisi())  {
+
+				bonneRep = false;
+			}else{
+				res.add(reponse);
+			}
 		}
 		return res; 
 		
@@ -432,18 +443,18 @@ public class Facade {
 
 		// On récupère la "bonne réponse"
 		for (Reponse r : bonnesReponses(sessionCourante.getQuestionCourante())) {
+			System.out.println(" >>>>>>>>>>>>>>>>>>>>>>>>>> on a l'egalité" + choixID+" = "+r.getId());
 			if (choixID == r.getId()) {
-				System.out.println("________________________>>>>>>>>>>>> on a la bonne reponse");
 				bonneRep = true;
 			}
 		}
+		System.out.println(" le boolean de bonne reponse, c'est " + bonneRep);
+		sessionCourante.getQuestionsRestantes().remove(sessionCourante.getQuestionCourante());
 
 		// On verifie la réponse
 		if (bonneRep) {
 			// Le joueur a cliqué sur la bonne réponse
-			System.out.println("questions reussis 1 :" + sessionCourante.getNbQuestionsReussi());
 			sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
-			System.out.println("questions reussis 2 :" + sessionCourante.getNbQuestionsReussi());
 
 			if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
 				// Le joueur a suffisament de bonnes réponses pour finir le checkpoint
@@ -463,7 +474,6 @@ public class Facade {
 				//Le joueur n'a pas suffisament de bonnes réponses pour finir le checkpoint
 					sessionCourante.getQuestionsRestantes().remove(sessionCourante.getQuestionCourante());
 					getProchaineQuestion(sessionCourante);
-					System.out.println("Questions restantes ****************************************: " + sessionCourante.getQuestionsRestantes());
 					destination = "question.jsp";
 
 			}

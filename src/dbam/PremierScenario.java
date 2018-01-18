@@ -29,7 +29,7 @@ public class PremierScenario {
 		int idR1C3 = facade.addReponse("reponse 3, question C, checkpoint 1 ", idQ1C);
 		
 		// Deuxième checkPoint
-		int idCp2 = facade.addCheckpoint(2, 2, "Bravo checkpoint 1 terminé :)", "defaite au checkpoint1, on recommence", idScenario);
+		int idCp2 = facade.addCheckpoint(2, 2, "Bravo checkpoint 2 terminé :)", "defaite au checkpoint2, on recommence", idScenario);
 
 		int idQ2A = facade.addQuestion("question A, Checkpoint 2", idCp2);
 		int idR2A1 = facade.addReponse("reponse 1, question A, checkpoint 1 ", idQ2A);
