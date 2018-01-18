@@ -11,9 +11,14 @@
 
 <div class="container">
 	<div class="jumbotron bg-secondary center">
-		<%Session sessionJeu = (Session) request.getAttribute("Session");%>
-		<p><%=sessionJeu.getCheckpointCourant().getTexteVictoire() %></p>
-		<br>		
+		<%Session sessionJeu =  (Session) request.getAttribute("Session");%>
+		<p><%=sessionJeu.getCheckpointCourant().getTexteDefaite() %></p>
+		<br>	
+		Nombre de questions reussies : <%=sessionJeu.getNbQuestionsReussi() %><br>
+		Nombre de questions perdues : <%=sessionJeu.getNbQuestionsPerdu() %><br>
+		Nombre de questions Max pour perdre : <%=sessionJeu.getCheckpointCourant().getNbDefMax() %><br>	
+		Nombre de questions Max pour gagner : <%=sessionJeu.getCheckpointCourant().getNbVictRequis() %><br>	
+		
 		<form action="Controller" method="post">
 			<input type="hidden" name="sessionID" value=<%=sessionJeu.getId()%>>
 			<input type="hidden" name="source" value="checkpoint">

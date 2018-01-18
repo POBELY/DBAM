@@ -31,7 +31,9 @@
 <%
 ArrayList<Scenario> scenariosPublic = (ArrayList<Scenario>) request.getAttribute("scenariosPublic");
 ArrayList<Scenario> scenariosSessions = (ArrayList<Scenario>) request.getAttribute("scenariosSessions");
+
 ArrayList<Scenario> scenariosTermines = (ArrayList<Scenario>) request.getAttribute("scenariosTermines");
+
 
 for (Scenario scenario : scenariosPublic ) {%>
 	<tr>

@@ -32,18 +32,18 @@ public class PremierScenario {
 		int idCp2 = facade.addCheckpoint(2, 2, "Bravo checkpoint 2 terminé :)", "defaite au checkpoint2, on recommence", idScenario);
 
 		int idQ2A = facade.addQuestion("question A, Checkpoint 2", idCp2);
-		int idR2A1 = facade.addReponse("reponse 1, question A, checkpoint 1 ", idQ2A);
-		int idR2A2 = facade.addReponse("reponse 2, question A, checkpoint 1 ", idQ2A);
-		int idR2A3 = facade.addReponse("reponse 3, question A, checkpoint 1 ", idQ2A);
+		int idR2A1 = facade.addReponse("reponse 1, question A, checkpoint 2 ", idQ2A);
+		int idR2A2 = facade.addReponse("reponse 2, question A, checkpoint 2 ", idQ2A);
+		int idR2A3 = facade.addReponse("reponse 3, question A, checkpoint 2 ", idQ2A);
 		
 		int idQ2B = facade.addQuestion("question B, Checkpoint 1", idCp2);
-		int idR2B1 = facade.addReponse("reponse 1, question B, checkpoint 1 ", idQ2B);
-		int idR2B2 = facade.addReponse("reponse 2, question B, checkpoint 1 ", idQ2B);
+		int idR2B1 = facade.addReponse("reponse 1, question B, checkpoint 2 ", idQ2B);
+		int idR2B2 = facade.addReponse("reponse 2, question B, checkpoint 2 ", idQ2B);
 		
 		int idQ2C = facade.addQuestion("question C, Checkpoint 1", idCp2);
-		int idR2C1 = facade.addReponse("reponse 1, question C, checkpoint 1 ", idQ2C);
-		int idR2C2 = facade.addReponse("reponse 2, question C, checkpoint 1 ", idQ2C);
-		int idR2C3 = facade.addReponse("reponse 3, question C, checkpoint 1 ", idQ2C);
+		int idR2C1 = facade.addReponse("reponse 1, question C, checkpoint 2 ", idQ2C);
+		int idR2C2 = facade.addReponse("reponse 2, question C, checkpoint 2 ", idQ2C);
+		int idR2C3 = facade.addReponse("reponse 3, question C, checkpoint 2 ", idQ2C);
 		
 		return idScenario;
 				
