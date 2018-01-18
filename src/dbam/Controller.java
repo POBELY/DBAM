@@ -206,7 +206,7 @@ public class Controller extends HttpServlet {
 			Session sessionJeu = facade.getSession(sessionID);
 			
 			request.setAttribute("Session", sessionJeu);
-			
+			System.out.println("question dans le controller");
 			disp = request.getRequestDispatcher("question.jsp");
 			disp.forward(request, response);
 			break;
@@ -252,9 +252,6 @@ public class Controller extends HttpServlet {
 				session  = (HttpSession) request.getSession();
 				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 				int id = facade.getIDUtilisateur(pseudo);
-				//Scenario.Statut a = Scenario.Statut.valueOf(statut);
-				//System.out.println("*****************************************************************************************************************************************************************************************************************************");
-				//System.out.println(a);
 				facade.addScenario(nomScenario, descriptionScenario, "", id, Scenario.Statut.PRIVE);
 			}
 			disp = request.getRequestDispatcher("milieu_creer_scenario.jsp");
@@ -273,14 +270,17 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "suite_question" :
+			System.out.println("suite_question dans le controller");
 			sessionID = Integer.parseInt(request.getParameter("sessionID"));
 			Session sessionCourante = facade.getSession(sessionID);
 			int choixID = Integer.parseInt(request.getParameter("choixID"));
+			System.out.println("-----------------------------------------------------------------------------------------choixID dans le controleur "+ choixID);
 			String desti = facade.jouer(choixID, sessionCourante);
 			System.out.println("DESTINATIONNNNNNN -> " + desti);
 			request.setAttribute("Session", sessionCourante);
 			disp = request.getRequestDispatcher(desti);
 			disp.forward(request, response);
+			break;
 		default :
 			System.out.println("Cette destination n'est pas connue !");
 			disp = request.getRequestDispatcher("erreur404.jsp");

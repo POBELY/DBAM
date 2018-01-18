@@ -26,77 +26,20 @@
 			}
 			
 		}%>
-		<%--
-		// On liste les choix gagnants
-		ArrayList<Reponse> correctsDoublon = new ArrayList<Reponse>();
-		for (Reponse choix : sessionJeu.getQuestionCourante().getChoix()) {
-			if (choix.getNbChoisi() == nbChoisiMax) {
-				correctsDoublon.add(choix);
-			}
-		}
 		
-		//On enlève les doublons
-		ArrayList<Reponse> corrects = new ArrayList<Reponse>();
-		for (Reponse choix : correctsDoublon) {
-			if (!corrects.contains(choix)) {
-				corrects.add(choix);
-			}
-		}
-		<%
-		for (Reponse choix : sessionJeu.getQuestionCourante().getChoix()) {
-			// Dans getChoix il y a des doublons, on les gère dans cette condition
-			if (!reponses.contains(choix)) {
-				// Si le choix est gagnant
-				if (corrects.contains(choix)) {
-					sessionJeu.setNbQuestionsReussi(sessionJeu.getNbQuestionsReussi()+1);
-					if (sessionJeu.getNbQuestionsReussi() == sessionJeu.getCheckpointCourant().getNbVictRequis()) {
-						sessionJeu.setCheckpointCourant(sessionJeu.getCheckpointCourant().getSuivant());
-						if (sessionJeu.getCheckpointCourant() == null) { %>
-							<form action="Controller" method="post" class="col-md-6">
-								<input type="hidden" name="sessionID" value=<%=sessionJeu.getId()%>>
-								<input type="hidden" name="source" value="question">
-								<input type="hidden" name="destination" value="question_felicitation">
-								<input class="btn btn-success" type="submit" value=<%=choix.getTexteChoix()%>>
-							</form>		
-				  		}
-				  	}
-					
-				}
-				
-
-		<%	reponses.add(choix);
-			
-		--%>
 		<% for (Reponse r : reponses) {%>
 			
 		
 		<form action="Controller" method="post" class="col-md-6">
 			<input type="hidden" name="sessionID" value=<%=sessionJeu.getId()%>>
+			
 			<input type="hidden" name="choixID" value=<%=r.getId() %>>
 			<input type="hidden" name="source" value="question">
 			<input type="hidden" name="destination" value="suite_question">
 			<input class="btn btn-success" type="submit" value=<%=r.getTexteChoix()%>>
 		</form>		
 		<% } %>
-		<%--
-		<form action="Controller" method="post" class="col-md-6">
-		 				<input type="hidden" name="sessionID" value="<%=sessionJeu.getId()%>">
-								<input type="hidden" name="source" value="question">
-								<input type="hidden" name="destination" value="question_felicitation">
-								<input class="btn btn-success" type="submit" value="<%=nbChoisiMax%>">
-							</form>	
-							<form action="Controller" method="post" class="col-md-6">
-								<input type="hidden" name="sessionID" value="<%=sessionJeu.getId()%>">
-								<input type="hidden" name="source" value="question">
-								<input type="hidden" name="destination" value="question_felicitation">
-								<input class="btn btn-success" type="submit" value="<%=corrects.get(0).getId()%>">
-							</form>	
-							<form action="Controller" method="post" class="col-md-6">
-								<input type="hidden" name="sessionID" value="<%=sessionJeu.getId()%>">
-								<input type="hidden" name="source" value="question">
-								<input type="hidden" name="destination" value="question_felicitation">
-								<input class="btn btn-success" type="submit" value="<%=corrects.get(1).getId()%>">
-							</form> --%>
+
 		
 		
 		
