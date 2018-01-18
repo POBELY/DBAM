@@ -8,7 +8,11 @@
 <%@include file="header.jsp" %>
 </head>
 <body>
-
+<% user = (String) session.getAttribute("pseudoS"); 
+if (user == null) {
+	session.setAttribute("pseudoS","anonymous");
+	user = (String) session.getAttribute("pseudoS");%>
+   <% session.setAttribute("idS", "-1");} %>
 <div class="container">
 	<div class="jumbotron bg-secondary center">
 		<form action="Controller" method="post" class="center">
@@ -26,7 +30,7 @@
 		</form>
 		<br>
   		 <% user = (String) session.getAttribute("pseudoS"); 
- 			if (user != null) { 
+ 			if (!user.equals("anonymous")) { 
  		 %>
 		<form action="Controller" method="post" class="center">
 			<input type="hidden" name="source" value="accueil">
@@ -52,8 +56,9 @@
 		</form>
 		<br>
 		<p>S'inscrire vous permettra de créer de nouveau scénarios !</p>
-	</div>
 		<%} %>
+	</div>
+		
 </div>
 
 <%@include file="foot.jsp" %>

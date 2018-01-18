@@ -121,14 +121,15 @@ public class Facade {
 		int i = rand.nextInt(questions.size());
 		Question questionDepart = questions.get(i);
 		// On définis cette question comme question faite
-		ArrayList<Question> questionsFaites = new ArrayList<Question>();
-		questionsFaites.add(questionDepart);
+		ArrayList<Question> questionsRestantes = (ArrayList<Question>) checkpointDepart.getQuestions();
 		// On créer une session initialisé a 0 réponse réussi et raté, puis on met à jour ces attributs initialisées
 		Session session = new Session();
 		session.setScenario(scenario);
 		session.setCheckpointCourant(checkpointDepart);
 		session.setQuestionCourante(questionDepart);
-		session.setQuestionsRestantes(questionsFaites);
+		session.setQuestionsRestantes(questionsRestantes);
+		session.setNbQuestionsPerdu(0);
+		session.setNbQuestionsReussi(0);
 		//On récupère le joueur de la session, puis on le met à jour dans la session
 		Utilisateur joueur = em.find(Utilisateur.class,joueurID);
 		session.setJoueur(joueur);	
@@ -143,7 +144,7 @@ public class Facade {
 		utilisateur.getScenariosTermines().add(scenario);
 	}
 	
-	public void addQuestionFaite(int sessionID, int questionID) {
+	public void addQuestionRestantes(int sessionID, int questionID) {
 		Session session = em.find(Session.class,sessionID);
 		Question question = em.find(Question.class,questionID);
 		session.getQuestionsRestantes().add(question);
@@ -387,6 +388,16 @@ public class Facade {
 		return users;
 	}
 	
+	public boolean pasDeScenario() {
+		TypedQuery<Scenario> req = (TypedQuery<Scenario>) em.createQuery("from Scenario", Scenario.class);
+		return req.getResultList().isEmpty();
+			
+	}
+	
+
+
+	//*************** Méthodes pour jouer *************************************
+
 	public List<Reponse> bonnesReponses(Question question) {
 		boolean bonneRep = true;
 		TypedQuery<Reponse> req = em.createQuery("from Reponse where question_id = '" + question.getId() + "' order by nbChoisi", Reponse.class );
@@ -399,9 +410,6 @@ public class Facade {
 		return res; 
 		
 	}
-
-	//*************** Méthodes pour jouer *************************************
-
 	public void initCheckpoint(Session sessionCourante) {
 		sessionCourante.setQuestionsRestantes(sessionCourante.getCheckpointCourant().getQuestions());
 		sessionCourante.setNbQuestionsReussi(0);
@@ -420,6 +428,7 @@ public class Facade {
 		// On récupère la "bonne réponse"
 		for (Reponse r : bonnesReponses(sessionCourante.getQuestionCourante())) {
 			if (choixID == r.getId()) {
+				System.out.println("________________________>>>>>>>>>>>> on a la bonne reponse");
 				bonneRep = true;
 			}
 		}
@@ -427,7 +436,10 @@ public class Facade {
 		// On verifie la réponse
 		if (bonneRep) {
 			// Le joueur a cliqué sur la bonne réponse
+			System.out.println("questions reussis 1 :" + sessionCourante.getNbQuestionsReussi());
 			sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
+			System.out.println("questions reussis 2 :" + sessionCourante.getNbQuestionsReussi());
+
 			if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
 				// Le joueur a suffisament de bonnes réponses pour finir le checkpoint
 				if ( sessionCourante.getCheckpointCourant() == null) {
@@ -446,12 +458,17 @@ public class Facade {
 				//Le joueur n'a pas suffisament de bonnes réponses pour finir le checkpoint
 					sessionCourante.getQuestionsRestantes().remove(sessionCourante.getQuestionCourante());
 					getProchaineQuestion(sessionCourante);
+					System.out.println("Questions restantes ****************************************: " + sessionCourante.getQuestionsRestantes());
 					destination = "question.jsp";
 
 			}
 		}else{
 			// Le joueur a cliqué sur la mauvaise réponse
+
 			sessionCourante.setNbQuestionsPerdu(sessionCourante.getNbQuestionsPerdu() + 1);
+			Session session = em.find(Session.class, sessionCourante.getId());
+			session.setNbQuestionsPerdu(sessionCourante.getNbQuestionsPerdu() + 1);
+			
 			if (sessionCourante.getNbQuestionsPerdu() >= sessionCourante.getCheckpointCourant().getNbDefMax()) {
 				// Le joueur a atteint le nombre max de défaites pour ce checkpoint
 				initCheckpoint(sessionCourante);
