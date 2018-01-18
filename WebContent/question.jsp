@@ -24,7 +24,6 @@
 			if (!reponses.contains(choix)) {
 					reponses.add(choix);
 			}
-			
 		}%>
 		<%--
 		// On liste les choix gagnants

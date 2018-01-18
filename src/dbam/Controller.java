@@ -256,7 +256,9 @@ public class Controller extends HttpServlet {
 				//Scenario.Statut a = Scenario.Statut.valueOf(statut);
 				//System.out.println("*****************************************************************************************************************************************************************************************************************************");
 				//System.out.println(a);
-				facade.addScenario(nomScenario, descriptionScenario, "", id, Scenario.Statut.PRIVE);
+				int idScenario = facade.addScenario(nomScenario, descriptionScenario, "", id, Scenario.Statut.PRIVE);
+				Scenario scenario = facade.getScenario(idScenario);
+				request.setAttribute("scenario", scenario);
 			}
 			disp = request.getRequestDispatcher("milieu_creer_scenario.jsp");
 			disp.forward(request, response);

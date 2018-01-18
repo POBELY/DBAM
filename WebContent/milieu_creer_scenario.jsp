@@ -13,6 +13,21 @@
  	<div class="jumbotron bg-secondary">
  		<h2 class="center">Création de Scénario</h2>
  		
+ 		<script>
+		    $(document).ready(function(){
+		    	<%Scenario s = (Scenario) request.getAttribute("scenario");
+		    	  int id_scenario = s.getId();
+		    	  int i = 0;
+		    	  for(Checkpoint c : s.getCheckpoints()) {
+		    		 %>milieu_creer_scenario_insert_groupe(id_scenario)<%
+		    		 i ++;
+		    		 for(Question q : c.getQuestions()) {
+		    			 %>milieu_creer_scenario_insert_question(<%=i%>)<%
+		    		 }
+		    	  }%>
+			}); 
+		</script> 
+ 		
 		<script>
 		    $(document).ready(function(){
 				$("#btn_ajouter_groupe").click(function(){
@@ -28,7 +43,7 @@
 		
 		<div class="row">
 			<form action="Controller" method="post" class="row">
-				<p>Visibilité</p>
+				<p>Visibilité </p>
 				   	<select name="visibilite">
 				      	<option value="public">Public</option>
 				      	<option value="privee">Privée</option>
