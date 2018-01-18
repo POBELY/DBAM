@@ -66,6 +66,7 @@ public class Controller extends HttpServlet {
 				if(type != null) {
 					switch (type) {
 					case "groupe":
+						
 						break;
 					default:
 						break;

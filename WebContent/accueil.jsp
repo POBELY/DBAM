@@ -52,7 +52,7 @@ if (user == null) {
 		<form action="Controller" method="post" class="center">
 			<input type="hidden" name="source" value="accueil">
 			<input type="hidden" name="destination" value="inscription">
-			<input class="btn btn-primary" type="submit" value="S'inscire">
+			<input class="btn btn-primary" type="submit" value="S'inscrire">
 		</form>
 		<br>
 		<p>S'inscrire vous permettra de créer de nouveau scénarios !</p>

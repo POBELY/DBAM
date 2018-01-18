@@ -8,3 +8,5 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.min.css" media="all"/>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="all"/>
 <link rel="stylesheet" type="text/css" href="css/general.css" media="all"/>
+<link rel="shortcut icon" href="sheep_13450.ico">
+
