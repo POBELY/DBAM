@@ -248,19 +248,36 @@ public class Controller extends HttpServlet {
 			if (source.equals("debut_creer_scenario")) {
 				String nomScenario = request.getParameter("nom_scenario");
 				String descriptionScenario = request.getParameter("description");
-				String statut = request.getParameter("vivibilite");
 				session  = (HttpSession) request.getSession();
 				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 				int id = facade.getIDUtilisateur(pseudo);
-				//Scenario.Statut a = Scenario.Statut.valueOf(statut);
-				//System.out.println("*****************************************************************************************************************************************************************************************************************************");
-				//System.out.println(a);
-				facade.addScenario(nomScenario, descriptionScenario, "", id, Scenario.Statut.PRIVE);
+				int idScenario = facade.addScenario(nomScenario, descriptionScenario, "", id, Scenario.Statut.PRIVE);
+				request.setAttribute("idScenario", idScenario);
+			}
+			if (source.equals("creer_checkpoint")) {
+				String idScenario = request.getParameter("idScenario");
+				System.out.println("Scenario ID : " + idScenario);
+				String nbVictReq = request.getParameter("nb_victoires");
+				System.out.println("Nb vict : " + nbVictReq);
+				String nbDefMax = request.getParameter("nb_defaites");
+				System.out.println("Nb DefMax : " + nbDefMax);
+				String texteVictoire = request.getParameter("text_reussite");
+				System.out.println("Texte V : " + texteVictoire);
+				String texteDefaite = request.getParameter("text_defaite");
+				System.out.println("Texte D : " + texteDefaite);
+				facade.addCheckpoint(Integer.valueOf(nbVictReq), Integer.valueOf(nbDefMax), texteVictoire, texteDefaite, Integer.valueOf(idScenario));
+				// Ici idScenario est null, gérer dans les boutons générés, le champ hiden
+				request.setAttribute("idScenario", Integer.valueOf(idScenario));
 			}
 			disp = request.getRequestDispatcher("milieu_creer_scenario.jsp");
 			disp.forward(request, response);
 			break;
 		case "creer_checkpoint" :
+			if (source.equals("milieu_creer_scenario")) {
+				String idScenario = request.getParameter("idScenario");
+				// Ici idScenario est null, gérer dans les boutons générés, le champ hiden
+				request.setAttribute("idScenario", Integer.valueOf(idScenario));
+			}
 			disp = request.getRequestDispatcher("creer_checkpoint.jsp");
 			disp.forward(request, response);
 			break;

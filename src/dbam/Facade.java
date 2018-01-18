@@ -194,7 +194,7 @@ public class Facade {
 	
 	public void setTexteVictoireCheckpoint(int checkpointID, String newTexteVictoire) {
 		Checkpoint checkpoint = em.find(Checkpoint.class, checkpointID);
-		checkpoint.setTexteVictoire(newTexteVictoire);;
+		checkpoint.setTexteVictoire(newTexteVictoire);
 	}
 	
 	public void setTexteDefaiteCheckpoint(int checkpointID, String newTexteDefaite) {
