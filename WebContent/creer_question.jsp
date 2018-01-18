@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<%int idScenario = (Integer) request.getAttribute("idScenario"); %>
 <div class="container">
 	<div class="jumbotron bg-secondary center">
 		<h2>Créez votre checkpoint !</h2>
@@ -24,7 +25,7 @@
 			    $(document).ready(function(){
 					$("#btn_ajouter_choix").click(function(){
 						$.post("Controller", {action: "ajouter"}, function(data, status){
-							$("#pos_prochaine_question").before(creer_question_insert_choix());
+							$("#pos_prochaine_question").before(creer_question_insert_choix(<%=idScenario %>));
 						});
 					});
 				}); 
@@ -32,6 +33,7 @@
 			<div id="pos_prochaine_question"></div>
 			<button id="btn_ajouter_choix" type="button" class="btn btn-success">Ajouter un choix</button>
 			
+			<input type="hidden" name="idScenario" value=<%=idScenario %>>
 			<input type="hidden" name="source" value="creer_question">
 			<input type="hidden" name="destination" value="milieu_creer_scenario">
 			<input class="btn btn-success" type="submit" value="Valider ma question !">
