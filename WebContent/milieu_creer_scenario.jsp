@@ -16,10 +16,10 @@
  		<script>
 		    $(document).ready(function(){
 		    	<%Scenario s = (Scenario) request.getAttribute("scenario");
-		    	  int id_scenario = s.getId();
+				  int id_scenario = s.getId();
 		    	  int i = 0;
 		    	  for(Checkpoint c : s.getCheckpoints()) {
-		    		 %>milieu_creer_scenario_insert_groupe(id_scenario)<%
+		    		 %>milieu_creer_scenario_insert_groupe(<%=id_scenario%>)<%
 		    		 i ++;
 		    		 for(Question q : c.getQuestions()) {
 		    			 %>milieu_creer_scenario_insert_question(<%=i%>)<%
@@ -32,7 +32,7 @@
 		    $(document).ready(function(){
 				$("#btn_ajouter_groupe").click(function(){
 					$.post("Controller", {action: "ajouter"}, function(data, status){
-						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe());
+						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe(<%=id_scenario%>));
 					});
 				});
 			}); 

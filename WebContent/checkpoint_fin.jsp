@@ -17,10 +17,11 @@
 		<form action="Controller" method="post">
 			<input type="hidden"  name="source" value="checkpoint_fin" >
 			<input type="hidden" name="destination" value="checkpoint">
-			<input class="btn btn-success" type="hidden" name="sessionID" value="<%=sessionJeu.getId()%>">
+			<input type="hidden" name="sessionID" value=<%=sessionJeu.getId()%>>
+			<input class="btn btn-success" type="submit" value="et c'est partie pour un nouveau checkpoint">
 		</form>
 	</div>
-</div>
+</div> 
 
 </body>
 </html>

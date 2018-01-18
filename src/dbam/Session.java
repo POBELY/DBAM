@@ -21,21 +21,22 @@ public class Session {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;	// identifiant d'une session
-	private int nbQuestionsReussi = 0;	// nombre de question du checkpoint en cours réussi 
-	private int nbQuestionsPerdu = 0;	// nombre de question du checkpoint en cours raté
+	
+	private int nbQuestionsReussi;	// nombre de question du checkpoint en cours réussi 
+	private int nbQuestionsPerdu;	// nombre de question du checkpoint en cours raté
 	
 	@ManyToOne
 	private Scenario scenario;		// scénario de la session
 	@ManyToOne
 	private Checkpoint checkpointCourant;	//checkpoint courant
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Question questionCourante; // la question en cours du checkpoint courant
 	
 	
 	@ManyToOne
 	private Utilisateur joueur;
-	@ManyToMany
-	private Collection<Question> questionsFaites; // liste des ID des questions déjà réalisées au cours du checkpoint
+	@ManyToMany(fetch=FetchType.EAGER)
+	private Collection<Question> questionsRestantes; // liste des ID des questions pas encore réalisée dans ce checkpoint
 
 	//**********CONSTRUCTEURS**********
 	
@@ -91,12 +92,12 @@ public class Session {
 		this.questionCourante = questionCourante;
 	}
 
-	public Collection<Question> getQuestionsFaites() {
-		return questionsFaites;
+	public Collection<Question> getQuestionsRestantes() {
+		return questionsRestantes;
 	}
 
-	public void setQuestionsFaites(Collection<Question> questionsFaites) {
-		this.questionsFaites = questionsFaites;
+	public void setQuestionsRestantes(Collection<Question> questionsRestantes) {
+		this.questionsRestantes = questionsRestantes;
 	}
 
 	public Utilisateur getJoueur() {
