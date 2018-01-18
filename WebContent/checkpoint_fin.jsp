@@ -14,6 +14,8 @@
 		<%Session sessionJeu = (Session) request.getAttribute("Session");%>
 		<p><%=sessionJeu.getCheckpointCourant().getTexteVictoire() %></p>
 		<br>		
+		Nombre de questions reussies : <%=sessionJeu.getNbQuestionsReussi() %><br>
+		Nombre de questions perdues : <%=sessionJeu.getNbQuestionsPerdu() %><br>
 		<form action="Controller" method="post">
 			<input type="hidden"  name="source" value="checkpoint_fin" >
 			<input type="hidden" name="destination" value="checkpoint">

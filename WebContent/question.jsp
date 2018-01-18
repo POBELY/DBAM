@@ -24,7 +24,9 @@
 			if (!reponses.contains(choix)) {
 					reponses.add(choix);
 			}
-		}%>
+		}%><br>
+		Nombre de questions reussies : <%=sessionJeu.getNbQuestionsReussi() %><br>
+		Nombre de questions perdues : <%=sessionJeu.getNbQuestionsPerdu() %><br>
 		
 		<% for (Reponse r : reponses) {%>
 			

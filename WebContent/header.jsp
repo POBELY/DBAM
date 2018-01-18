@@ -20,7 +20,7 @@
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <% String user = (String) session.getAttribute("pseudoS"); 
- 		if (user == null) { %>
+ 		if (user == "anonymous") { %>
  	<div class="row">
     <li class="nav-item">
 		<form action="Controller" method="post">

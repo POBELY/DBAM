@@ -427,30 +427,35 @@ public class Facade {
 		sessionCourante.setNbQuestionsPerdu(0);
 	}
 	
-	public void getProchaineQuestion(Session sessionCourante) {
+	public Question getProchaineQuestion(Session sessionCourante) {
+
 		Collections.shuffle((List<Question>) sessionCourante.getQuestionsRestantes());
-		sessionCourante.setQuestionCourante(((List<Question>) sessionCourante.getQuestionsRestantes()).get(0));
+		List<Question> listQ = (List<Question>) sessionCourante.getQuestionsRestantes();
+		listQ.remove(sessionCourante.getQuestionCourante());
+		return listQ.get(0);
+
 	}
 	
-	public String jouer (int choixID, Session sessionCourante) {
+	public String jouer (int choixID, int sessionID) {
 		String destination = null;
 		boolean bonneRep = false;
-
+		Session sessionCourante = getSession(sessionID);
+		int nbperdues = sessionCourante.getNbQuestionsPerdu();
+		int nbreussies = sessionCourante.getNbQuestionsReussi();
+		Question prochaineQuestion = getProchaineQuestion(sessionCourante);
 		// On récupère la "bonne réponse"
 		for (Reponse r : bonnesReponses(sessionCourante.getQuestionCourante())) {
-			System.out.println(" >>>>>>>>>>>>>>>>>>>>>>>>>> on a l'egalité" + choixID+" = "+r.getId());
 			if (choixID == r.getId()) {
 				bonneRep = true;
 			}
 		}
-		System.out.println(" le boolean de bonne reponse, c'est " + bonneRep);
-		sessionCourante.getQuestionsRestantes().remove(sessionCourante.getQuestionCourante());
+		
 
 		// On verifie la réponse
 		if (bonneRep) {
 			// Le joueur a cliqué sur la bonne réponse
-			sessionCourante.setNbQuestionsReussi(sessionCourante.getNbQuestionsReussi() + 1);
-
+			sessionCourante.setNbQuestionsReussi(nbreussies + 1);
+			
 			if (sessionCourante.getNbQuestionsReussi() >= sessionCourante.getCheckpointCourant().getNbVictRequis()) {
 				// Le joueur a suffisament de bonnes réponses pour finir le checkpoint
 				if ( sessionCourante.getCheckpointCourant() == null) {
@@ -474,10 +479,8 @@ public class Facade {
 			}
 		}else{
 			// Le joueur a cliqué sur la mauvaise réponse
-
-			sessionCourante.setNbQuestionsPerdu(sessionCourante.getNbQuestionsPerdu() + 1);
-			Session session = em.find(Session.class, sessionCourante.getId());
-			session.setNbQuestionsPerdu(sessionCourante.getNbQuestionsPerdu() + 1);
+			
+			sessionCourante.setNbQuestionsPerdu( nbperdues + 1);
 			
 			if (sessionCourante.getNbQuestionsPerdu() >= sessionCourante.getCheckpointCourant().getNbDefMax()) {
 				// Le joueur a atteint le nombre max de défaites pour ce checkpoint
@@ -493,6 +496,12 @@ public class Facade {
 			}
 			
 		}
+		sessionCourante.getQuestionsRestantes().remove(sessionCourante.getQuestionCourante());
+		sessionCourante.setQuestionCourante(prochaineQuestion);
+		System.out.println("perdues : "+ sessionCourante.getNbQuestionsPerdu());
+		System.out.println("reussies : "+ sessionCourante.getNbQuestionsReussi());
+
+		
 		return destination;
 	}
 	
