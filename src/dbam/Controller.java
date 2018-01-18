@@ -167,18 +167,16 @@ public class Controller extends HttpServlet {
 			break;
 		case "checkpoint" :
 			// TODO !
-			//session = request.getSession();
-			//pseudo = (String) session.getAttribute(PSEUDO_SESSION);
-			// PS : il faut pas tout à fait faire comme ça ^^'
-			// là en fait ça crée une toute nouvelle session à partir de rien
 			if (source.equals("scenarios") || source.equals("mes_scenarios")) {
-				String scenarioID = request.getParameter("scenarioID");
+				int scenarioID = Integer.parseInt(request.getParameter("scenarioID"));
 				session  = (HttpSession) request.getSession();
 				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
 				int id = facade.getIDUtilisateur(pseudo);
-				sessionID = facade.addSession(Integer.parseInt(scenarioID), id);
+				sessionID = facade.addSession(scenarioID, id);
 				Session sessionJeu = facade.getSession(sessionID);
 				request.setAttribute("Session", sessionJeu);
+				Scenario s = facade.getScenario(scenarioID);
+				session.setAttribute("id_scenario", scenarioID);
 			}
 			if (source.equals("checkpoint_fin")) {
 				sessionID = Integer.parseInt(request.getParameter("sessionID"));
@@ -220,30 +218,42 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "scenarios" :
-			//  ajout attribut liste scenarios terminés par l'utilisateur pour etat fait OUI
-			if (source.equals("accueil")) {
-				request.setAttribute("scenariosPublic", facade.getScenariosPublic());
-				session = request.getSession();
-				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
-				if (pseudo != null) {
-					int id = facade.getIDUtilisateur(pseudo);
-					request.setAttribute("scenariosSessions", facade.getScenariosEnCours(id));
-					//request.setAttribute("scenariosTermines", facade.getScenariosTermines(id));
-				}
-					
+
+			// Calcul nb question/checkpoint faux, etat Fait non correct, ajout attribut liste scenarios terminés par l'utilisateur pour etat fait OUI
+			{
+			request.setAttribute("scenariosPublic", facade.getScenariosPublic());
+			session = request.getSession();
+			String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+			if (pseudo != null) {
+				int id = facade.getIDUtilisateur(pseudo);
+				request.setAttribute("scenariosSessions", facade.getScenariosEnCours(id));
+				//request.setAttribute("scenariosTermines", facade.getScenariosTermines(id));
+			}
 			}
 			disp = request.getRequestDispatcher("scenarios.jsp");
 			disp.forward(request, response);
 			break;
 		case "mes_scenarios" :
-			if (source.equals("accueil")) {
-				session  = (HttpSession) request.getSession();
-				String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
-				int id = facade.getIDUtilisateur(pseudo);
-				request.setAttribute("mesScenarios", facade.getMesScenario(id));
+			{
+			if(source.equals("milieu_creer_scenario")) {
+				String visibilite = request.getParameter("visibilite");
+				int id_scenario = Integer.parseInt(request.getParameter("id_scenario"));
+				Scenario s = facade.getScenario(id_scenario);
+				String text_v = request.getParameter("text_victoire");
+				facade.setTextVictoireScenario(id_scenario, text_v);
+				if(visibilite.equals("privee")) {
+					facade.setStatutScenario(id_scenario, Scenario.Statut.PRIVE);
+				} else {
+					facade.setStatutScenario(id_scenario, Scenario.Statut.PUBLIC);
+				}
 			}
+			session  = (HttpSession) request.getSession();
+			String pseudo = (String) session.getAttribute(PSEUDO_SESSION);
+			int id = facade.getIDUtilisateur(pseudo);
+			request.setAttribute("mesScenarios", facade.getMesScenario(id));
 			disp = request.getRequestDispatcher("mes_scenarios.jsp");
 			disp.forward(request, response);
+			}
 			break;
 		case "debut_creer_scenario" :
 			disp = request.getRequestDispatcher("debut_creer_scenario.jsp");

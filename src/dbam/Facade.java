@@ -165,19 +165,24 @@ public class Facade {
 	
 	//*************** Scenario ************************************
 	
-	public void setNomScenario(Scenario scenarioID, String newNom) {
+	public void setNomScenario(int scenarioID, String newNom) {
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		scenario.setNom(newNom);
 	}
 	
-	public void setDescriptionScenario(Scenario scenarioID, String newDescription) {
+	public void setDescriptionScenario(int scenarioID, String newDescription) {
 		Scenario scenario = em.find(Scenario.class,scenarioID);
 		scenario.setDescription(newDescription);
 	}
 	
-	public void setStatutScenario(Scenario scenarioID, Scenario.Statut newStatut) {
-		Scenario scenario = em.find(Scenario.class,scenarioID);
+	public void setStatutScenario(int scenarioID, Scenario.Statut newStatut) {
+		Scenario scenario = em.find(Scenario.class, scenarioID);
 		scenario.setStatut(newStatut);
+	}
+	
+	public void setTextVictoireScenario(int scenarioID, String text) {
+		Scenario s = em.find(Scenario.class, scenarioID);
+		s.setTexteVictoire(text);
 	}
 	
 	//*************** Checkpoint ************************************
