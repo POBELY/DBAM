@@ -17,7 +17,7 @@
 		    $(document).ready(function(){
 				$("#btn_ajouter_groupe").click(function(){
 					$.post("Controller", {action: "ajouter"}, function(data, status){
-						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe());
+						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe(<%=idScenario%>));
 					});
 				});
 			}); 

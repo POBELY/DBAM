@@ -114,11 +114,6 @@ public class Controller extends HttpServlet {
 					session = request.getSession();
 					session.setAttribute(PSEUDO_SESSION, pseudo);
 					session.setAttribute(getIdSession(), id);
-
-					
-					
-					facade.addScenarioTermine(1, 2);
-
 				}
 			// Si on vient de la page de connexion
 			} else if(source.equals("connexion")) {

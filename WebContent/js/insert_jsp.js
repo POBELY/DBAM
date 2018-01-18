@@ -30,9 +30,8 @@ function milieu_creer_scenario_insert_question(num_groupe) {
 '</div>';
 }
 
-function milieu_creer_scenario_insert_groupe() {
+function milieu_creer_scenario_insert_groupe(idScenario) {
 	var num_groupe = $(".groupe").length + 1;
-	var idScenario = 2;
 	return '' +
 '<script>' +
     '$(document).ready(function(){' +
