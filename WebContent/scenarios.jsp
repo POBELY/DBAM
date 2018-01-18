@@ -31,7 +31,10 @@
 <%
 ArrayList<Scenario> scenariosPublic = (ArrayList<Scenario>) request.getAttribute("scenariosPublic");
 ArrayList<Scenario> scenariosSessions = (ArrayList<Scenario>) request.getAttribute("scenariosSessions");
-//ArrayList<Scenario> scenariosTermines = (ArrayList<Scenario>) request.getAttribute("scenariosTermines");
+
+ArrayList<Scenario> scenariosTermines = (ArrayList<Scenario>) request.getAttribute("scenariosTermines");
+
+
 for (Scenario scenario : scenariosPublic ) {%>
 	<tr>
 		<td><%=scenario.getNom()%></td>
@@ -41,6 +44,7 @@ for (Scenario scenario : scenariosPublic ) {%>
 		<%
 		List<Checkpoint> checkpoints = (List<Checkpoint>) scenario.getCheckpoints();
 		int nbQuestion = 0;
+		
 		for (Checkpoint checkpoint : checkpoints) {
 			nbQuestion+=checkpoint.getQuestions().size();
 		}

@@ -1,5 +1,6 @@
 package dbam;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Scenario {
+public class Scenario implements Serializable {
 
 	//**********ATTRIBUTS*********
 	
