@@ -31,7 +31,7 @@
 		<script>
 		    $(document).ready(function(){
 				$("#btn_ajouter_groupe").click(function(){
-					$.post("Controller", {action: "ajouter"}, function(data, status){
+					$.post("Controller", {action: "ajouter", type: "groupe", id_scenario: <%=id_scenario%>}, function(data, status){
 						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe(<%=id_scenario%>));
 					});
 				});

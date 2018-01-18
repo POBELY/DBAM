@@ -61,7 +61,17 @@ public class Controller extends HttpServlet {
 		 * un changement de page. */
 		if(action != null) {
 			switch(action) {
-			// TODO !!!
+			case "ajouter" :
+				String type = request.getParameter("type");
+				if(type != null) {
+					switch (type) {
+					case "groupe":
+						break;
+					default:
+						break;
+					}
+				}
+				break;
 			case "delete" :
 				break;
 			default:
@@ -263,9 +273,9 @@ public class Controller extends HttpServlet {
 				System.out.println("Texte V : " + texteVictoire);
 				String texteDefaite = request.getParameter("text_defaite");
 				System.out.println("Texte D : " + texteDefaite);
-				facade.addCheckpoint(Integer.valueOf(nbVictReq), Integer.valueOf(nbDefMax), texteVictoire, texteDefaite, Integer.valueOf(idScenario));
+				facade.addCheckpoint(Integer.parseInt(nbVictReq), Integer.parseInt(nbDefMax), texteVictoire, texteDefaite, Integer.parseInt(idScenario));
 				// Ici idScenario est null, gérer dans les boutons générés, le champ hiden
-				request.setAttribute("idScenario", Integer.valueOf(idScenario));
+				request.setAttribute("idScenario", Integer.parseInt(idScenario));
 			}
 			disp = request.getRequestDispatcher("milieu_creer_scenario.jsp");
 			disp.forward(request, response);

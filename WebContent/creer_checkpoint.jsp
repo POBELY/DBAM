@@ -8,6 +8,7 @@
 <%@include file="header.jsp" %>
 </head>
 <body>
+
 <%int idScenario = (Integer) request.getAttribute("idScenario"); %>
 <div class="container">
 	<div class="jumbotron bg-secondary center">
