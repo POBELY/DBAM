@@ -46,7 +46,7 @@ function milieu_creer_scenario_insert_groupe(idScenario) {
 	'<div class="row">' +
 		'<h4>Groupe ' + num_groupe + '</h4>' +
 		'<form action="Controller" method="post" class="center">' +
-			'<input type="hidden" name="idScenario" value=' +idScenario + '>' +
+			'<input type="hidden" name="idScenario" value=' + idScenario + '>' +
 			'<input type="hidden" name="source" value="milieu_creer_scenario">' +
 			'<input type="hidden" name="destination" value="creer_checkpoint">' +
 			'<input class="btn btn-success" type="submit" value="Modifier">' +
