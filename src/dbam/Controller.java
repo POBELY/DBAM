@@ -276,6 +276,8 @@ public class Controller extends HttpServlet {
 				facade.addCheckpoint(Integer.parseInt(nbVictReq), Integer.parseInt(nbDefMax), texteVictoire, texteDefaite, Integer.parseInt(idScenario));
 				// Ici idScenario est null, gérer dans les boutons générés, le champ hiden
 				request.setAttribute("idScenario", Integer.parseInt(idScenario));
+				Scenario scenario = facade.getScenario(Integer.parseInt(idScenario));
+				request.setAttribute("scenario", scenario);
 			}
 			disp = request.getRequestDispatcher("milieu_creer_scenario.jsp");
 			disp.forward(request, response);
