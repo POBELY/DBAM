@@ -24,7 +24,6 @@
 			if (!reponses.contains(choix)) {
 					reponses.add(choix);
 			}
-			
 		}%>
 		
 		<% for (Reponse r : reponses) {%>

@@ -8,16 +8,34 @@
 <%@include file="header.jsp" %>
 </head>
 <body>
+<%Scenario s = (Scenario) request.getAttribute("scenario");
+int id_scenario = s.getId();%>
+
 
  <div class="container">
  	<div class="jumbotron bg-secondary">
  		<h2 class="center">Création de Scénario</h2>
- 		
+ 		 		
+		 <script>
+		    $(document).ready(function(){
+		    	  <%int i = 0;
+		    	  for(Checkpoint c : s.getCheckpoints()) {
+					 %>$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe(<%=id_scenario%>));<%
+		    		 i ++;
+		    		 for(Question q : c.getQuestions()) {
+		 				%>$("#pos_prochaine_question_dans_groupe_" + <%=i%>).before(milieu_creer_scenario_insert_question(<%=i%>);<%
+		    			 %>milieu_creer_scenario_insert_question(<%=i%>);<%
+		    		 }
+		    	  }%>
+			}); 
+		</script>
+ 		 		
+ 		 		
 		<script>
 		    $(document).ready(function(){
 				$("#btn_ajouter_groupe").click(function(){
-					$.post("Controller", {action: "ajouter"}, function(data, status){
-						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe());
+					$.post("Controller", {action: "ajouter", type: "groupe", id_scenario: <%=id_scenario%>}, function(data, status){
+						$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe(<%=id_scenario%>));
 					});
 				});
 			}); 
@@ -28,7 +46,7 @@
 		
 		<div class="row">
 			<form action="Controller" method="post" class="row">
-				<p>Visibilité</p>
+				<p>Visibilité </p>
 				   	<select name="visibilite">
 				      	<option value="public">Public</option>
 				      	<option value="privee">Privée</option>
