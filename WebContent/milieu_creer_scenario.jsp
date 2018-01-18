@@ -20,10 +20,10 @@ int id_scenario = s.getId();%>
 		    $(document).ready(function(){
 		    	  <%int i = 0;
 		    	  for(Checkpoint c : s.getCheckpoints()) {
-					 %>$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe(<%=id_scenario%>));<%
+					 %>$("#pos_prochain_groupe").before(milieu_creer_scenario_insert_groupe());<%
 		    		 i ++;
 		    		 for(Question q : c.getQuestions()) {
-		 				%>$("#pos_prochaine_question_dans_groupe_" + <%=i%>).before(milieu_creer_scenario_insert_question(<%=i%>);<%
+		 				%>$("#pos_prochaine_question_dans_groupe_" + <%=i%>).before(milieu_creer_scenario_insert_question(<%=i%>,<%=id_scenario%>);<%
 		    			 %>milieu_creer_scenario_insert_question(<%=i%>);<%
 		    		 }
 		    	  }%>

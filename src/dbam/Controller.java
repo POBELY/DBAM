@@ -218,6 +218,7 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "scenarios" :
+
 			// Calcul nb question/checkpoint faux, etat Fait non correct, ajout attribut liste scenarios terminés par l'utilisateur pour etat fait OUI
 			{
 			request.setAttribute("scenariosPublic", facade.getScenariosPublic());
@@ -273,15 +274,10 @@ public class Controller extends HttpServlet {
 			}
 			if (source.equals("creer_checkpoint")) {
 				String idScenario = request.getParameter("idScenario");
-				System.out.println("Scenario ID : " + idScenario);
 				String nbVictReq = request.getParameter("nb_victoires");
-				System.out.println("Nb vict : " + nbVictReq);
 				String nbDefMax = request.getParameter("nb_defaites");
-				System.out.println("Nb DefMax : " + nbDefMax);
 				String texteVictoire = request.getParameter("text_reussite");
-				System.out.println("Texte V : " + texteVictoire);
 				String texteDefaite = request.getParameter("text_defaite");
-				System.out.println("Texte D : " + texteDefaite);
 				facade.addCheckpoint(Integer.parseInt(nbVictReq), Integer.parseInt(nbDefMax), texteVictoire, texteDefaite, Integer.parseInt(idScenario));
 				// Ici idScenario est null, gérer dans les boutons générés, le champ hiden
 				request.setAttribute("idScenario", Integer.parseInt(idScenario));
@@ -295,7 +291,6 @@ public class Controller extends HttpServlet {
 		case "creer_checkpoint" :
 			if (source.equals("milieu_creer_scenario")) {
 				String idScenario = request.getParameter("idScenario");
-				// Ici idScenario est null, gérer dans les boutons générés, le champ hiden
 				request.setAttribute("idScenario", Integer.valueOf(idScenario));
 			}
 			disp = request.getRequestDispatcher("creer_checkpoint.jsp");
@@ -306,6 +301,11 @@ public class Controller extends HttpServlet {
 			disp.forward(request, response);
 			break;
 		case "creer_question" :
+			if (source.equals("milieu_creer_scenario")) {
+				String idScenario = request.getParameter("idScenario");
+				System.out.println("ID Scenario : " + idScenario);
+				request.setAttribute("idScenario", Integer.valueOf(idScenario));
+			}
 			disp = request.getRequestDispatcher("creer_question.jsp");
 			disp.forward(request, response);
 			break;

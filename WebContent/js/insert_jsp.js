@@ -7,7 +7,7 @@ function creer_question_insert_choix() {
 	   	   '<input type="text" name="text_choix_' + num_choix + '">';
 }
 
-function milieu_creer_scenario_insert_question(num_groupe) {
+function milieu_creer_scenario_insert_question(num_groupe, idScenario) {
 	var num_question = $("#groupe" + num_groupe + " .question").length + 1;
 	return '' +
 '<script>' +
@@ -22,6 +22,7 @@ function milieu_creer_scenario_insert_question(num_groupe) {
 '<div class="row question" id="question_' + num_question + '_groupe_' + num_groupe + '">' +
 	'<h5>Question ' + num_question + '</h5>' +
 	'<form action="Controller" method="post" class="center">' +
+		'<input type="hidden" name="idScenario" value=' + idScenario + '>' +
 		'<input type="hidden" name="source" value="milieu_creer_scenario">' +
 		'<input type="hidden" name="destination" value="creer_question">' +
 		'<input class="btn btn-success" type="submit" value="Modifier">' +
@@ -57,7 +58,7 @@ function milieu_creer_scenario_insert_groupe(idScenario) {
     '$(document).ready(function(){' +
 		'$("#btn_ajouter_question_dans_groupe_' + num_groupe + '").click(function(){' +
 			'$.post("Controller", {action: "ajouter"}, function(data, status){' +
-				'$("#pos_prochaine_question_dans_groupe_' + num_groupe + '").before(milieu_creer_scenario_insert_question(' + num_groupe + '));' +
+				'$("#pos_prochaine_question_dans_groupe_' + num_groupe + '").before(milieu_creer_scenario_insert_question(' + num_groupe + ',' + idScenario +  '));' +
 			'});' +
 		'});' +
 	'}); ' +
